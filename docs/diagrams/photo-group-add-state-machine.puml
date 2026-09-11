@@ -1,0 +1,144 @@
+@startuml
+' Authority: Derived visual; ADR 0007 and the linked scoped contracts control.
+title FGA photo-to-group add state machine
+
+top to bottom direction
+hide empty description
+skinparam shadowing false
+
+state SubmissionGuard <<choice>>
+state "Hard FGA no-op\nreturn stored terminal state" as HardNoOp
+state "queued" as Queued
+state "Check linked-user + deployment\nFlickr write gates" as ScopeGate <<choice>>
+state "Scope paused\nintent state unchanged" as ScopePaused
+state "attempting" as Attempting
+state "Fresh getAllContexts\nmembership guard" as MembershipGuard
+state "Fresh getInfo preflight\nread ispoolmoderated" as Preflight
+state "Persist preflight\nand verify age" as PersistPreflight
+state "Recheck gate revisions" as DispatchGate <<choice>>
+state "dispatch_started\nmarker durable" as DispatchStarted
+state Classify <<choice>>
+state "retrying" as Retrying
+state "throttled" as Throttled
+state "added" as Added
+state "Commit moderation result\nand permanent block" as ModerationCommit
+state "moderation_submitted" as ModerationSubmitted
+state "Commit uncertain result\nand permanent block" as UncertainCommit
+state "delivery_uncertain" as DeliveryUncertain
+state "needs_attention" as NeedsAttention
+state "cancelled" as Cancelled
+
+state "Permanent submission_blocks row\nunique Flickr photo ID + Flickr group ID\nnot an intent state" as PermanentBlock <<safety boundary>>
+
+note right of Queued
+  Active FIFO membership:
+  queued, attempting, retrying, throttled.
+
+  Terminal states leave the active FIFO atomically:
+  added, moderation_submitted, delivery_uncertain,
+  needs_attention, cancelled.
+
+  The durable intent row and history remain.
+end note
+
+[*] --> SubmissionGuard : request received
+SubmissionGuard --> HardNoOp : block exists
+SubmissionGuard --> Queued : no block
+HardNoOp --> [*]
+
+Queued --> ScopeGate : worker holds partition lease
+Retrying --> ScopeGate : retry due
+Throttled --> ScopeGate : conservative probe due
+ScopeGate --> Attempting : both gates enabled
+ScopeGate --> ScopePaused : either gate paused\nrelease lease; no Flickr call
+ScopePaused --> ScopeGate : verified administrative resume\nnormal scheduler wake-up
+Queued --> Cancelled : safe cancellation before dispatch
+Cancelled --> [*]
+
+Attempting --> MembershipGuard : reserve capacity for\nmembership GET + moderation GET + possible POST
+MembershipGuard --> Retrying : unavailable or incomplete\nno getInfo/POST; bounded safe-read retry
+MembershipGuard --> ScopePaused : definitive account/deployment fault\npause gate; retain active head; no add
+MembershipGuard --> Added : exact target group present\nterminalize from observation; no getInfo/POST
+MembershipGuard --> Preflight : complete target-absent observation
+Preflight --> Retrying : safe pre-dispatch failure\nno POST; persist failure count + due time
+Preflight --> ScopePaused : definitive account/deployment fault\npause gate; retain active head; no POST
+Preflight --> NeedsAttention : documented permanent/request-specific result\nno POST sent
+Preflight --> PersistPreflight : successful response
+PersistPreflight --> Preflight : observation age >= 1,000 ms\ndiscard and GET again
+PersistPreflight --> DispatchGate : age < 1,000 ms
+DispatchGate --> ScopePaused : gate paused or revision changed\nno marker; no POST
+DispatchGate --> DispatchStarted : both revisions enabled\npersist marker
+DispatchStarted --> Preflight : age now >= 1,000 ms and\nworker proves no bytes sent
+DispatchStarted --> Retrying : other failure proven to occur\nbefore Flickr could receive POST
+DispatchStarted --> Classify : POST sent; complete response available
+DispatchStarted --> UncertainCommit : no durable zero-byte proof and\nno definitive documented durable result
+
+Classify --> Added : Photo added (stat="ok") or\nphoto already in pool (code 3)
+Classify --> Throttled : User's pool submission limit reached (code 5)\ndurably mark only this partition + next probe time
+Classify --> Retrying : Service unavailable (code 105) or\ntemporary write failure (code 106)
+Classify --> ModerationCommit : Photo added to pending queue (code 6) or\nalready pending (code 7)
+Classify --> NeedsAttention : known permanent or account/deployment fault\ntrip applicable gate
+Classify --> UncertainCommit : unknown application code\ntrip deployment gate
+
+Added --> [*]
+NeedsAttention --> [*] : no automatic retry
+
+ModerationCommit -[dashed]-> PermanentBlock : atomically create or confirm in FGA database
+ModerationCommit --> ModerationSubmitted
+ModerationSubmitted --> ModerationSubmitted : later pool visibility may record\nacceptance observed; block remains
+ModerationSubmitted --> [*]
+
+UncertainCommit -[dashed]-> PermanentBlock : atomically create in FGA database
+UncertainCommit --> DeliveryUncertain
+DeliveryUncertain --> [*]
+
+PermanentBlock -[dashed]-> SubmissionGuard : checked before every outbound add path
+
+note top of SubmissionGuard
+  Permanent submission block exists
+  for this exact photo/group pair?
+end note
+
+note right of ScopePaused
+  The durable gate is shared scope state, not an intent state.
+  No timeout, process restart, or retry-now action clears it.
+  Queued work retains state, due time, and FIFO order.
+end note
+
+note top of Classify
+  Classify Flickr stat plus
+  numeric application code.
+end note
+
+note bottom of Preflight
+  This GET must be the worker attempt's immediately
+  preceding Flickr API operation. Cached moderation
+  metadata never satisfies the precondition.
+end note
+
+note bottom of MembershipGuard
+  The complete strict membership shape must succeed.
+  A cached selector or prior worker observation is not
+  write authority. The observation can become stale immediately.
+end note
+
+note bottom of DispatchStarted
+  The FGA group-submission worker starts POST dispatch less than 1,000 ms after
+  receiving the preflight response. This bounds only
+  the worker's local gap; the Flickr GET and POST are not atomic.
+end note
+
+note bottom of PermanentBlock
+  Survives cancellation, reconciliation, history pruning,
+  elapsed months or years, and every moderated-to-
+  unmoderated-to-moderated group cycle.
+  The FGA API backend and FGA LrC plug-in have no force-resubmit path.
+end note
+
+note bottom of DeliveryUncertain
+  Missing, truncated, unparseable, unknown, or lost
+  post-dispatch results fail closed. The FGA group-submission
+  worker never retries this exact photo/group pair.
+end note
+
+@enduml

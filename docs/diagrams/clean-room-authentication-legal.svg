@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="850" viewBox="0 0 1400 850" role="img" aria-labelledby="diagram-title diagram-description">
+<title id="diagram-title">FlickrGroupAddr Browser Auth w/ Backend</title>
+<desc id="diagram-description">The authoritative simplified happy-path interaction map for a user, browser, authoritative DNS, static frontend, Google authentication, Google Login Endpoint, asynchronously refreshed JWKS cache, and server-side session persistence.</desc>
+<defs>
+<marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse" markerUnits="strokeWidth"><path d="M 0 0 L 8 4 L 0 8 z" fill="#1A1A1A" /></marker>
+</defs>
+<rect width="100%" height="100%" fill="#FFFFFF" />
+<g font-family="Arial, Helvetica, sans-serif">
+<text x="31" y="49" font-size="21" fill="#1A1A1A" font-weight="700" text-anchor="start">
+<tspan x="31" dy="0">FlickrGroupAddr Browser Auth w/ Backend</tspan>
+</text>
+<text x="185" y="72" font-size="15" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="185" dy="0">2026-08-30</tspan>
+</text>
+<rect x="487.414" y="90" width="592.586" height="690" fill="none" stroke="#1A1A1A" stroke-width="1.5" />
+<text x="783.414" y="120" font-size="15" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="783.414" dy="0">FGA Backend Hosting Platform</tspan>
+<tspan x="783.414" dy="15.75">(Provider Undecided)</tspan>
+</text>
+<rect x="212.414" y="90" width="245" height="258" fill="none" stroke="#1A1A1A" stroke-width="1.5" />
+<text x="334.414" y="120" font-size="15" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="334.414" dy="0">CDN Provider</tspan>
+<tspan x="334.414" dy="15.75">(Provider Undecided)</tspan>
+</text>
+<line id="user-browser" x1="123" y1="472.5" x2="294.414" y2="472.5" stroke="#1A1A1A" stroke-width="2.25" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<line id="browser-dns" x1="361.843" y1="445.571" x2="545.55" y2="333.06" stroke="#1A1A1A" stroke-width="2.25" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<line id="browser-frontend" x1="334.914" y1="432" x2="334.914" y2="330.5" stroke="#1A1A1A" stroke-width="2.25" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<line id="browser-google" x1="334.914" y1="513" x2="334.914" y2="612" stroke="#1A1A1A" stroke-width="2.25" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<line id="browser-google-login" x1="375.414" y1="472.5" x2="747" y2="472.5" stroke="#1A1A1A" stroke-width="2.25" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<line id="login-jwks-cache" x1="850" y1="533.25" x2="850" y2="584.5" stroke="#1A1A1A" stroke-width="2.25" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<line id="login-session-database" x1="850" y1="411.75" x2="850" y2="353" stroke="#1A1A1A" stroke-width="2.25" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<line id="jwks-worker-google" x1="543.667" y1="645" x2="416.914" y2="645" stroke="#1A1A1A" stroke-width="2.25" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<line id="jwks-worker-cache" x1="647.333" y1="645" x2="772" y2="645" stroke="#1A1A1A" stroke-width="2.25" marker-end="url(#arrow)" />
+<image x="35" y="425" width="80" height="95" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTYwIgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iVXNlciI+CiAgPGNpcmNsZSBjeD0iNjQiIGN5PSIzNiIgcj0iMjgiIGZpbGw9IiMxQTFBMUEiLz4KICA8cGF0aCBkPSJNMTQgMTUxYzAtMzkgMjItNjcgNTAtNjdzNTAgMjggNTAgNjd6IiBmaWxsPSIjMUExQTFBIi8+Cjwvc3ZnPg==" preserveAspectRatio="xMidYMid meet" />
+<text x="75" y="541" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="75" dy="0">User</tspan>
+</text>
+<image x="302.414" y="440" width="65" height="65" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIKICByb2xlPSJpbWciIGFyaWEtbGFiZWw9Ikdvb2dsZSBDaHJvbWUgQnJvd3NlciI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImNocm9tZS1yZWQiIHgxPSIzLjIxNzMiIHkxPSIxNSIgeDI9IjQ0Ljc4MTIiIHkyPSIxNSIKICAgICAgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNEOTMwMjUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRUE0MzM1Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJjaHJvbWUteWVsbG93IiB4MT0iMjAuNzIxOSIgeTE9IjQ3LjY3OTEiIHgyPSI0MS41MDM5IgogICAgICB5Mj0iMTEuNjgzNyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGQ0M5MzQiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRkJCQzA0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJjaHJvbWUtZ3JlZW4iIHgxPSIyNi41OTgxIiB5MT0iNDYuNTAxNSIgeDI9IjUuODE2MSIKICAgICAgeTI9IjEwLjUwNiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxRThFM0UiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMzRBODUzIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjIzLjk5NDciIHI9IjEyIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHBhdGggZD0iTTMuMjE1NCAzNkEyNCAyNCAwIDEgMCAxMiAzLjIxNTQgMjQgMjQgMCAwIDAgMy4yMTU0IDM2Wk0zNC4zOTIzCiAgICAxOEExMiAxMiAwIDEgMSAxOCAxMy42MDc3IDEyIDEyIDAgMCAxIDM0LjM5MjMgMThaIiBmaWxsPSJub25lIi8+CiAgPHBhdGggZD0iTTI0IDEySDQ0Ljc4MTJBMjMuOTkzOSAyMy45OTM5IDAgMCAwIDMuMjE3MyAxMi4wMDI5TDEzLjYwNzkKICAgIDMwbC4wMDkzLS4wMDI0QTExLjk4NTIgMTEuOTg1MiAwIDAgMSAyNCAxMloiIGZpbGw9InVybCgjY2hyb21lLXJlZCkiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjI0IiByPSI5LjUiIGZpbGw9IiMxQTczRTgiLz4KICA8cGF0aCBkPSJNMzQuMzkxMyAzMC4wMDI5IDI0LjAwMDcgNDhBMjMuOTk0IDIzLjk5NCAwIDAgMCA0NC43OAogICAgMTIuMDAzMUgyMy45OTg5bC0uMDAyNS4wMDkzQTExLjk4NSAxMS45ODUgMCAwIDEgMzQuMzkxMyAzMC4wMDI5WiIKICAgIGZpbGw9InVybCgjY2hyb21lLXllbGxvdykiLz4KICA8cGF0aCBkPSJNMTMuNjA4NiAzMC4wMDMxIDMuMjE4IDEyLjAwNkEyMy45OTQgMjMuOTk0IDAgMCAwIDI0LjAwMjUKICAgIDQ4TDM0LjM5MzEgMzAuMDAyOWwtLjAwNjctLjAwNjhhMTEuOTg1MiAxMS45ODUyIDAgMCAxLTIwLjc3NzguMDA3WiIKICAgIGZpbGw9InVybCgjY2hyb21lLWdyZWVuKSIvPgo8L3N2Zz4=" preserveAspectRatio="xMidYMid meet" />
+<text x="392.414" y="526" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="392.414" dy="0">Browser</tspan>
+</text>
+<image x="525" y="217.5" width="150" height="120" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTgwIgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iU2VydmVyIj4KICA8ZyBmaWxsPSIjNTQ2RTdBIiBzdHJva2U9IiMxQTFBMUEiIHN0cm9rZS13aWR0aD0iNCI+CiAgICA8cmVjdCB4PSIxMCIgeT0iMTAiIHdpZHRoPSIxNDAiIGhlaWdodD0iNDUiIHJ4PSI3Ii8+CiAgICA8cmVjdCB4PSIxMCIgeT0iNjgiIHdpZHRoPSIxNDAiIGhlaWdodD0iNDUiIHJ4PSI3Ii8+CiAgICA8cmVjdCB4PSIxMCIgeT0iMTI2IiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjQ1IiByeD0iNyIvPgogIDwvZz4KICA8ZyBmaWxsPSIjRkZGRkZGIj4KICAgIDxjaXJjbGUgY3g9IjMwIiBjeT0iMzIuNSIgcj0iNiIvPgogICAgPGNpcmNsZSBjeD0iMzAiIGN5PSI5MC41IiByPSI2Ii8+CiAgICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjE0OC41IiByPSI2Ii8+CiAgPC9nPgogIDxnIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiPgogICAgPHBhdGggZD0iTTUwIDMyLjVoNzgiLz4KICAgIDxwYXRoIGQ9Ik01MCA5MC41aDc4Ii8+CiAgICA8cGF0aCBkPSJNNTAgMTQ4LjVoNzgiLz4KICA8L2c+Cjwvc3ZnPg==" preserveAspectRatio="xMidYMid meet" />
+<text x="600" y="192.6" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="600" dy="0">FGA.com Authoritative</tspan>
+<tspan x="600" dy="12.6">DNS</tspan>
+</text>
+<image x="755" y="405" width="170" height="135" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTAgMTM1IgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iVmVyaWZpZWQgTG9naW4gRW5kcG9pbnQiPgogIDxyZWN0IHg9IjM0IiB5PSIxMiIgd2lkdGg9IjE0NSIgaGVpZ2h0PSIxMTEiIHJ4PSIxMCIgZmlsbD0iI0ZGRkZGRiIKICAgIHN0cm9rZT0iIzFBMUExQSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPHBhdGggZD0iTTMgNjdoNjNtLTE4LTE4IDE4IDE4LTE4IDE4IiBmaWxsPSJub25lIiBzdHJva2U9IiM1NDZFN0EiCiAgICBzdHJva2Utd2lkdGg9IjkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0xMTAgMzIgMTQ2IDQ1djI3YzAgMjMtMTQgMzgtMzYgNDgtMjItMTAtMzYtMjUtMzYtNDhWNDV6IgogICAgZmlsbD0iIzAwMzA4NyIvPgogIDxwYXRoIGQ9Im05MSA3MiAxMyAxMyAyNS0yOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjgiCiAgICBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+" preserveAspectRatio="xMidYMid meet" />
+<text x="935" y="469" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="start">
+<tspan x="935" dy="0">FGA Google Login</tspan>
+<tspan x="935" dy="12.6">Endpoint</tspan>
+</text>
+<image x="780" y="592.5" width="140" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzAgMTM1IgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iSldLUyBDYWNoZSI+CiAgPHBhdGggZD0iTTE1IDI4YzAtMTQgMzEtMjQgNzAtMjRzNzAgMTAgNzAgMjR2NzhjMCAxNC0zMSAyNC03MCAyNHMtNzAtMTAtNzAtMjR6IgogICAgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjMUExQTFBIiBzdHJva2Utd2lkdGg9IjYiLz4KICA8ZWxsaXBzZSBjeD0iODUiIGN5PSIyOCIgcng9IjcwIiByeT0iMjQiIGZpbGw9IiNDRkQ4REMiIHN0cm9rZT0iIzFBMUExQSIKICAgIHN0cm9rZS13aWR0aD0iNiIvPgogIDxwYXRoIGQ9Ik0xNSA2NWMwIDE0IDMxIDI0IDcwIDI0czcwLTEwIDcwLTI0TTE1IDk5YzAgMTQgMzEgMjQgNzAgMjRzNzAtMTAgNzAtMjQiCiAgICBmaWxsPSJub25lIiBzdHJva2U9IiM1NDZFN0EiIHN0cm9rZS13aWR0aD0iNiIvPgogIDxjaXJjbGUgY3g9IjcwIiBjeT0iNTciIHI9IjExIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDMwODciIHN0cm9rZS13aWR0aD0iNyIvPgogIDxwYXRoIGQ9Ik04MSA1N2g0Mm0tMTQgMHYxM20tMTQtMTN2OSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAzMDg3IgogICAgc3Ryb2tlLXdpZHRoPSI3IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+" preserveAspectRatio="xMidYMid meet" />
+<text x="850" y="718.5" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="850" dy="0">FGA Google JWKS</tspan>
+<tspan x="850" dy="12.6">Cache</tspan>
+</text>
+<image x="755" y="210" width="190" height="135" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTMwIgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iS2V5IFZhbHVlIFNlc3Npb24gRGF0YWJhc2UiPgogIDxwYXRoIGQ9Ik0xMiAyNUMxMiAxMiA0NyAzIDkwIDNzNzggOSA3OCAyMnY4MGMwIDEzLTM1IDIyLTc4IDIycy03OC05LTc4LTIyeiIKICAgIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzFBMUExQSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPGVsbGlwc2UgY3g9IjkwIiBjeT0iMjUiIHJ4PSI3OCIgcnk9IjIyIiBmaWxsPSIjQ0ZEOERDIiBzdHJva2U9IiMxQTFBMUEiCiAgICBzdHJva2Utd2lkdGg9IjYiLz4KICA8cGF0aCBkPSJNMTIgNjNjMCAxMyAzNSAyMiA3OCAyMnM3OC05IDc4LTIyTTEyIDk4YzAgMTMgMzUgMjIgNzggMjJzNzgtOSA3OC0yMiIKICAgIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzU0NkU3QSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPHJlY3QgeD0iMzgiIHk9IjQ4IiB3aWR0aD0iNDQiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjMDAzMDg3Ii8+CiAgPHJlY3QgeD0iOTYiIHk9IjQ4IiB3aWR0aD0iNDYiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjNTQ2RTdBIi8+CiAgPHJlY3QgeD0iMzgiIHk9Ijg4IiB3aWR0aD0iNDQiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjMDAzMDg3Ii8+CiAgPHJlY3QgeD0iOTYiIHk9Ijg4IiB3aWR0aD0iNDYiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjNTQ2RTdBIi8+Cjwvc3ZnPg==" preserveAspectRatio="xMidYMid meet" />
+<text x="850" y="180" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="850" dy="0">FGA Session Database</tspan>
+<tspan x="850" dy="12.6">Key: SHA2-256(token)</tspan>
+<tspan x="850" dy="12.6">Value: FGA Session Record</tspan>
+</text>
+<image x="530" y="592.5" width="140" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzAgMTM1IgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iRkdBIEpXS1MgUmVmcmVzaCBXb3JrZXIiPgogIDxjaXJjbGUgY3g9Ijg1IiBjeT0iNjcuNSIgcj0iNTQiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzFBMUExQSIKICAgIHN0cm9rZS13aWR0aD0iNiIvPgogIDxwYXRoIGQ9Ik04NSAzMXYzOGwyNSAxNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAzMDg3IiBzdHJva2Utd2lkdGg9IjgiCiAgICBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8Y2lyY2xlIGN4PSI4NSIgY3k9IjY3LjUiIHI9IjciIGZpbGw9IiMwMDMwODciLz4KICA8cGF0aCBkPSJNNDIgMzFhNTcgNTcgMCAwIDEgODUgMSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMzE4NkZGIgogICAgc3Ryb2tlLXdpZHRoPSI3IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJtMTI3IDE4IDIgMTktMTktMiIgZmlsbD0iIzMxODZGRiIvPgo8L3N2Zz4=" preserveAspectRatio="xMidYMid meet" />
+<text x="600" y="718.5" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="600" dy="0">FGA JWKS Refresh Worker</tspan>
+<tspan x="600" dy="12.6">Maximum 6h</tspan>
+</text>
+<image x="244.914" y="232.5" width="180" height="90" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMTUwIgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iU3RhdGljIFdlYiBGcm9udGVuZCI+CiAgPHJlY3QgeD0iOCIgeT0iOCIgd2lkdGg9IjE4NCIgaGVpZ2h0PSIxMzQiIHJ4PSI4IiBmaWxsPSIjRkZGRkZGIgogICAgc3Ryb2tlPSIjMUExQTFBIiBzdHJva2Utd2lkdGg9IjYiLz4KICA8cGF0aCBkPSJNOCAzOGgxODQiIHN0cm9rZT0iIzFBMUExQSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPGcgZmlsbD0iIzU0NkU3QSI+CiAgICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjIzIiByPSI2Ii8+CiAgICA8Y2lyY2xlIGN4PSI0NSIgY3k9IjIzIiByPSI2Ii8+CiAgICA8Y2lyY2xlIGN4PSI2NSIgY3k9IjIzIiByPSI2Ii8+CiAgICA8cmVjdCB4PSIyOCIgeT0iNTgiIHdpZHRoPSI1OCIgaGVpZ2h0PSI1NiIgcng9IjUiLz4KICAgIDxyZWN0IHg9IjEwMiIgeT0iNTgiIHdpZHRoPSI3MCIgaGVpZ2h0PSIxMiIgcng9IjQiLz4KICAgIDxyZWN0IHg9IjEwMiIgeT0iODIiIHdpZHRoPSI3MCIgaGVpZ2h0PSIxMiIgcng9IjQiLz4KICAgIDxyZWN0IHg9IjEwMiIgeT0iMTA2IiB3aWR0aD0iNDgiIGhlaWdodD0iMTIiIHJ4PSI0Ii8+CiAgPC9nPgo8L3N2Zz4=" preserveAspectRatio="xMidYMid meet" />
+<text x="334.914" y="197.5" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="334.914" dy="0">FGA User UI</tspan>
+<tspan x="334.914" dy="12.6">JAMstack Static Frontend</tspan>
+<tspan x="334.914" dy="12.6">HTML · CSS · JS · Images · Etc.</tspan>
+</text>
+<image x="264.914" y="620" width="140" height="50" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNjkuNTkgODEuNTg5OTk2IgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iR29vZ2xlIj4KICA8cGF0aCBkPSJNMzEuMzIgNjMuMzVDNDguOTcgNjMuNTIgNjAuOTkgNTEuNjcgNjAuOTkgMzMuNDNRNjEgMzEuMTQKICAgIDYwLjU2IDI4LjM1SDMxLjJ2OC43NmgyMC42QzUwLjcgNDguNTggNDIuNjIgNTQuNTUgMzEuNTMgNTQuNTUKICAgIDE5LjA5IDU0LjU1IDkuNTcgNDUuMiA5LjU3IDMxLjYxIDkuNTcgMTguMiAxOC42NyA4Ljg0IDMxLjUzCiAgICA4Ljg0YzYuNDggMCAxMS4yNiAyIDE2LjA0IDYuOWw2LjE0LTYuNDNDNDguMzMgMy4wMSA0MC41NSAwCiAgICAzMS40MSAwIDEzLjcgMCAwIDEzLjI5IDAgMzEuNDhjMCAxNy40IDEzLjI1IDMxLjcgMzEuMzIgMzEuODciCiAgICBmaWxsPSIjMzE4NmZmIi8+CiAgPHBhdGggZD0iTTg4LjIgNjMuMzVjMTMuMiAwIDIyLjc3LTkuNjkgMjIuNzctMjMuMTUKICAgIDAtMTMuMi05LjM1LTIyLjk4LTIyLjc3LTIyLjk4LTEyLjcgMC0yMi42OCA5LjAyLTIyLjY4IDIyLjk4CiAgICAwIDEzLjMzIDkuNDMgMjMuMTUgMjIuNjggMjMuMTVtMC04LjA0Yy04LjA0IDAtMTMuNjctNi42LTEzLjY3LTE1LjEKICAgIDAtOC41IDUuOTMtMTQuOTUgMTMuNjctMTQuOTUgOC4xNyAwIDEzLjY3IDYuNiAxMy42NyAxNC45NAogICAgMCA4LjY0LTUuNjMgMTUuMTEtMTMuNjcgMTUuMTEiIGZpbGw9IiNmYzQxM2QiLz4KICA8cGF0aCBkPSJNMTM3LjQyIDYzLjM1YzEzLjI5IDAgMjIuNzctOS43MyAyMi43Ny0yMy4xNQogICAgMC0xMy4yLTkuMzUtMjIuOTgtMjIuNzctMjIuOTgtMTIuNyAwLTIyLjY4IDkuMDItMjIuNjggMjIuOTgKICAgIDAgMTMuMzMgOS40MyAyMy4xNSAyMi42OCAyMy4xNW0wLTguMDRjLTguMDQgMC0xMy42Ny02LjYtMTMuNjctMTUuMQogICAgMC04LjUgNS45My0xNC45NSAxMy42Ny0xNC45NSA4LjE3IDAgMTMuNjcgNi42IDEzLjY3IDE0Ljk0CiAgICAwIDguNjQtNS42MyAxNS4xMS0xMy42NyAxNS4xMSIgZmlsbD0iI2ZmYmUwMCIvPgogIDxwYXRoIGQ9Ik0xODUuMzcgODEuNTlxMjEuNTEgMCAyMS41LTI0LjYzVjE4Ljc5aC04Ljh2NS4zN2gtLjE3CiAgICBjLTIuNzUtNC4yNy03Ljk2LTYuNjgtMTMuODQtNi42OC0xMi43IDAtMjAuNDQgOS42OS0yMC40NCAyMi42CiAgICAwIDEyLjg2IDcuNTMgMjIuMzQgMjAuNzggMjIuMzQgNi41MiAwIDExLjM0LTMuNzIgMTMuMzctNi43N2guMwogICAgdjMuOTRjMCA4LjY3LTQuNDkgMTMuOC0xMi44MiAxMy44LTUuNDYgMC05LjEtMy4wMS0xMS43Ny04LjA1CiAgICBsLTcuOTYgMy41MmM0LjIgOC44NCAxMC4xNiAxMi43MyAxOS44NSAxMi43M20wLTI3LjU1CiAgICBjLTcuNzQgMC0xMi43LTUuNzEtMTIuNy0xNC4yMiAwLTguMiA0LjkyLTE0LjEzIDEyLjc1LTE0LjEzCiAgICBzMTIuNjUgNS41IDEyLjY1IDE0LjA5YzAgOC42OC01LjA4IDE0LjI2LTEyLjcgMTQuMjYiIGZpbGw9IiMzMTg2ZmYiLz4KICA8cGF0aCBkPSJNMjIyLjkxIDEuMzVoLTkuMjJ2NjAuNmg5LjIyeiIgZmlsbD0iIzAwYWY1NyIvPgogIDxwYXRoIGQ9Ik0yNTAuMTcgNjMuMjdhMjIuMSAyMi4xIDAgMCAwIDE5LTEwLjU0bC02Ljg2LTQuNDkKICAgIGMtMyA0LjItNy4xIDYuNi0xMS43MiA2LjZhMTMuNiAxMy42IDAgMCAxLTExLjkzLTcuMjNsMzAuOTMtMTMuMTIKICAgIGEyMCAyMCAwIDAgMC0uODQtMy4yMmMtMy42OS05LjQ4LTEwLjEyLTEzLjgtMTguOC0xMy44CiAgICAtMTMuMjQgMC0yMi4yNSA5LjY2LTIyLjI1IDIzLjAzIDAgMTMuNjcgOS40NyAyMi43NyAyMi40NyAyMi43NwogICAgbS0xMy41LTIyLjgxdi0uNTFjMC04Ljc2IDUuMDMtMTQuNjQgMTIuOTUtMTQuNjQgMy43NiAwIDcuMTUgMS42OQogICAgOS40NCA1LjY3eiIgZmlsbD0iI2ZjNDEzZCIvPgo8L3N2Zz4=" preserveAspectRatio="xMidYMid meet" />
+<circle id="step-1" cx="208.707" cy="454.5" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="208.707" y="457.5" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="208.707" dy="0">1</tspan>
+</text>
+<circle id="step-2" cx="420.594" cy="409.59" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="420.594" y="412.59" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="420.594" dy="0">2</tspan>
+</text>
+<circle id="step-3" cx="334.914" cy="381.25" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="334.914" y="384.25" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="334.914" dy="0">3</tspan>
+</text>
+<circle id="step-4" cx="208.707" cy="490.5" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="208.707" y="493.5" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="208.707" dy="0">4</tspan>
+</text>
+<circle id="step-5" cx="334.914" cy="562.5" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="334.914" y="565.5" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="334.914" dy="0">5</tspan>
+</text>
+<circle id="step-6" cx="600" cy="454.5" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="600" y="457.5" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="600" dy="0">6</tspan>
+</text>
+<circle id="step-7" cx="885" cy="405" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="885" y="408" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="885" dy="0">7</tspan>
+</text>
+<circle id="step-8" cx="850" cy="558.875" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="850" y="561.875" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="850" dy="0">8</tspan>
+</text>
+<circle id="step-9" cx="915" cy="405" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="915" y="408" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="915" dy="0">9</tspan>
+</text>
+<circle id="step-10" cx="945" cy="405" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="945" y="408" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="945" dy="0">10</tspan>
+</text>
+<circle id="step-11" cx="850" cy="382" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="850" y="385" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="850" dy="0">11</tspan>
+</text>
+<circle id="step-12" cx="600" cy="490.5" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="600" y="493.5" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="600" dy="0">12</tspan>
+</text>
+<rect x="1110" y="90" width="259" height="690" fill="#FFFFFF" stroke="#003087" stroke-width="1.5" />
+<text x="1124" y="121" font-size="16" fill="#1A1A1A" font-weight="700" text-anchor="start">
+<tspan x="1124" dy="0">Authentication Flow</tspan>
+</text>
+<line x1="1124" y1="130" x2="1276" y2="130" stroke="#1A1A1A" stroke-width="1.5" />
+<text x="1135" y="156" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1135" dy="0">1</tspan>
+</text>
+<text x="1150" y="156" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1150" dy="0">User opens FGA.com</tspan>
+<tspan x="1150" dy="16.1">in Browser.</tspan>
+</text>
+<text x="1135" y="194" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1135" dy="0">2</tspan>
+</text>
+<text x="1150" y="194" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1150" dy="0">Browser resolves FGA.com.</tspan>
+</text>
+<text x="1135" y="224" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1135" dy="0">3</tspan>
+</text>
+<text x="1150" y="224" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1150" dy="0">Browser retrieves landing</tspan>
+<tspan x="1150" dy="16.1">page static assets.</tspan>
+</text>
+<text x="1135" y="262" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1135" dy="0">4</tspan>
+</text>
+<text x="1150" y="262" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1150" dy="0">User clicks Login.</tspan>
+</text>
+<text x="1135" y="292" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1135" dy="0">5</tspan>
+</text>
+<text x="1150" y="292" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1150" dy="0">Browser follows Google</tspan>
+<tspan x="1150" dy="16.1">sign-in redirect.</tspan>
+</text>
+<text x="1135" y="330" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1135" dy="0">6</tspan>
+</text>
+<text x="1150" y="330" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1150" dy="0">Google redirect UX:</tspan>
+<tspan x="1150" dy="16.1">Browser POSTs credential +</tspan>
+<tspan x="1150" dy="16.1">CSRF token to the FGA</tspan>
+<tspan x="1150" dy="16.1">Google Login Endpoint.</tspan>
+</text>
+<text x="1135" y="400" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1135" dy="0">7</tspan>
+</text>
+<text x="1150" y="400" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1150" dy="0">Login Endpoint verifies CSRF:</tspan>
+<tspan x="1150" dy="16.1">POST-cookie g_csrf_token ==</tspan>
+<tspan x="1150" dy="16.1">request-body g_csrf_token.</tspan>
+</text>
+<text x="1135" y="454" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1135" dy="0">8</tspan>
+</text>
+<text x="1150" y="454" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1150" dy="0">Login Endpoint reads current</tspan>
+<tspan x="1150" dy="16.1">Google JWKS from FGA cache.</tspan>
+</text>
+<text x="1135" y="492" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1135" dy="0">9</tspan>
+</text>
+<text x="1150" y="492" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1150" dy="0">Login Endpoint performs</tspan>
+<tspan x="1150" dy="16.1">current Google-required JWT</tspan>
+<tspan x="1150" dy="16.1">validation: trusted alg/key,</tspan>
+<tspan x="1150" dy="16.1">signature, iss, aud, and</tspan>
+<tspan x="1150" dy="16.1">time claims.</tspan>
+</text>
+<text x="1135" y="578" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1135" dy="0">10</tspan>
+</text>
+<text x="1150" y="578" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1150" dy="0">Login Endpoint generates</tspan>
+<tspan x="1150" dy="16.1">256-bit opaque token with</tspan>
+<tspan x="1150" dy="16.1">CSPRNG.</tspan>
+</text>
+<text x="1135" y="632" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1135" dy="0">11</tspan>
+</text>
+<text x="1150" y="632" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1150" dy="0">Endpoint maps (iss, sub) to</tspan>
+<tspan x="1150" dy="16.1">fgaUserId; atomically stores</tspan>
+<tspan x="1150" dy="16.1">SHA2-256(token) session +</tspan>
+<tspan x="1150" dy="16.1">sanitized login audit.</tspan>
+</text>
+<text x="1135" y="702" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1135" dy="0">12</tspan>
+</text>
+<text x="1150" y="702" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1150" dy="0">Login Endpoint sets</tspan>
+<tspan x="1150" dy="16.1">__Host-… cookie: Secure,</tspan>
+<tspan x="1150" dy="16.1">HttpOnly, Path=/,</tspan>
+<tspan x="1150" dy="16.1">SameSite=Strict, no Domain,</tspan>
+<tspan x="1150" dy="16.1">Max-Age=86400.</tspan>
+</text>
+<text x="31" y="814" font-size="10" fill="#555555" font-weight="400" text-anchor="start">
+<tspan x="31" dy="0">Authority: Normative happy-path interaction map (ADR 0039, ADR 0041); omitted failure/lifecycle/provider detail stays with controlling sources; session creation + login audit commit atomically; proactive JWKS refresh is outside the numbered login sequence; failed logins are audited when possible.</tspan>
+</text>
+</g>
+</svg>

@@ -1,0 +1,276 @@
+<mxfile host="app.diagrams.net" modified="2026-08-28T00:00:00.000Z" agent="Codex" version="24.7.17" type="device" compressed="false">
+  <diagram id="fga-system-architecture" name="System architecture">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p1-title" value="FGA private-MVP system architecture" style="text;html=1;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="760" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-authority" value="Authority: Derived visual — Google Cloud is one provider candidate, not a selected deployment. ADR 0039 controls direct Google browser authentication and opaque FGA sessions." style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#4d4d4d;strokeColor=none;fillColor=none;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="20" y="58" width="1540" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-workstation" value="Owner workstation" style="swimlane;html=1;startSize=34;horizontal=1;rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="105" width="400" height="750" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-cloud" value="Google Cloud deployment candidate (provider not selected)" style="swimlane;html=1;startSize=34;horizontal=1;rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="105" width="720" height="750" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-external" value="External trust boundaries" style="swimlane;html=1;startSize=34;horizontal=1;rounded=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="105" width="390" height="750" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-photographer" value="Photographer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="165" width="120" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-host" value="Lightroom Classic host" style="swimlane;html=1;startSize=30;horizontal=1;rounded=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="145" width="200" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-plugin" value="FGA LrC plug-in&#xa;publish provider + queueing client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="210" y="195" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-local-state" value="Lightroom Classic catalog + LrPasswords&#xa;remote IDs, local recovery/outbox, installation credential" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="170" y="340" width="220" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-browser" value="Administrative browser" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="500" width="150" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-workstation-note" value="Routine photo work stays in the FGA LrC plug-in. The browser is limited to private owner administration and credential transfer." style="shape=note;whiteSpace=wrap;html=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="650" width="330" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-edge" value="FGA HTTPS edge&#xa;Cloud DNS + global external Application Load Balancer&#xa;managed certificate; HTTPS only" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="145" width="270" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-web" value="FGA API backend — Cloud Run candidate&#xa;&#xa;FGA HTTPS/API handlers&#xa;Google Login Endpoint + JWKS cache&#xa;FGA administrative control plane" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="285" width="285" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-tasks" value="Cloud Tasks&#xa;best-effort partition hints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="285" width="145" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-scheduler" value="Cloud Scheduler&#xa;minutely due sweep" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="975" y="285" width="145" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-worker" value="Internal FGA group-submission worker — Cloud Run&#xa;&#xa;database-fenced claims&#xa;fresh membership + moderation reads&#xa;add-only Flickr pool writes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="430" width="320" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-database" value="FGA database&#xa;Cloud SQL for PostgreSQL 18 candidate&#xa;sessions, queue truth, bindings, audit, permanent blocks" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="515" width="250" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-secrets" value="FGA managed secret store&#xa;Secret Manager candidate exact versions&#xa;Flickr secrets + framework key" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="680" width="250" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-operations" value="Cloud Logging + Monitoring&#xa;sanitized telemetry and alerts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="800" y="680" width="320" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-worker-note" value="Other logical work (album, group refresh, replacement reconciliation) remains governed by its scoped contract; exact production runtime placement is implementation work." style="shape=note;whiteSpace=wrap;html=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="800" y="780" width="320" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-flickr" value="Flickr documented APIs&#xa;&#xa;Upload API — PNG/JPEG bytes&#xa;REST reads and OAuth 1.0a&#xa;photosets create/add&#xa;groups.pools.add (add only)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="155" width="330" height="225" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-google" value="Google Identity Services&#xa;Sign in with Google&#xa;Google-signed ID token + current JWKS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="470" width="330" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-external-note" value="Flickr remains authoritative for photo ownership, visibility, album membership, group membership, moderation status, and API outcomes. Google proves only the Google Account; the FGA session and administrative allowlist remain FGA boundaries." style="shape=note;whiteSpace=wrap;html=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="655" width="330" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-photographer-host" value="edit, select groups, publish" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;fontSize=11;" edge="1" parent="1" source="p1-photographer" target="p1-host">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-plugin-state" value="documented SDK APIs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=block;startFill=1;endArrow=block;endFill=1;strokeColor=#9673a6;fontSize=11;" edge="1" parent="1" source="p1-plugin" target="p1-local-state">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-plugin-edge" value="versioned HTTPS API&#xa;installation credential" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=block;startFill=1;endArrow=block;endFill=1;strokeColor=#006600;fontSize=11;" edge="1" parent="1" source="p1-plugin" target="p1-edge">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-browser-edge" value="Google-authenticated opaque FGA session" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=block;startFill=1;endArrow=block;endFill=1;strokeColor=#006600;fontSize=11;" edge="1" parent="1" source="p1-browser" target="p1-edge">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-edge-web" value="server-first route ownership" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#82b366;fontSize=11;" edge="1" parent="1" source="p1-edge" target="p1-web">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-plugin-flickr" value="service-signed direct upload&#xa;image bytes never cross FGA hosted components" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#d79b00;fontSize=11;" edge="1" parent="1" source="p1-plugin" target="p1-flickr">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-web-flickr" value="documented reads + OAuth link exchange" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=block;startFill=1;endArrow=block;endFill=1;strokeColor=#d79b00;fontSize=11;" edge="1" parent="1" source="p1-web" target="p1-flickr">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-web-google" value="GIS login + cached current JWKS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=block;startFill=1;endArrow=block;endFill=1;strokeColor=#d79b00;fontSize=11;" edge="1" parent="1" source="p1-web" target="p1-google">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-web-db" value="admission + resource transactions" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=block;startFill=1;endArrow=block;endFill=1;strokeColor=#9673a6;fontSize=11;" edge="1" parent="1" source="p1-web" target="p1-database">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-web-tasks" value="at most one post-commit hint" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;fontSize=11;" edge="1" parent="1" source="p1-web" target="p1-tasks">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-tasks-worker" value="OIDC hint" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;fontSize=11;" edge="1" parent="1" source="p1-tasks" target="p1-worker">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-scheduler-worker" value="OIDC sweep" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;fontSize=11;" edge="1" parent="1" source="p1-scheduler" target="p1-worker">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-worker-db" value="due rows + fenced leases + durable results" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=block;startFill=1;endArrow=block;endFill=1;strokeColor=#9673a6;fontSize=11;" edge="1" parent="1" source="p1-worker" target="p1-database">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-web-secrets" value="least-privilege exact-version reads" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;dashed=1;strokeColor=#9673a6;fontSize=11;" edge="1" parent="1" source="p1-web" target="p1-secrets">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-worker-secrets" value="active Flickr credential reference" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;dashed=1;strokeColor=#9673a6;fontSize=11;" edge="1" parent="1" source="p1-worker" target="p1-secrets">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-worker-flickr" value="membership GET → getInfo → pools.add" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=block;startFill=1;endArrow=block;endFill=1;strokeColor=#c00000;fontColor=#c00000;fontStyle=1;fontSize=11;" edge="1" parent="1" source="p1-worker" target="p1-flickr">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-web-ops" value="sanitized" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;dashed=1;strokeColor=#666666;fontSize=10;" edge="1" parent="1" source="p1-web" target="p1-operations">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-e-worker-ops" value="sanitized" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;dashed=1;strokeColor=#666666;fontSize=10;" edge="1" parent="1" source="p1-worker" target="p1-operations">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-legend" value="Solid arrows: application/data flow   ·   Dashed arrows: secret or telemetry flow   ·   Red arrow: safety-critical Flickr write path" style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontColor=#4d4d4d;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="20" y="890" width="1540" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="fga-fail-polite-path" name="Fail-polite group add">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p2-title" value="Fail-polite Flickr group-add path" style="text;html=1;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="760" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-authority" value="Authority: Derived visual — ADR 0007, plugin-service-contract.md, and worker-persistence-scheduler-contract.md control. The photo/group permanent block is the safety boundary; the client cannot bypass it." style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#4d4d4d;strokeColor=none;fillColor=none;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="20" y="58" width="1540" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-claim-lane" value="1 — Durable claim and guards" style="swimlane;html=1;startSize=34;horizontal=1;rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="105" width="350" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-membership-lane" value="2 — Current membership" style="swimlane;html=1;startSize=34;horizontal=1;rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="105" width="350" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-preflight-lane" value="3 — Fresh moderation preflight and add" style="swimlane;html=1;startSize=34;horizontal=1;rounded=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="105" width="410" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-result-lane" value="4 — Durable result" style="swimlane;html=1;startSize=34;horizontal=1;rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="105" width="380" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-trigger" value="Cloud Tasks hint or minutely database due sweep" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="165" width="290" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-claim" value="FGA group-submission worker claims the FIFO head with an expiring database-clock lease and fencing generation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="285" width="290" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-guards" value="Hard guards in the FGA database&#xa;&#xa;• no permanent submission_blocks row&#xa;• linked-user and deployment write gates enabled&#xa;• valid lease still held" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="430" width="290" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-capacity" value="Reserve global Flickr rate-limit capacity for membership GET + moderation GET + possible add POST before the attempt" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="610" width="290" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-contexts" value="Fresh documented&#xa;flickr.photos.getAllContexts&#xa;for the exact photo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="165" width="290" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-context-decision" value="Validate the complete response. Is the exact target group present?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="455" y="315" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-present" value="Present → terminal added&#xa;No getInfo. No add POST." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="500" width="135" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-unavailable" value="Unavailable or incomplete → safe-read retry&#xa;No getInfo. No add POST." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="575" y="500" width="135" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-absent" value="Complete + absent → continue" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="465" y="650" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-getinfo" value="Fresh documented&#xa;flickr.groups.getInfo&#xa;for the exact group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="810" y="155" width="310" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-record" value="Durably record interpretable ispoolmoderated value and response-receipt time" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="810" y="285" width="310" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-freshness" value="Recheck write-gate revisions and monotonic age&#xa;&#xa;Dispatch must begin &lt; 1,000 ms after getInfo response receipt" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="810" y="410" width="310" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-marker" value="Commit immutable dispatch_started marker while the Flickr POST still has not begun" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="810" y="555" width="310" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-add" value="Immediately next Flickr API operation:&#xa;flickr.groups.pools.add" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="810" y="680" width="310" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-classify" value="Classify the complete documented result — or the absence of one — and commit atomically with lease-fenced history" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="150" width="320" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-added" value="Success or already in pool&#xa;→ added" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="285" width="320" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-moderation" value="Flickr code 6 or 7&#xa;→ moderation_submitted&#xa;+ permanent exact-pair block" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="395" width="320" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-uncertain" value="Possible delivery without a definitive durable result, or unknown side effects&#xa;→ delivery_uncertain&#xa;+ permanent exact-pair block" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="530" width="320" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-other" value="Documented safe outcomes only&#xa;code 5 → throttled&#xa;codes 105/106 → retrying&#xa;known permanent → needs_attention" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="685" width="320" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-trigger-claim" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;fontStyle=1;" edge="1" parent="1" source="p2-trigger" target="p2-claim">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-claim-guards" value="2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;fontStyle=1;" edge="1" parent="1" source="p2-claim" target="p2-guards">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-guards-capacity" value="all pass" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;fontSize=11;" edge="1" parent="1" source="p2-guards" target="p2-capacity">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-capacity-contexts" value="3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;fontStyle=1;" edge="1" parent="1" source="p2-capacity" target="p2-contexts">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-contexts-decision" value="4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;fontStyle=1;" edge="1" parent="1" source="p2-contexts" target="p2-context-decision">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-decision-present" value="yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#82b366;fontSize=11;" edge="1" parent="1" source="p2-context-decision" target="p2-present">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-decision-unavailable" value="invalid / unavailable" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;fontSize=11;" edge="1" parent="1" source="p2-context-decision" target="p2-unavailable">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-decision-absent" value="no" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;fontSize=11;" edge="1" parent="1" source="p2-context-decision" target="p2-absent">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-absent-getinfo" value="5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fontStyle=1;" edge="1" parent="1" source="p2-absent" target="p2-getinfo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-getinfo-record" value="6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fontStyle=1;" edge="1" parent="1" source="p2-getinfo" target="p2-record">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-record-freshness" value="7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fontStyle=1;" edge="1" parent="1" source="p2-record" target="p2-freshness">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-freshness-marker" value="fresh + gates unchanged" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fontSize=11;" edge="1" parent="1" source="p2-freshness" target="p2-marker">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-marker-add" value="8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fontStyle=1;strokeWidth=2;" edge="1" parent="1" source="p2-marker" target="p2-add">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-add-classify" value="9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fontStyle=1;strokeWidth=2;" edge="1" parent="1" source="p2-add" target="p2-classify">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-classify-added" value="success / already" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#82b366;fontSize=11;" edge="1" parent="1" source="p2-classify" target="p2-added">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-classify-moderation" value="6 / 7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fontSize=11;strokeWidth=2;" edge="1" parent="1" source="p2-classify" target="p2-moderation">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-classify-uncertain" value="uncertain / unknown side effects" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fontSize=11;strokeWidth=2;" edge="1" parent="1" source="p2-classify" target="p2-uncertain">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-e-classify-other" value="documented safe class" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;fontSize=11;" edge="1" parent="1" source="p2-classify" target="p2-other">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-safety-note" value="Permanent means permanent: code 6, code 7, ambiguous delivery, and unknown application results with undocumented side effects create an exact (Flickr photo ID, Flickr group ID) do-not-resubmit fact. Elapsed time, an unmoderated interval, cancellation, repair, history retention, or client/admin action never clears it. FGA components expose no force-resubmit path." style="shape=note;whiteSpace=wrap;html=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="840" width="1550" height="105" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

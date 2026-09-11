@@ -1,0 +1,487 @@
+@startuml
+' Authority: Derived visual; accepted flow sections and ADRs control.
+title FGA zero-state private-MVP activation, upload, and durable group handoff
+
+hide footbox
+skinparam responseMessageBelowArrow true
+skinparam sequenceMessageAlign center
+
+actor Administrator as Admin
+actor Photographer as User
+participant "FGA User UI browser\n(any trusted host for Part 1;\ntarget workstation for Part 2)" as AdminBrowser
+participant "Client browser\n(optional manual admin use)" as ClientBrowser
+participant "Windows current clipboard\n(history/sync off for transfer)" as Clipboard
+participant "Windows\nDNS Client/cache" as ClientDNS
+participant "Configured\nrecursive DNS" as RecursiveDNS
+participant "Lightroom Classic" as LrC
+participant "FGA LrC plug-in" as Plugin
+database "LrPasswords" as Passwords
+database "Plug-in local\nrecovery store" as Recovery
+participant "FGA administrative\ncontrol plane" as Control
+participant "Configured OIDC\nidentity provider" as OIDC
+participant "FGA OAuth handler" as OAuth
+participant "FGA API backend\nflickrgroupaddr.com" as API
+database "FGA database" as DB
+database "FGA managed Flickr\nsecret store" as Secrets
+participant "Hosted DNS" as HostedDNS
+participant "Flickr OAuth / REST API\nwww.flickr.com" as FlickrAPI
+participant "Flickr upload API\nup.flickr.com" as FlickrUpload
+participant "FGA refresh worker" as RefreshWorker
+participant "Periodic due-work\nscheduler" as Scheduler
+participant "FGA group-submission worker" as GroupWorker
+
+note over ClientBrowser
+  The FGA LrC plug-in never launches or controls this browser.
+  Part 1 administration may use any trusted device.
+  Part 2 uses a clean private window on the target workstation.
+end note
+
+== Phase 1, Part 0 — Authenticate the administrative browser ==
+
+Admin -> AdminBrowser: Open https://flickrgroupaddr.com/admin/
+AdminBrowser -> Control: GET /admin/login
+Control -> Control: Apply shared source + deployment buckets\n+ 20-live-transaction cap before state creation
+Control -> OIDC: Authorization Code + PKCE S256\nstate + nonce + exact callback
+OIDC -> AdminBrowser: Require phishing-resistant MFA
+AdminBrowser -> OIDC: Authenticate with approved owner identity
+OIDC --> AdminBrowser: Redirect with authorization code + state
+AdminBrowser -> Control: GET /admin/oidc/callback
+Control -> Control: Apply callback limits; atomically consume\nexact live state before one exchange
+Control -> OIDC: Exchange code + PKCE verifier
+OIDC --> Control: Signed ID token
+Control -> Control: Validate issuer, audience, signature, time,\nnonce, exact owner subject, and MFA context
+Control -> DB: Store digest of 256-bit session +\nsanitized authentication audit event
+Control --> AdminBrowser: __Host-fga_admin Secure HttpOnly\nSameSite=Strict cookie + CSRF token
+
+== Phase 1, Part 1 — Authorize FGA OAuth handler to use Flickr ==
+
+Admin -> Secrets: Provision Flickr application key and consumer secret\nthrough provider-authenticated deployment controls
+Control -> Secrets: Read configured/missing status only
+Secrets --> Control: Non-secret version/status
+
+opt Flickr user authorization is not already provisioned
+  Admin -> AdminBrowser: Start administrative Flickr authorization
+  AdminBrowser -> Control: POST Flickr authorization with\nsession + CSRF + recent authentication
+  Control -> OAuth: Start Flickr OAuth authorization
+  OAuth -> HostedDNS: Resolve www.flickr.com
+  HostedDNS --> OAuth: www.flickr.com address records
+  OAuth -> FlickrAPI: GET https://www.flickr.com/services/oauth/request_token\n(signed)
+  FlickrAPI --> OAuth: Request token + token secret
+  OAuth --> AdminBrowser: Redirect to\nhttps://www.flickr.com/services/oauth/authorize
+  AdminBrowser -> FlickrAPI: GET https://www.flickr.com/services/oauth/authorize\nauthenticate and grant write access
+  FlickrAPI --> AdminBrowser: Redirect to callback on flickrgroupaddr.com\nwith verifier
+  AdminBrowser -> OAuth: GET https://flickrgroupaddr.com/{configured-oauth-callback-path}
+  OAuth -> FlickrAPI: GET https://www.flickr.com/services/oauth/access_token\nwith verifier
+  FlickrAPI --> OAuth: Access token + token secret + owner NSID
+  OAuth -> FlickrAPI: Verify expected owner NSID + write permission
+  FlickrAPI --> OAuth: Complete successful token status
+  OAuth -> Secrets: Stage token + token secret under new version
+  OAuth -> DB: Atomically activate secret reference + owner NSID\n+ sanitized administrative audit event
+end
+
+== Phase 1, Part 2 — Create a Lightroom installation identity ==
+
+Admin -> AdminBrowser: On target workstation, open clean private window\nVerify clipboard history/sync off
+Admin -> AdminBrowser: Select Create Plugin Code
+AdminBrowser -> API: POST /api/v001/plugin-codes\nwith session + CSRF + recent authentication
+API -> API: Generate 32 random octets with CSPRNG\nEncode canonical 13-group Crockford Base32 Plugin Code
+API -> API: Compute unsalted SHA2-256 credential digest\n(no appended HMAC tag)
+API -> DB: Atomically store digest, user, installation, active state\n+ sanitized administrative audit event
+API --> AdminBrowser: Five-minute in-memory transfer view\nReturn clear-text Plugin Code exactly once
+Admin -> AdminBrowser: Copy Plugin Code
+AdminBrowser -> Clipboard: Write Plugin Code on explicit user gesture
+note over Admin,Plugin
+  This registers an installation identity, not the plug-in binary.
+  Download/install may happen before or after provisioning;
+  the credential is required before activation.
+end note
+
+== Phase 2 — Browser-free Lightroom activation ==
+
+note over ClientDNS,Passwords
+  Starting assumptions: Windows has Internet connectivity; all relevant
+  DNS caches are empty; Lightroom Classic and the FGA LrC plug-in are installed;
+  and LrPasswords contains no FGA credential.
+end note
+
+User -> LrC: Launch Lightroom Classic
+LrC -> Plugin: Load FGA LrC plug-in
+Plugin -> Passwords: Read installation credential
+Passwords --> Plugin: No value
+Plugin --> User: Show credential-generation URL on flickrgroupaddr.com\nand clear-text canonical Plugin Code input
+User -> Plugin: Paste administratively issued credential
+Clipboard --> Plugin: Current credential value
+Plugin --> User: Show same grouping and typography\nfor side-by-side comparison with browser
+Plugin -> Plugin: Validate exact canonical spelling\nNo case, alias, whitespace, or hyphen repair
+Plugin -> Passwords: Store credential
+Plugin -> Plugin: Clear visible field and ordinary-memory copies when practical
+
+Plugin -> ClientDNS: Resolve flickrgroupaddr.com
+alt Client DNS cache miss
+  ClientDNS -> RecursiveDNS: Query A and/or AAAA records
+  RecursiveDNS --> ClientDNS: Addresses + TTL
+  ClientDNS -> ClientDNS: Cache records until TTL
+else Client DNS cache hit
+  ClientDNS -> ClientDNS: Return cached records
+end
+ClientDNS --> Plugin: Reachable FGA addresses
+Plugin -> API: Establish HTTPS/TLS connection\nto https://flickrgroupaddr.com
+note over Plugin,API
+  Adobe documents HTTPS but no TLS-version contract or selector.
+  The negotiated version is an implementation detail.
+  Owner target: TLS 1.3+ edge if the latest Creative Cloud LrC
+  on the adopted latest production/stable Windows passes its probe.
+end note
+Plugin -> API: GET https://flickrgroupaddr.com/api/v001/installations/current\nAuthorization: Bearer <installation credential>\nNo body or query
+API -> API: Parse request and Bearer credential
+  alt Malformed request envelope, body, or query
+    API --> Plugin: 400 Bad Request; invalid_request
+  else Authentication missing
+    API --> Plugin: 401 Unauthorized; bare Bearer challenge
+  else One Bearer token presented
+    API -> API: Validate Bearer token wire grammar
+    alt Malformed token value
+      API --> Plugin: 401 Unauthorized; invalid_token
+    else Canonical token value
+      API -> API: Compute SHA2-256 digest
+      API -> DB: Find digest and active installation
+      DB --> API: Stored credential_class + FGA user + linked Flickr NSID
+      API -> API: Match exact stored class/route allowlist\nDefault branch rejects
+      alt Unknown credential/class, inactive, expired, revoked,\ndisabled, mismatch, or verification failure
+        API --> Plugin: 401 Unauthorized; invalid_token
+      else Active lrc_plugin credential authorized for route
+        API --> Plugin: 200 OK + Cache-Control: no-store\n{schemaVersion: 1, installationId, installationRevision,\ninstallationState: active, presentedCredentialState: current}
+        Plugin -> Plugin: Mark FGA connection authenticated
+        Plugin --> User: Connected (no secret)
+        User -> AdminBrowser: Erase transfer view
+        AdminBrowser -> Clipboard: Overwrite with fixed non-secret text
+        AdminBrowser -> AdminBrowser: Erase UI reference and close private window
+      end
+    end
+end
+
+note over Plugin,API
+  Stored credential_class lrc_plugin is authoritative and independently checked.
+  No request field creates or broadens it, and the response omits it.
+  A pending candidate may read the resource with pending_rotation state only.
+  The reusable HTTPS connection may remain open after the response.
+end note
+
+== Phase 3 — Paginated writable-group discovery ==
+
+Plugin -> API: GET https://flickrgroupaddr.com/api/v001/\ngroups?page_size=100\nAuthorization: Bearer <installation credential>
+API -> API: Validate Bearer grammar and compute SHA2-256\nLook up active installation by digest\nResolve linked FGA user + Flickr NSID
+API -> API: Require page_size 1..100\nInitial request has no revision or keyset boundary
+API -> DB: Read current snapshot + refresh state
+alt Snapshot stale or missing and refresh admitted
+  API -> DB: Create or join one per-user refresh job
+  RefreshWorker -> HostedDNS: Resolve www.flickr.com
+  HostedDNS --> RefreshWorker: www.flickr.com address records
+  RefreshWorker -> Secrets: Read linked user's Flickr application secret,\nOAuth access token, and OAuth token secret
+  Secrets --> RefreshWorker: Linked user's scoped OAuth material
+  loop Flickr pages inside one bounded job
+    RefreshWorker -> RefreshWorker: Generate fresh OAuth nonce and timestamp\nSign exact GET and normalized parameters\nHMAC-SHA1 (HMAC using SHA1-160)
+    RefreshWorker -> FlickrAPI: GET https://www.flickr.com/services/rest/\n?method=flickr.groups.pools.getGroups&page=n&per_page=400\n&format=json&nojsoncallback=1\nOAuth key + token + nonce + timestamp + signature
+    FlickrAPI --> RefreshWorker: One bounded writable-group page
+    RefreshWorker -> DB: Validate and store reduced staging rows
+  end
+  RefreshWorker -> DB: Atomically replace current rows\nAdvance snapshotRevision + refreshedAt
+end
+
+alt No successful snapshot and refresh active
+  API --> Plugin: 202 Accepted + Retry-After\nNo group array
+else No successful snapshot and refresh failed
+  API --> Plugin: 503 group_refresh_unavailable\nNo group array
+else Last good snapshot available
+  API -> DB: Read at most page_size rows\nOrder by exact Flickr group ID
+  DB --> API: Groups page + whether another page remains
+  API --> Plugin: 200 OK + revision + status\nGroups + nextAfterGroupId
+  loop While nextAfterGroupId is non-null
+    Plugin -> API: GET groups?page_size=100\n&snapshot_revision=r&after_group_id=last\nAuthorization: Bearer <installation credential>
+    API -> API: Independently authenticate continuation
+    API -> DB: Require current revision r\nRead IDs strictly greater than last
+    alt Revision remains current
+      DB --> API: Next keyset page
+      API --> Plugin: 200 OK + groups page\nnextAfterGroupId or null
+    else Revision changed
+      API --> Plugin: 409 snapshot_changed\nNo group array; restart once
+    end
+  end
+end
+
+note over RefreshWorker,DB
+  One active job per user; at most one start per 60 seconds.
+  Limits: 25 Flickr pages, 10,000 groups, 2 MiB per response,
+  and 60 seconds. Failure leaves the last good snapshot unchanged.
+end note
+
+Plugin --> User: Display completed aggregate by name; retain IDs as identity
+
+== Phase 4 — Per-photo selection, render, and preflight ==
+
+User -> LrC: Create or select FGA published collection
+alt New album
+  User -> LrC: Right-click FGA publish service -> Create Album...
+  LrC -> Plugin: Create local published collection; no remote album ID yet
+  note over LrC,Plugin
+    Flickr photosets.create requires a primary Flickr photo ID.
+    The first real successful upload can materialize the remote album.
+  end note
+else Existing album
+  User -> LrC: Select existing FGA album
+end
+User -> LrC: Add culling candidates to album; remove rejects
+User -> Plugin: Open Select Flickr Groups for selected photos
+Plugin -> LrC: Read existing remote publish IDs
+Plugin -> Recovery: Read retained common photo-binding IDs
+loop Each selected photo with an FGA photo binding
+  Plugin -> API: GET /api/v001/photo-bindings/<binding ID>/group-memberships
+  API -> DB: Require binding ownership; derive photo and linked account
+  DB --> API: Bound photo identity + owner
+  API -> FlickrAPI: Signed GET flickr.photos.getAllContexts
+  FlickrAPI --> API: Candidate visible sets and pools
+  API -> API: Require stat=ok + explicit pool array\nValidate every bounded pool ID/title; no filtering/default
+  alt Missing, non-array, partial, duplicate, malformed, or over budget
+    API --> Plugin: 503 membership_observation_unavailable\nNo groups, observedAt, or keyset state
+    Plugin --> User: Membership Unavailable\nDisable add confirmation for this photo
+  else Complete validated observation
+    API -> DB: Atomically replace current pool rows\nAdvance observationRevision + observedAt
+    API --> Plugin: Current pool page + revision\nnextAfterGroupId
+    loop While nextAfterGroupId is non-null
+      Plugin -> API: GET membership page with\nobservation_revision + after_group_id
+      API -> DB: Require current observation revision\nRead next group-ID keyset page
+      API --> Plugin: Current pool page or\n409 membership_observation_changed
+    end
+  end
+end
+Plugin --> User: Read-only current Flickr groups + selectable additions
+User -> Plugin: Confirm additional per-photo group targets
+Plugin -> Recovery: Persist editable group-addition selections
+opt Photo already has an FGA Flickr remote ID
+  Plugin -> Recovery: Snapshot photo-binding ID + current verification revision\n+ new group IDs
+  note over Plugin,API
+    Continue directly at Phase 6.
+    Do not render or upload the image again.
+  end note
+end
+User -> LrC: Invoke native Publish Now for selected work or album pending work
+LrC -> Plugin: Supply photos needing initial publication
+Plugin -> Plugin: Snapshot each confirmed zero-or-more group set
+Plugin -> Plugin: Treat every photo as independent
+
+loop Each photo; no cross-photo order guarantee
+  Plugin -> Recovery: Persist Lightroom UUID + selected group IDs
+  Plugin -> LrC: Request configured rendition
+  LrC --> Plugin: Completed rendered file
+  Plugin -> Plugin: Verify readable, nonzero, and within size policy
+
+  alt Render or preflight fails
+    Plugin --> User: Stop this photo before signing or upload
+  else Render passes preflight
+    == Phase 5 — Direct Flickr upload signed by FGA API backend ==
+
+    Plugin -> API: POST https://flickrgroupaddr.com/api/v001/\nupload-authorizations\nAuthorization: Bearer <installation credential>\n+ allowlisted metadata
+    API -> API: Verify installation and validate complete request
+    API -> DB: Require linked-user and deployment\nFlickr write gates enabled
+    DB --> API: Both gate revisions enabled
+    API -> Secrets: Read Flickr signing secrets
+    Secrets --> API: Scoped secret values
+    API -> API: Generate OAuth nonce, timestamp, and authorization ID
+    API -> API: Sign exact non-file Flickr metadata
+    API -> DB: Store record keyed by authorization ID\nwith null Flickr photo ID
+    API --> Plugin: 200 OK + no-store signed upload envelope
+    Plugin -> Recovery: Persist authorization ID only
+    Plugin -> Plugin: Keep OAuth header and signed metadata only in memory
+
+    Plugin -> ClientDNS: Resolve up.flickr.com
+    alt Upload-host cache miss
+      ClientDNS -> RecursiveDNS: Query A and/or AAAA records
+      RecursiveDNS --> ClientDNS: Flickr upload addresses + TTL
+      ClientDNS -> ClientDNS: Cache records until TTL
+    else Upload-host cache hit
+      ClientDNS -> ClientDNS: Return cached records
+    end
+    ClientDNS --> Plugin: Reachable Flickr upload addresses
+    Plugin -> FlickrUpload: TLS handshake for up.flickr.com
+    FlickrUpload --> Plugin: Certificate chain
+    Plugin -> Plugin: Validate hostname, chain, and dates
+    Plugin -> FlickrUpload: POST https://up.flickr.com/services/upload/\nexact signed metadata + rendered file as photo part
+    note over Plugin,FlickrUpload
+      The FGA LrC plug-in streams image bytes through LrHttp.postMultipart
+      directly to Flickr.
+      The FGA API backend never receives them. Flickr signs non-file metadata,
+      not the binary photo part.
+    end note
+
+    alt Definitive Flickr rejection
+      FlickrUpload --> Plugin: Rejection with known failure
+      Plugin --> User: Report failure; fresh authorization required for retry
+    else Upload call has no definitive result
+      FlickrUpload -x Plugin: Timeout or connection loss after\nLrHttp.postMultipart was invoked
+      Plugin -> Recovery: Set upload_outcome_unknown
+      Plugin --> User: Require reconciliation; do not auto-upload again
+    else Flickr accepts upload
+      FlickrUpload --> Plugin: Flickr photo ID
+      Plugin -> Recovery: Persist Flickr photo ID before\nLightroom Classic catalog remote ID
+      Plugin -> LrC: recordPublishedPhotoId(Flickr photo ID)
+      Plugin -> Recovery: Persist album_attachment_pending for\ncollection's one-to-one Flickr album
+      note over Plugin,Recovery
+        Album attachment is an eventual per-photo obligation.
+        It is not atomic with upload or ordered across photos.
+        Ticket #0060 defines the documented Flickr operation and recovery.
+      end note
+
+      Plugin -> API: PUT /api/v001/upload-authorizations/<authorization ID>/photo-binding\n+ exact Flickr photo ID + Authorization: Bearer <installation credential>
+      API -> FlickrAPI: Signed flickr.photos.getInfo for exact photo ID
+      FlickrAPI --> API: Complete photo ID + owner NSID
+      API -> API: Validate exact ID, linked owner, and current link revision
+      API -> DB: Commit common binding unique to (FGA user, Flickr photo ID)
+      DB --> API: Binding ID + verification revision
+      API --> Plugin: 201 created or 200 matching binding
+      Plugin -> Recovery: Persist binding ID + verification revision
+
+      == Phase 6 — Durable group-intent handoff ==
+
+      opt Selected group snapshot is nonempty
+        Plugin -> API: One POST https://flickrgroupaddr.com/api/v001/\ngroup-submission-batches\nAuthorization: Bearer <installation credential>\n+ schema v2 binding ID/revision + complete bounded unique group-ID set
+        API -> API: Verify installation and complete batch\nNo client photo ID; no single-group alias; no client slicing
+        API -> DB: Require owned current binding/revisions\nDerive Flickr photo ID, FGA user, owner, source, and link
+        API -> DB: Begin one transaction; recheck binding revisions
+        loop Each selected Flickr group ID
+          API -> DB: Ensure unique (photo ID, group ID) intent exists\n+ in (FGA user, group ID) FIFO partition
+        end
+        API -> DB: Commit transaction
+        DB --> API: Durable intent snapshots
+        par Success acknowledgement
+          API --> Plugin: 202 Accepted + binding + ordered intent snapshots
+          Plugin -> Recovery: Mark local outbox complete
+        else Courtesy-bounded immediate progress
+          API -> GroupWorker: Zero or one best-effort hint per batch after commit\ncanonical-lowest newly eligible partition ID + wake revision only
+          note over API,GroupWorker
+            The request handler makes no Flickr call and emits no per-group fan-out.
+            Every other due partition remains indexed for the scheduled sweep.
+          end note
+        end
+      end
+    end
+  end
+end
+
+== Phase 7 — Hosted queue progress after durable acceptance ==
+
+Scheduler -> GroupWorker: Start indexed due-work sweep\nat least once per minute
+GroupWorker -> DB: Claim one due partition by database clock\nnew lease ID + incremented fencing generation
+DB --> GroupWorker: Current lease generation + active FIFO head
+GroupWorker -> DB: Check linked-user and deployment Flickr write gates
+DB --> GroupWorker: Both gate revisions enabled
+note over GroupWorker,DB
+  Active FIFO states: queued, attempting, retrying, throttled.
+  Terminal rows remain durable but are excluded from queue membership.
+  A paused scope is excluded from scheduling; its intents remain unchanged.
+  Every worker mutation checks the lease ID + generation.
+  Lost/duplicate hints and expired leases converge through the due sweep.
+end note
+GroupWorker -> DB: Check permanent block for exact photo/group pair
+alt Permanent block exists
+  DB --> GroupWorker: Existing terminal block
+  GroupWorker -> DB: Preserve terminal row/history;\nexclude active queue; make no Flickr write
+else Pair is not blocked
+  GroupWorker -> HostedDNS: Resolve www.flickr.com if needed
+  HostedDNS --> GroupWorker: www.flickr.com address records
+  GroupWorker -> Secrets: Read scoped Flickr signing secrets
+  Secrets --> GroupWorker: Scoped secret values
+  GroupWorker -> GroupWorker: Atomically reserve Flickr rate-limit capacity\nfor membership GET, getInfo, and possible pools.add
+  GroupWorker -> FlickrAPI: GET https://www.flickr.com/services/rest/\nmethod=flickr.photos.getAllContexts + photo ID
+  alt Membership unavailable or incomplete
+    FlickrAPI --> GroupWorker: No complete usable membership observation
+    GroupWorker -> DB: Keep FIFO head retrying; send no getInfo/add\nPersist safe-read failure + bounded next attempt
+  else Exact target group is present
+    FlickrAPI --> GroupWorker: Complete membership contains target group
+    GroupWorker -> DB: Terminal added from pre-add observation\nRemove active queue membership; send no getInfo/add
+  else Complete observation omits target group
+    FlickrAPI --> GroupWorker: Complete target-absent observation
+    GroupWorker -> FlickrAPI: GET https://www.flickr.com/services/rest/\nmethod=flickr.groups.getInfo + group ID
+    alt Transient/unknown preflight failure or moderation value is uninterpretable
+      FlickrAPI --> GroupWorker: No usable ispoolmoderated observation
+      GroupWorker -> DB: Keep FIFO head retrying; send no add request\nPersist failure count + next_attempt_not_before\n30-60 s initial window; bounded progression to 8-15 min cap
+    else Definitive linked-user or deployment fault
+      FlickrAPI --> GroupWorker: Auth, signing, key, method, format, or protocol result
+      GroupWorker -> DB: Pause applicable durable gate; retain active head;\nsend no add request; emit one alert per pause revision
+    else Documented permanent request-specific result
+      FlickrAPI --> GroupWorker: Explicit request-specific preflight result
+      GroupWorker -> DB: Set terminal needs_attention\nRemove active queue membership; send no add request
+    else Fresh moderation observation
+      FlickrAPI --> GroupWorker: ispoolmoderated = 0 or 1
+      GroupWorker -> DB: Record moderation value/time and attempt
+      GroupWorker -> GroupWorker: Check monotonic preflight age
+      alt Age reached 1,000 ms before POST dispatch
+        GroupWorker -> DB: Discard observation; repeat preflight\nwithout sending add request
+      else Age remains under 1,000 ms
+        GroupWorker -> DB: Recheck both gate revisions and\nmark dispatch_started durably
+        GroupWorker -> GroupWorker: Recheck monotonic age immediately after commit
+        alt Age now reached 1,000 ms and no bytes were sent
+          GroupWorker -> DB: Record not_dispatched_preflight_expired;\nrepeat preflight
+        else Age remains under 1,000 ms
+          GroupWorker -> FlickrAPI: POST https://www.flickr.com/services/rest/\nmethod=flickr.groups.pools.add + photo ID + group ID
+        alt Photo added (stat=ok) or photo already in pool (code 3)
+          FlickrAPI --> GroupWorker: Added or already in pool
+          GroupWorker -> DB: Terminal added; retain row/history;\nremove active queue membership
+        else Photo added to pending queue (code 6) or already pending (code 7)
+          FlickrAPI --> GroupWorker: Entered or already in moderation queue
+          GroupWorker -> DB: Permanently block exact pair\n+ terminal moderation_submitted\n+ remove active queue membership
+          opt Photo added to pending queue (code 6) contradicts observed ispoolmoderated=0
+            GroupWorker -> DB: Record moderation race/upstream inconsistency
+          end
+        else User's pool submission limit reached (code 5)
+          FlickrAPI --> GroupWorker: User's group submission limit reached
+          GroupWorker -> DB: Atomically and durably throttle only this user/group partition\nRecord result + observation + next probe time\nCommit before releasing partition lease
+        else Service unavailable (code 105) or temporary write failure (code 106)
+          FlickrAPI --> GroupWorker: Explicit temporary failure
+          GroupWorker -> DB: Retain head for bounded-backoff retry\nwith a new preflight
+        else Other documented application code
+          FlickrAPI --> GroupWorker: Permanent, auth, or configuration result
+          GroupWorker -> DB: Apply explicit documented class;\npause linked-user or deployment gate when scoped
+        else Unknown code, or dispatch_started without zero-byte proof and definitive durable result
+          GroupWorker -> DB: Permanently block exact pair\n+ terminal delivery_uncertain\n+ remove active queue membership; never retry\nUnknown code also pauses deployment gate
+        end
+      end
+    end
+  end
+  end
+end
+
+note over GroupWorker,FlickrAPI
+  The membership observation is advisory, and the required getInfo and pools.add calls are not atomic.
+  The FGA group-submission worker starts POST dispatch under 1,000 ms after receiving getInfo,
+  but cannot bound network/Flickr processing. The add result is authoritative.
+  The FGA API backend and LrC plug-in provide no force-resubmit path.
+end note
+
+note over API,GroupWorker
+  A Flickr write gate prevents new starts but cannot recall an already-dispatched request.
+  Resume has no timer or bypass: the FGA administrative control plane verifies
+  the expected gate revision with a fresh non-mutating OAuth token check, records
+  the repair evidence, and enables the revision by compare-and-set.
+end note
+
+== Phase 8 — Additional photos and final state ==
+
+note over User,ClientDNS
+  The plug-in never launches or controls the client browser. Windows DNS
+  contains only temporary name-resolution records. DNS TTL expiry does not
+  invalidate an established connection. Reuse is limited to the same exact
+  origin while the owning HTTP stack retains the connection as eligible after
+  consuming the prior response. For another request, a missing, closed,
+  close-directed, incomplete-response, failed, timed-out, or policy-retired
+  connection requires applicable DNS resolution and a new TLS handshake and
+  validation. The Lightroom Classic host may close after the 202 response;
+  the FGA group-submission worker continues from the FGA database.
+end note
+
+note over API,DB
+  FGA policy calls an image "in Flickr" only after a complete stat=ok
+  flickr.photos.getInfo result for its exact photo ID and expected owner
+  is committed with an observation time. The upload response alone is insufficient.
+end note
+
+@enduml

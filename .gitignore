@@ -1,0 +1,25 @@
+# Locally licensed Adobe Lightroom Classic SDK payload.
+/vendor/LrC SDK/*
+!/vendor/LrC SDK/README.md
+
+# Generated diagnostic and static-analysis output.
+/.tmp/
+/artifacts/
+/.secrets/
+/.venv/
+/.ruff_cache/
+**/__pycache__/
+*.py[cod]
+
+# Lightroom diagnostic runs can be placed under the plug-in by its folder picker.
+/lightroom/**/fga-png-matrix-*/
+
+# Local Lightroom test catalogs, previews, helper databases, and lock files.
+/lightroom/**/*.lrcat*
+/lightroom/**/*.lrdata/
+
+# Private publication audit working data and portable scanner
+.publication-audit-runs/
+
+# Machine-local diagnostic selection; never publish catalog identifiers.
+/lightroom/FGA Diagnostics.lrdevplugin/DirectUpload.local.json

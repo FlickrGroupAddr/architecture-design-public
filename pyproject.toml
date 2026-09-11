@@ -1,0 +1,117 @@
+[project]
+name = "fga-architecture-design"
+version = "0.0.0"
+description = "Architecture, contracts, and development probes for FlickrGroupAddr."
+readme = "README.md"
+requires-python = ">=3.14,<3.15"
+license = "MIT"
+authors = [{ name = "Terry Ott" }]
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "defusedxml==0.7.1",
+    "flickrapi==2.4.0",
+    "pyright==1.1.411",
+    "requests==2.34.2",
+    "requests-oauthlib==2.0.0",
+    "requests-toolbelt==1.0.0",
+    "ruff==0.16.3",
+    "watchfiles==1.2.0",
+]
+
+[tool.uv]
+required-version = "==0.12.5"
+package = false
+
+[tool.pyright]
+include = ["scripts", "tests"]
+exclude = [".tmp", ".venv", "artifacts", "vendor"]
+pythonPlatform = "All"
+pythonVersion = "3.14"
+typeCheckingMode = "strict"
+reportMissingTypeStubs = "none"
+
+[tool.ruff]
+target-version = "py314"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    # The formatter owns these; Ruff documents them as formatter conflicts.
+    "COM812",
+    "ISC001",
+    # Operational-script docstrings matter; mandatory PEP 257 summaries do not.
+    "D",
+    # Throwaway exception-message locals obscure straightforward raises.
+    "EM",
+    "TRY003",
+    # `print` is the deliberate interface of the command-line tools.
+    "T20",
+    # This personal repository does not require per-file copyright headers.
+    "CPY",
+    # Curly punctuation and em dashes are intentional house style.
+    "RUF001",
+    "RUF002",
+    "RUF003",
+]
+
+[tool.ruff.lint.flake8-annotations]
+allow-star-arg-any = false
+mypy-init-return = true
+
+[tool.ruff.lint.mccabe]
+max-complexity = 15
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/flickr-roundtrip.py" = [
+    # This executable filename is part of the documented operator interface.
+    "N999",
+    # One linear integration transaction remains clearer than artificial phase helpers.
+    "PLR0915",
+    # Its report-writing try block deliberately owns success and failure finalization.
+    "TRY300",
+    "TRY301",
+]
+"scripts/flickr-signed-upload-probe.py" = [
+    # This executable filename is part of the documented operator interface.
+    "N999",
+    # The report-writing try block deliberately owns validation and failure finalization.
+    "TRY301",
+]
+"scripts/flickr-signing-probe-server.py" = [
+    # This executable filename is part of the documented operator interface.
+    "N999",
+    # Strict Pyright requires the overridden stdlib parameter name `format`.
+    "A002",
+]
+"scripts/flickr_replacement_probe.py" = [
+    # One linear external transaction makes the single replacement dispatch and cleanup auditable.
+    "PLR0912",
+    "PLR0915",
+    "TRY301",
+    # Catch every post-upload failure so the finally block can quarantine the public test photo.
+    "BLE001",
+]
+"tests/*.py" = [
+    # Exact counts and identifiers are meaningful assertions in tests.
+    "PLR2004",
+    # unittest assertions are not runtime validation and must survive optimization rules.
+    "S101",
+    # Test fixtures deliberately contain representative non-secret credentials.
+    "S105",
+    "S106",
+    # The suite intentionally uses the standard-library unittest runner and assertions.
+    "PT009",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"

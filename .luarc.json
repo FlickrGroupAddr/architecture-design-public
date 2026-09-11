@@ -1,0 +1,61 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "runtime.version": "Lua 5.1",
+  "runtime.path": [
+    "?.lua",
+    "?/init.lua"
+  ],
+  "workspace.checkThirdParty": "Disable",
+  "workspace.useGitIgnore": true,
+  "workspace.ignoreDir": [
+    ".tmp",
+    "artifacts",
+    "vendor",
+    "lightroom/FGA Diagnostics.lrdevplugin/dkjson.lua"
+  ],
+  "diagnostics.workspaceDelay": 0,
+  "diagnostics.workspaceRate": 100,
+  "diagnostics.globals": [
+    "LOC",
+    "_PLUGIN",
+    "import"
+  ],
+  "diagnostics.groupFileStatus": {
+    "ambiguity": "Any",
+    "duplicate": "Any",
+    "global": "Any",
+    "redefined": "Any",
+    "strict": "Any",
+    "type-check": "Any",
+    "unbalanced": "Any",
+    "unused": "Any"
+  },
+  "diagnostics.groupSeverity": {
+    "ambiguity": "Warning",
+    "duplicate": "Error",
+    "global": "Error",
+    "redefined": "Warning",
+    "strict": "Warning",
+    "type-check": "Warning",
+    "unbalanced": "Error",
+    "unused": "Warning"
+  },
+  "diagnostics.severity": {
+    "duplicate-index": "Error!",
+    "duplicate-set-field": "Error!",
+    "duplicate-doc-field": "Error!",
+    "trailing-space": "Error!",
+    "undefined-global": "Error!"
+  },
+  "diagnostics.unusedLocalExclude": [
+    "_*"
+  ],
+  "format.enable": true,
+  "format.defaultConfig": {
+    "indent_style": "space",
+    "indent_size": "4",
+    "quote_style": "double",
+    "max_line_length": "120",
+    "end_statement_with_semicolon": "never"
+  }
+}

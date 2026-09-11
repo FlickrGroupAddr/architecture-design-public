@@ -1,0 +1,710 @@
+{
+  "openapi": "3.1.2",
+  "jsonSchemaDialect": "https://spec.openapis.org/oas/3.1/dialect/2024-11-10",
+  "info": {
+    "title": "FGA private-MVP HTTP API design projection",
+    "version": "v001-design-2026-08-31",
+    "description": "Derived, non-normative OpenAPI projection of the planned private-MVP routes. It is not generated from a production FGA API backend and is not executable release evidence. Apply each operation's x-fga-source contracts and the repository documentation-authority hierarchy."
+  },
+  "servers": [
+    {
+      "url": "https://flickrgroupaddr.com",
+      "description": "Selected private production origin; deployment evidence remains pending."
+    }
+  ],
+  "security": [],
+  "tags": [
+    {"name": "Public health"},
+    {"name": "Plug-in installation"},
+    {"name": "Plug-in discovery"},
+    {"name": "Plug-in photo bindings"},
+    {"name": "Plug-in upload"},
+    {"name": "Group submissions"},
+    {"name": "Administrative session"},
+    {"name": "Administrative Flickr connection"},
+    {"name": "Plugin Codes"},
+    {"name": "Administrative operations"}
+  ],
+  "x-fga-document-status": "derived_design_projection",
+  "x-fga-non-openapi-routes": [
+    "/admin/",
+    "/admin/flickr-oauth/callback",
+    "/admin/google-login",
+    "/admin/login"
+  ],
+  "x-fga-unresolved-route-roles": [],
+  "paths": {
+    "/healthz/startup": {
+      "get": {
+        "operationId": "readStartupHealth",
+        "summary": "Read coarse startup health",
+        "tags": ["Public health"],
+        "security": [],
+        "x-fga-source": ["docs/operations/health-and-diagnostics.md#public-health-routes"],
+        "x-fga-schema-status": "closed",
+        "responses": {
+          "200": {"$ref": "#/components/responses/HealthOk"},
+          "503": {"$ref": "#/components/responses/HealthUnavailable"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      },
+      "head": {
+        "operationId": "headStartupHealth",
+        "summary": "Read startup status without a body",
+        "tags": ["Public health"],
+        "security": [],
+        "x-fga-source": ["docs/operations/health-and-diagnostics.md#public-health-routes"],
+        "x-fga-schema-status": "closed",
+        "responses": {
+          "200": {"$ref": "#/components/responses/HealthHeadOk"},
+          "503": {"$ref": "#/components/responses/HealthHeadUnavailable"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      }
+    },
+    "/healthz/live": {
+      "get": {
+        "operationId": "readLivenessHealth",
+        "summary": "Read coarse request-loop liveness",
+        "tags": ["Public health"],
+        "security": [],
+        "x-fga-source": ["docs/operations/health-and-diagnostics.md#public-health-routes"],
+        "x-fga-schema-status": "closed",
+        "responses": {
+          "200": {"$ref": "#/components/responses/HealthOk"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      },
+      "head": {
+        "operationId": "headLivenessHealth",
+        "summary": "Read liveness status without a body",
+        "tags": ["Public health"],
+        "security": [],
+        "x-fga-source": ["docs/operations/health-and-diagnostics.md#public-health-routes"],
+        "x-fga-schema-status": "closed",
+        "responses": {
+          "200": {"$ref": "#/components/responses/HealthHeadOk"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      }
+    },
+    "/api/v001/installations/current": {
+      "get": {
+        "operationId": "readCurrentInstallation",
+        "summary": "Read the installation represented by the Bearer credential",
+        "tags": ["Plug-in installation"],
+        "security": [{"installationBearer": []}],
+        "x-fga-source": ["docs/plugin-service-contract.md#1-read-the-current-installation"],
+        "x-fga-schema-status": "closed",
+        "responses": {
+          "200": {"$ref": "#/components/responses/CurrentInstallation"},
+          "400": {"$ref": "#/components/responses/Error"},
+          "401": {"$ref": "#/components/responses/BearerAuthenticationFailure"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      }
+    },
+    "/api/v001/groups": {
+      "get": {
+        "operationId": "listWritableGroups",
+        "summary": "Read one keyset page from the current writable-group snapshot",
+        "tags": ["Plug-in discovery"],
+        "security": [{"installationBearer": []}],
+        "parameters": [
+          {"$ref": "#/components/parameters/RequiredPageSize"},
+          {"$ref": "#/components/parameters/SnapshotRevision"},
+          {"$ref": "#/components/parameters/AfterGroupId"}
+        ],
+        "x-fga-source": ["docs/plugin-service-contract.md#2-discover-writable-flickr-groups", "docs/group-snapshot-and-pagination.md"],
+        "x-fga-schema-status": "closed",
+        "responses": {
+          "200": {"$ref": "#/components/responses/GroupPage"},
+          "202": {"$ref": "#/components/responses/Error"},
+          "401": {"$ref": "#/components/responses/BearerAuthenticationFailure"},
+          "409": {"$ref": "#/components/responses/Error"},
+          "503": {"$ref": "#/components/responses/Error"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      }
+    },
+    "/api/v001/existing-public-photos": {
+      "get": {
+        "operationId": "listExistingPublicPhotos",
+        "summary": "Read one advisory page of public photos for the linked owner",
+        "tags": ["Plug-in discovery"],
+        "security": [{"installationBearer": []}],
+        "parameters": [
+          {"$ref": "#/components/parameters/PageNumber"},
+          {"$ref": "#/components/parameters/RequiredPageSize"}
+        ],
+        "x-fga-source": ["docs/existing-public-photo-intake.md#documented-source-and-advisory-discovery"],
+        "x-fga-schema-status": "closed",
+        "responses": {
+          "200": {"$ref": "#/components/responses/ExistingPublicPhotoPage"},
+          "401": {"$ref": "#/components/responses/BearerAuthenticationFailure"},
+          "503": {"$ref": "#/components/responses/Error"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      }
+    },
+    "/api/v001/existing-public-photo-bindings": {
+      "post": {
+        "operationId": "proveExistingPublicPhotoBinding",
+        "summary": "Create or refresh a verified binding for an existing public photo",
+        "tags": ["Plug-in photo bindings"],
+        "security": [{"installationBearer": []}],
+        "requestBody": {
+          "required": true,
+          "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ExistingPublicPhotoBindingRequest"}}}
+        },
+        "x-fga-source": ["docs/existing-public-photo-intake.md#fresh-hosted-proof-and-stable-binding"],
+        "x-fga-schema-status": "closed",
+        "responses": {
+          "200": {"$ref": "#/components/responses/PhotoBinding"},
+          "201": {"$ref": "#/components/responses/PhotoBinding"},
+          "401": {"$ref": "#/components/responses/BearerAuthenticationFailure"},
+          "403": {"$ref": "#/components/responses/Error"},
+          "409": {"$ref": "#/components/responses/Error"},
+          "422": {"$ref": "#/components/responses/Error"},
+          "503": {"$ref": "#/components/responses/Error"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      }
+    },
+    "/api/v001/photo-bindings/{photoBindingId}/group-memberships": {
+      "parameters": [{"$ref": "#/components/parameters/PhotoBindingId"}],
+      "get": {
+        "operationId": "listPhotoGroupMemberships",
+        "summary": "Read one keyset page from a fresh Flickr membership observation",
+        "tags": ["Plug-in photo bindings"],
+        "security": [{"installationBearer": []}],
+        "parameters": [
+          {"$ref": "#/components/parameters/RequiredPageSize"},
+          {"$ref": "#/components/parameters/ObservationRevision"},
+          {"$ref": "#/components/parameters/AfterGroupId"}
+        ],
+        "x-fga-source": ["docs/plugin-service-contract.md#35-read-current-flickr-group-membership-for-a-verified-photo-binding"],
+        "x-fga-schema-status": "closed",
+        "responses": {
+          "200": {"$ref": "#/components/responses/MembershipPage"},
+          "401": {"$ref": "#/components/responses/BearerAuthenticationFailure"},
+          "404": {"$ref": "#/components/responses/Error"},
+          "409": {"$ref": "#/components/responses/Error"},
+          "503": {"$ref": "#/components/responses/Error"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      }
+    },
+    "/api/v001/upload-authorizations": {
+      "post": {
+        "operationId": "createUploadAuthorization",
+        "summary": "Create one short-lived service-signed direct-upload envelope",
+        "tags": ["Plug-in upload"],
+        "security": [{"installationBearer": []}],
+        "requestBody": {
+          "required": true,
+          "content": {"application/json": {"schema": {"$ref": "#/components/schemas/UploadAuthorizationRequest"}}}
+        },
+        "x-fga-source": ["docs/plugin-service-contract.md#4-obtain-a-direct-upload-authorization"],
+        "x-fga-schema-status": "closed",
+        "responses": {
+          "200": {"$ref": "#/components/responses/UploadAuthorization"},
+          "401": {"$ref": "#/components/responses/BearerAuthenticationFailure"},
+          "422": {"$ref": "#/components/responses/Error"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      }
+    },
+    "/api/v001/upload-authorizations/{uploadAuthorizationId}/photo-binding": {
+      "parameters": [{"$ref": "#/components/parameters/UploadAuthorizationId"}],
+      "put": {
+        "operationId": "bindUploadedPhoto",
+        "summary": "Idempotently bind and verify a definitive Flickr upload result",
+        "tags": ["Plug-in upload", "Plug-in photo bindings"],
+        "security": [{"installationBearer": []}],
+        "requestBody": {
+          "required": true,
+          "content": {"application/json": {"schema": {"$ref": "#/components/schemas/PhotoBindingRequest"}}}
+        },
+        "x-fga-source": ["docs/plugin-service-contract.md#55-durably-bind-and-verify-the-uploaded-photo"],
+        "x-fga-schema-status": "closed",
+        "responses": {
+          "200": {"$ref": "#/components/responses/PhotoBinding"},
+          "201": {"$ref": "#/components/responses/PhotoBinding"},
+          "401": {"$ref": "#/components/responses/BearerAuthenticationFailure"},
+          "404": {"$ref": "#/components/responses/Error"},
+          "409": {"$ref": "#/components/responses/Error"},
+          "503": {"$ref": "#/components/responses/Error"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      }
+    },
+    "/api/v001/upload-authorizations/{uploadAuthorizationId}/ambiguity-candidates": {
+      "parameters": [{"$ref": "#/components/parameters/UploadAuthorizationId"}],
+      "get": {
+        "operationId": "listAmbiguousUploadCandidates",
+        "summary": "Read advisory candidates for a possible ambiguous upload",
+        "description": "The route, authority, privacy boundary, and returned candidate fields are designed. Exact pagination parameter and response-envelope names are not yet closed, so no invented query or response schema appears here.",
+        "tags": ["Plug-in upload"],
+        "security": [{"installationBearer": []}],
+        "x-fga-source": ["docs/plugin-service-contract.md#56-reconcile-an-ambiguous-upload", "docs/decisions/0012-photographer-reconciliation-after-ambiguous-upload.md"],
+        "x-fga-schema-status": "not_closed",
+        "responses": {
+          "200": {"description": "Bounded no-store advisory candidate page; exact envelope remains to be closed."},
+          "401": {"$ref": "#/components/responses/BearerAuthenticationFailure"},
+          "404": {"$ref": "#/components/responses/Error"},
+          "503": {"$ref": "#/components/responses/Error"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      }
+    },
+    "/api/v001/upload-authorizations/{uploadAuthorizationId}/ambiguity-resolution": {
+      "parameters": [{"$ref": "#/components/parameters/UploadAuthorizationId"}],
+      "put": {
+        "operationId": "resolveAmbiguousUpload",
+        "summary": "Idempotently bind a photographer-selected ambiguous-upload candidate",
+        "tags": ["Plug-in upload", "Plug-in photo bindings"],
+        "security": [{"installationBearer": []}],
+        "requestBody": {
+          "required": true,
+          "content": {"application/json": {"schema": {"$ref": "#/components/schemas/PhotoBindingRequest"}}}
+        },
+        "x-fga-source": ["docs/plugin-service-contract.md#56-reconcile-an-ambiguous-upload"],
+        "x-fga-schema-status": "closed",
+        "responses": {
+          "200": {"$ref": "#/components/responses/PhotoBinding"},
+          "201": {"$ref": "#/components/responses/PhotoBinding"},
+          "401": {"$ref": "#/components/responses/BearerAuthenticationFailure"},
+          "404": {"$ref": "#/components/responses/Error"},
+          "409": {"$ref": "#/components/responses/Error"},
+          "503": {"$ref": "#/components/responses/Error"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      }
+    },
+    "/api/v001/group-submission-batches": {
+      "post": {
+        "operationId": "createGroupSubmissionBatch",
+        "summary": "Durably accept one bounded photo/group intent batch",
+        "description": "This handler commits all accepted intents before returning and makes no Flickr write inline. Zero groups are invalid, the request is never sliced, and an existing permanent exact-pair block cannot be bypassed.",
+        "tags": ["Group submissions"],
+        "security": [{"installationBearer": []}],
+        "requestBody": {
+          "required": true,
+          "content": {"application/json": {"schema": {"$ref": "#/components/schemas/GroupSubmissionBatchRequest"}}}
+        },
+        "x-fga-source": ["docs/plugin-service-contract.md#6-durably-hand-off-group-submission-intents", "docs/decisions/0020-single-courteous-group-batch-admission.md"],
+        "x-fga-schema-status": "closed",
+        "responses": {
+          "202": {"$ref": "#/components/responses/GroupSubmissionBatch"},
+          "401": {"$ref": "#/components/responses/BearerAuthenticationFailure"},
+          "409": {"$ref": "#/components/responses/Error"},
+          "422": {"$ref": "#/components/responses/Error"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      }
+    },
+    "/api/v001/group-submission-intents": {
+      "get": {
+        "operationId": "listGroupSubmissionIntents",
+        "summary": "Read one owner-scoped intent-status page",
+        "tags": ["Group submissions"],
+        "security": [{"installationBearer": []}],
+        "parameters": [{"$ref": "#/components/parameters/StatusView"}, {"$ref": "#/components/parameters/PhotoBindingFilter"}, {"$ref": "#/components/parameters/OptionalPageSize"}, {"$ref": "#/components/parameters/BeforeCreatedAt"}, {"$ref": "#/components/parameters/BeforeIntentId"}],
+        "x-fga-source": ["docs/queue-status-api.md#collection-query", "docs/queue-status-api.md#collection-response"],
+        "x-fga-schema-status": "closed",
+        "responses": {
+          "200": {"$ref": "#/components/responses/IntentPage"},
+          "401": {"$ref": "#/components/responses/BearerAuthenticationFailure"},
+          "404": {"$ref": "#/components/responses/Error"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      }
+    },
+    "/api/v001/group-submission-intents/{submissionIntentId}": {
+      "parameters": [{"$ref": "#/components/parameters/SubmissionIntentId"}],
+      "get": {
+        "operationId": "readGroupSubmissionIntent",
+        "summary": "Read one owner-scoped intent representation",
+        "tags": ["Group submissions"],
+        "security": [{"installationBearer": []}],
+        "x-fga-source": ["docs/queue-status-api.md#intent-representation"],
+        "x-fga-schema-status": "closed",
+        "responses": {
+          "200": {"$ref": "#/components/responses/IntentItem"},
+          "401": {"$ref": "#/components/responses/BearerAuthenticationFailure"},
+          "404": {"$ref": "#/components/responses/Error"},
+          "default": {"$ref": "#/components/responses/Error"}
+        }
+      }
+    },
+    "/api/v001/admin/deployment": {
+      "get": {
+        "operationId": "readAdministrativeDeployment",
+        "summary": "Read sanitized deployment and database checks",
+        "tags": ["Administrative operations"],
+        "security": [{"browserSessionCookie": []}],
+        "x-fga-source": ["docs/operations/health-and-diagnostics.md#authenticated-deployment-resource"],
+        "x-fga-schema-status": "closed",
+        "responses": {"200": {"$ref": "#/components/responses/Deployment"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "503": {"$ref": "#/components/responses/Error"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/admin/session": {
+      "get": {
+        "operationId": "readAdministrativeSession",
+        "summary": "Read display-safe current administrator/session state",
+        "tags": ["Administrative session"],
+        "security": [{"browserSessionCookie": []}],
+        "x-fga-source": ["docs/browser-session-lifecycle.md#session-authentication-and-csrf"],
+        "x-fga-schema-status": "closed",
+        "responses": {"200": {"$ref": "#/components/responses/CurrentAdministrativeSession"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/admin/session/reauthentication": {
+      "post": {
+        "operationId": "startAdministrativeSessionReauthentication",
+        "summary": "Create one transaction-bound recent Google reauthentication",
+        "tags": ["Administrative session"],
+        "security": [{"browserSessionCookie": []}],
+        "parameters": [{"$ref": "#/components/parameters/BrowserSessionCsrf"}],
+        "x-fga-csrf-required": true,
+        "x-fga-exact-origin-required": true,
+        "x-fga-source": ["docs/browser-session-lifecycle.md#recent-google-reauthentication-and-rotation"],
+        "x-fga-schema-status": "closed",
+        "responses": {"201": {"$ref": "#/components/responses/ReauthenticationTransaction"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "403": {"$ref": "#/components/responses/Error"}, "503": {"$ref": "#/components/responses/Error"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/admin/session/logout": {
+      "post": {
+        "operationId": "logoutAdministrativeSession",
+        "summary": "Idempotently revoke the current administrative session",
+        "tags": ["Administrative session"],
+        "security": [{}, {"browserSessionCookie": []}],
+        "parameters": [{"$ref": "#/components/parameters/BrowserSessionCsrf"}],
+        "x-fga-csrf-required": true,
+        "x-fga-exact-origin-required": true,
+        "x-fga-source": ["docs/browser-session-lifecycle.md#concurrent-sessions-and-revocation", "docs/oauth-and-account-lifecycle.md#logout-outcome-and-recovery"],
+        "x-fga-schema-status": "closed",
+        "responses": {"204": {"$ref": "#/components/responses/LoggedOut"}, "503": {"$ref": "#/components/responses/Error"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/admin/sessions": {
+      "get": {
+        "operationId": "listAdministrativeSessions",
+        "summary": "List display-safe sessions for the exact principal",
+        "tags": ["Administrative session"],
+        "security": [{"browserSessionCookie": []}],
+        "parameters": [{"$ref": "#/components/parameters/AdministrativeSessionPageSize"}, {"$ref": "#/components/parameters/AdministrativeSessionPageToken"}],
+        "x-fga-source": ["docs/browser-session-lifecycle.md#concurrent-sessions-and-revocation"],
+        "x-fga-schema-status": "closed",
+        "responses": {"200": {"$ref": "#/components/responses/AdministrativeSessionPage"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/admin/sessions/{sessionId}/revocation": {
+      "parameters": [{"$ref": "#/components/parameters/SessionId"}],
+      "post": {
+        "operationId": "revokeAdministrativeSession",
+        "summary": "Revoke another administrative session",
+        "tags": ["Administrative session"],
+        "security": [{"browserSessionCookie": []}],
+        "parameters": [{"$ref": "#/components/parameters/BrowserSessionCsrf"}],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/SessionRevocationRequest"}}}},
+        "x-fga-csrf-required": true,
+        "x-fga-exact-origin-required": true,
+        "x-fga-recent-auth-required": true,
+        "x-fga-source": ["docs/browser-session-lifecycle.md#concurrent-sessions-and-revocation"],
+        "x-fga-schema-status": "closed",
+        "responses": {"204": {"$ref": "#/components/responses/NoContent"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "403": {"$ref": "#/components/responses/Error"}, "409": {"$ref": "#/components/responses/Error"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/admin/sessions/revoke-others": {
+      "post": {
+        "operationId": "revokeOtherAdministrativeSessions",
+        "summary": "Revoke every other administrative session for the principal",
+        "tags": ["Administrative session"],
+        "security": [{"browserSessionCookie": []}],
+        "parameters": [{"$ref": "#/components/parameters/BrowserSessionCsrf"}],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/OtherSessionsRevocationRequest"}}}},
+        "x-fga-csrf-required": true,
+        "x-fga-exact-origin-required": true,
+        "x-fga-recent-auth-required": true,
+        "x-fga-source": ["docs/browser-session-lifecycle.md#concurrent-sessions-and-revocation"],
+        "x-fga-schema-status": "closed",
+        "responses": {"204": {"$ref": "#/components/responses/NoContent"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "403": {"$ref": "#/components/responses/Error"}, "409": {"$ref": "#/components/responses/Error"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/admin/flickr-connection": {
+      "get": {
+        "operationId": "readAdministrativeFlickrConnection",
+        "summary": "Read sanitized linked-Flickr state",
+        "tags": ["Administrative Flickr connection"],
+        "security": [{"browserSessionCookie": []}],
+        "x-fga-source": ["docs/oauth-and-account-lifecycle.md#link-and-relink"],
+        "x-fga-schema-status": "not_closed",
+        "responses": {"200": {"$ref": "#/components/responses/UnclosedAdministrativeRepresentation"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/admin/flickr-connection/authorization": {
+      "post": {
+        "operationId": "startAdministrativeFlickrAuthorization",
+        "summary": "Start or replace the private Flickr OAuth 1.0a grant",
+        "tags": ["Administrative Flickr connection"],
+        "security": [{"browserSessionCookie": []}],
+        "parameters": [{"$ref": "#/components/parameters/BrowserSessionCsrf"}],
+        "x-fga-csrf-required": true,
+        "x-fga-source": ["docs/oauth-and-account-lifecycle.md#link-and-relink"],
+        "x-fga-schema-status": "not_closed",
+        "responses": {"303": {"$ref": "#/components/responses/FlickrAuthorizationRedirect"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/admin/flickr-connection/disconnection": {
+      "post": {
+        "operationId": "disconnectAdministrativeFlickrConnection",
+        "summary": "Disconnect the linked Flickr grant locally and pause writes",
+        "tags": ["Administrative Flickr connection"],
+        "security": [{"browserSessionCookie": []}],
+        "parameters": [{"$ref": "#/components/parameters/BrowserSessionCsrf"}],
+        "x-fga-csrf-required": true,
+        "x-fga-source": ["docs/oauth-and-account-lifecycle.md#local-disconnect-and-flickr-side-removal"],
+        "x-fga-schema-status": "not_closed",
+        "responses": {"2XX": {"$ref": "#/components/responses/UnclosedAdministrativeRepresentation"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/plugin-codes": {
+      "get": {
+        "operationId": "listPluginCodes",
+        "summary": "List the authenticated user's display-safe Plugin Code records",
+        "description": "Ownership is selected only by the internal fgaUserId in the validated FGA browser session; email is never an ownership selector. The audit event must be durable before a successful response releases metadata.",
+        "tags": ["Plugin Codes"],
+        "security": [{"browserSessionCookie": []}],
+        "parameters": [{"$ref": "#/components/parameters/OptionalPageSize"}, {"$ref": "#/components/parameters/PluginCodePageToken"}],
+        "x-fga-source": ["docs/decisions/0040-expose-plugin-codes-as-user-resources.md#decision", "docs/decisions/0041-use-clean-room-authentication-tabs-as-interaction-authority.md#decision", "docs/installation-credential-lifecycle.md#initial-issuance-and-endpoint-storage"],
+        "x-fga-audit": "durable_before_success_response",
+        "x-fga-schema-status": "not_closed",
+        "responses": {"200": {"$ref": "#/components/responses/UnclosedBrowserRepresentation"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "default": {"$ref": "#/components/responses/Error"}}
+      },
+      "post": {
+        "operationId": "createPluginCode",
+        "summary": "Create one Plugin Code and reveal its plaintext exactly once",
+        "tags": ["Plugin Codes"],
+        "security": [{"browserSessionCookie": []}],
+        "parameters": [{"$ref": "#/components/parameters/BrowserSessionCsrf"}],
+        "x-fga-csrf-required": true,
+        "x-fga-exact-origin-required": true,
+        "x-fga-recent-auth-required": true,
+        "x-fga-audit": "same_database_transaction",
+        "x-fga-source": ["docs/decisions/0040-expose-plugin-codes-as-user-resources.md#decision", "docs/decisions/0041-use-clean-room-authentication-tabs-as-interaction-authority.md#decision", "docs/decisions/0044-use-canonical-crockford-base32-plugin-codes.md#decision", "docs/private-install-credential-transfer.md#creation-response-and-transfer-view", "docs/installation-credential-lifecycle.md#initial-issuance-and-endpoint-storage"],
+        "x-fga-schema-status": "not_closed",
+        "responses": {"201": {"$ref": "#/components/responses/PluginCodeCreated"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/plugin-codes/{pluginCodeId}": {
+      "parameters": [{"$ref": "#/components/parameters/PluginCodeId"}],
+      "patch": {
+        "operationId": "revokePluginCode",
+        "summary": "Move one active Plugin Code record to the revoked state",
+        "tags": ["Plugin Codes"],
+        "security": [{"browserSessionCookie": []}],
+        "parameters": [{"$ref": "#/components/parameters/BrowserSessionCsrf"}, {"$ref": "#/components/parameters/PluginCodeIfMatch"}],
+        "requestBody": {
+          "required": true,
+          "content": {"application/merge-patch+json": {"schema": {"$ref": "#/components/schemas/PluginCodeStatePatch"}}}
+        },
+        "x-fga-csrf-required": true,
+        "x-fga-exact-origin-required": true,
+        "x-fga-recent-auth-required": true,
+        "x-fga-audit": "same_database_transaction",
+        "x-fga-source": ["docs/decisions/0040-expose-plugin-codes-as-user-resources.md#decision", "docs/decisions/0041-use-clean-room-authentication-tabs-as-interaction-authority.md#decision", "docs/installation-credential-lifecycle.md#revocation"],
+        "x-fga-schema-status": "not_closed",
+        "responses": {"200": {"$ref": "#/components/responses/UnclosedBrowserRepresentation"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "404": {"$ref": "#/components/responses/Error"}, "412": {"$ref": "#/components/responses/Error"}, "415": {"$ref": "#/components/responses/Error"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/admin/group-submission-intents": {
+      "get": {
+        "operationId": "listAdministrativeGroupSubmissionIntents",
+        "summary": "Read one administrative intent-status page",
+        "tags": ["Administrative operations", "Group submissions"],
+        "security": [{"browserSessionCookie": []}],
+        "parameters": [{"$ref": "#/components/parameters/StatusView"}, {"$ref": "#/components/parameters/PhotoBindingFilter"}, {"$ref": "#/components/parameters/OptionalPageSize"}, {"$ref": "#/components/parameters/BeforeCreatedAt"}, {"$ref": "#/components/parameters/BeforeIntentId"}],
+        "x-fga-source": ["docs/queue-status-api.md#collection-query", "docs/queue-status-api.md#collection-response"],
+        "x-fga-schema-status": "closed",
+        "responses": {"200": {"$ref": "#/components/responses/IntentPage"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "404": {"$ref": "#/components/responses/Error"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/admin/group-submission-intents/{submissionIntentId}": {
+      "parameters": [{"$ref": "#/components/parameters/SubmissionIntentId"}],
+      "get": {
+        "operationId": "readAdministrativeGroupSubmissionIntent",
+        "summary": "Read one administrative intent representation",
+        "tags": ["Administrative operations", "Group submissions"],
+        "security": [{"browserSessionCookie": []}],
+        "x-fga-source": ["docs/queue-status-api.md#intent-representation"],
+        "x-fga-schema-status": "closed",
+        "responses": {"200": {"$ref": "#/components/responses/IntentItem"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "404": {"$ref": "#/components/responses/Error"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/admin/flickr-write-gates": {
+      "get": {
+        "operationId": "listAdministrativeFlickrWriteGates",
+        "summary": "Read sanitized linked-user and deployment Flickr write gates",
+        "tags": ["Administrative operations"],
+        "security": [{"browserSessionCookie": []}],
+        "x-fga-source": ["docs/decisions/0013-durable-flickr-write-circuit-breaker.md"],
+        "x-fga-schema-status": "not_closed",
+        "responses": {"200": {"$ref": "#/components/responses/UnclosedAdministrativeRepresentation"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/admin/flickr-write-gates/{gateId}/resume": {
+      "parameters": [{"$ref": "#/components/parameters/GateId"}],
+      "post": {
+        "operationId": "resumeAdministrativeFlickrWriteGate",
+        "summary": "Attempt non-mutating verification and compare-and-set gate resume",
+        "description": "This operation offers no bypass. It resumes only after the controlling contract's verification succeeds against the expected revision.",
+        "tags": ["Administrative operations"],
+        "security": [{"browserSessionCookie": []}],
+        "parameters": [{"$ref": "#/components/parameters/BrowserSessionCsrf"}],
+        "x-fga-csrf-required": true,
+        "x-fga-source": ["docs/decisions/0013-durable-flickr-write-circuit-breaker.md"],
+        "x-fga-schema-status": "not_closed",
+        "responses": {"2XX": {"$ref": "#/components/responses/UnclosedAdministrativeRepresentation"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    },
+    "/api/v001/admin/audit-events": {
+      "get": {
+        "operationId": "listAdministrativeAuditEvents",
+        "summary": "Read a bounded reverse-chronological audit-event page",
+        "tags": ["Administrative operations"],
+        "security": [{"browserSessionCookie": []}],
+        "description": "The collection uses an opaque cursor and excludes secret values and request bodies. Exact query and representation schemas remain to be closed.",
+        "x-fga-source": ["docs/administrative-control-plane-contract.md#authorized-operation-allowlist"],
+        "x-fga-schema-status": "not_closed",
+        "responses": {"200": {"$ref": "#/components/responses/UnclosedAdministrativeRepresentation"}, "401": {"$ref": "#/components/responses/BrowserSessionAuthenticationFailure"}, "default": {"$ref": "#/components/responses/Error"}}
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "installationBearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "canonical grouped Crockford Base32 FGA installation credential",
+        "description": "Exact 64-character installation-scoped Bearer credential from ADR 0044. The server-assigned lrc_plugin class has an exhaustive method/path allowlist."
+      },
+      "browserSessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "__Host-fga_admin",
+        "description": "Google-authenticated opaque server-side FGA browser session. The cookie is host-only, Secure, HttpOnly, SameSite=Strict, and has a non-sliding 24-hour absolute lifetime. State-changing operations also require exact-origin and session-bound CSRF validation; administrative routes apply their separate owner policy after session authentication."
+      }
+    },
+    "parameters": {
+      "RequiredPageSize": {"name": "page_size", "in": "query", "required": true, "schema": {"type": "integer", "minimum": 1, "maximum": 100}},
+      "OptionalPageSize": {"name": "page_size", "in": "query", "required": false, "schema": {"type": "integer", "minimum": 1, "maximum": 100, "default": 50}},
+      "PageNumber": {"name": "page", "in": "query", "required": true, "schema": {"type": "integer", "minimum": 1}},
+      "SnapshotRevision": {"name": "snapshot_revision", "in": "query", "required": false, "description": "Required together with after_group_id on a continuation.", "schema": {"$ref": "#/components/schemas/Revision"}},
+      "ObservationRevision": {"name": "observation_revision", "in": "query", "required": false, "description": "Required together with after_group_id on a continuation.", "schema": {"$ref": "#/components/schemas/Revision"}},
+      "AfterGroupId": {"name": "after_group_id", "in": "query", "required": false, "description": "Exact keyset boundary returned by the prior page; paired with the applicable revision.", "schema": {"$ref": "#/components/schemas/OpaqueId"}},
+      "StatusView": {"name": "view", "in": "query", "required": false, "schema": {"type": "string", "enum": ["active", "attention", "history"], "default": "active"}},
+      "PhotoBindingFilter": {"name": "photo_binding_id", "in": "query", "required": false, "schema": {"$ref": "#/components/schemas/OpaqueId"}},
+      "BeforeCreatedAt": {"name": "before_created_at", "in": "query", "required": false, "description": "Required together with before_intent_id.", "schema": {"$ref": "#/components/schemas/PreciseTimestamp"}},
+      "BeforeIntentId": {"name": "before_intent_id", "in": "query", "required": false, "description": "Required together with before_created_at.", "schema": {"$ref": "#/components/schemas/OpaqueId"}},
+      "PhotoBindingId": {"name": "photoBindingId", "in": "path", "required": true, "schema": {"$ref": "#/components/schemas/OpaqueId"}},
+      "UploadAuthorizationId": {"name": "uploadAuthorizationId", "in": "path", "required": true, "schema": {"$ref": "#/components/schemas/OpaqueId"}},
+      "SubmissionIntentId": {"name": "submissionIntentId", "in": "path", "required": true, "schema": {"$ref": "#/components/schemas/OpaqueId"}},
+      "SessionId": {"name": "sessionId", "in": "path", "required": true, "schema": {"$ref": "#/components/schemas/OpaqueId"}},
+      "AdministrativeSessionPageSize": {"name": "page_size", "in": "query", "required": false, "schema": {"type": "integer", "minimum": 1, "maximum": 50, "default": 50}},
+      "AdministrativeSessionPageToken": {"name": "page_token", "in": "query", "required": false, "description": "Opaque continuation token bound to the current FGA user and session query; conveys position only.", "schema": {"type": "string", "minLength": 1}},
+      "PluginCodeId": {"name": "pluginCodeId", "in": "path", "required": true, "description": "Opaque non-secret identifier for one Plugin Code record; never the Plugin Code, its prefix, or its digest.", "schema": {"$ref": "#/components/schemas/OpaqueId"}},
+      "PluginCodePageToken": {"name": "page_token", "in": "query", "required": false, "description": "Opaque continuation token from nextPageToken. It conveys position only, is bound to the authenticated user and unchanged query, and grants no authority.", "schema": {"type": "string", "minLength": 1}},
+      "PluginCodeIfMatch": {"name": "If-Match", "in": "header", "required": true, "description": "Strong validator for the current Plugin Code representation.", "schema": {"type": "string", "minLength": 1}},
+      "GateId": {"name": "gateId", "in": "path", "required": true, "schema": {"$ref": "#/components/schemas/OpaqueId"}},
+      "BrowserSessionCsrf": {"name": "X-CSRF-Token", "in": "header", "required": true, "description": "Per-session 256-bit base64url synchronizer token paired with exact-origin validation; not an authentication substitute.", "schema": {"$ref": "#/components/schemas/Random256Base64Url"}}
+    },
+    "headers": {
+      "NoStore": {"description": "Every response in these private/status namespaces is non-cacheable.", "schema": {"type": "string", "const": "no-store"}},
+      "RetryAfter": {"description": "Minimum delay before the operation-specific safe retry.", "schema": {"type": "integer", "minimum": 1}},
+      "Authenticate": {"description": "Bearer challenge for installation authentication only.", "schema": {"type": "string"}},
+      "Location": {"description": "Fixed Flickr authorization-origin redirect.", "schema": {"type": "string", "format": "uri"}},
+      "ExpiredBrowserSessionCookie": {"description": "Fixed expiration of __Host-fga_admin after durable logout revocation.", "schema": {"type": "string"}}
+    },
+    "responses": {
+      "Error": {"description": "Stable sanitized FGA error; the operation-specific contract controls retry authority.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}, "Retry-After": {"$ref": "#/components/headers/RetryAfter"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}},
+      "BearerAuthenticationFailure": {"description": "Missing authentication has an empty body and bare Bearer challenge; a presented malformed or invalid credential uses the stable sanitized error contract. No response distinguishes invalid-token causes.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}, "WWW-Authenticate": {"$ref": "#/components/headers/Authenticate"}}},
+      "BrowserSessionAuthenticationFailure": {"description": "Non-oracular FGA browser-session JSON authentication failure; never a Bearer challenge.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}},
+      "HealthOk": {"description": "Coarse public health success.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HealthOk"}}}},
+      "HealthUnavailable": {"description": "Startup has not established safe service yet.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HealthUnavailable"}}}},
+      "HealthHeadOk": {"description": "Coarse health success with no body.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}},
+      "HealthHeadUnavailable": {"description": "Startup unavailable with no body.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}},
+      "CurrentInstallation": {"description": "Current installation represented by the presented credential.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CurrentInstallation"}}}},
+      "GroupPage": {"description": "One keyset page from a complete current group snapshot.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/GroupPage"}}}},
+      "ExistingPublicPhotoPage": {"description": "One completely validated advisory Flickr photo page.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ExistingPublicPhotoPage"}}}},
+      "PhotoBinding": {"description": "Verified common hosted photo binding.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/PhotoBinding"}}}},
+      "MembershipPage": {"description": "One page from a fresh complete Flickr pool-membership observation.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/MembershipPage"}}}},
+      "UploadAuthorization": {"description": "Sensitive one-use direct-upload signing envelope; never persisted or logged by the client.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/UploadAuthorization"}}}},
+      "GroupSubmissionBatch": {"description": "Durably committed intent snapshots; not evidence that Flickr added any photo.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/GroupSubmissionBatchResponse"}}}},
+      "IntentPage": {"description": "One no-side-effect intent-status page.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/IntentPage"}}}},
+      "IntentItem": {"description": "One no-side-effect intent-status representation.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/IntentItem"}}}},
+      "Deployment": {"description": "Sanitized authenticated deployment representation.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Deployment"}}}},
+      "CurrentAdministrativeSession": {"description": "Display-safe current-session state and the in-memory synchronizer token.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CurrentAdministrativeSession"}}}},
+      "ReauthenticationTransaction": {"description": "One five-minute GIS state/nonce transaction returned once.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ReauthenticationTransaction"}}}},
+      "AdministrativeSessionPage": {"description": "One bounded reverse-chronological page of display-safe sessions.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/AdministrativeSessionPage"}}}},
+      "NoContent": {"description": "The requested idempotent state transition has a known durable outcome and no body.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}},
+      "LoggedOut": {"description": "Durable current-session revocation committed; empty response.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}, "Set-Cookie": {"$ref": "#/components/headers/ExpiredBrowserSessionCookie"}}},
+      "FlickrAuthorizationRedirect": {"description": "Redirect only to Flickr's fixed authorization origin.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}, "Location": {"$ref": "#/components/headers/Location"}}},
+      "PluginCodeCreated": {"description": "One newly committed Plugin Code whose canonical plaintext is returned exactly once.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/PluginCodeCreation"}}}},
+      "UnclosedAdministrativeRepresentation": {"description": "No-store administrative result whose exact request/status/representation schema remains to be closed in the named controlling contract; this projection deliberately invents no payload.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}},
+      "UnclosedBrowserRepresentation": {"description": "No-store FGA User API result whose exact request/status/representation schema remains to be closed in the named controlling contract; this projection deliberately invents no payload.", "headers": {"Cache-Control": {"$ref": "#/components/headers/NoStore"}}}
+    },
+    "schemas": {
+      "OpaqueId": {"type": "string", "minLength": 1, "description": "Opaque identifier; clients do not parse, increment, or derive authority from its spelling."},
+      "Random256Base64Url": {"type": "string", "pattern": "^[A-Za-z0-9_-]{43}$", "description": "Canonical RFC 4648 base64url without padding for exactly 256 random bits."},
+      "PluginCodeCredential": {"type": "string", "minLength": 64, "maxLength": 64, "pattern": "^[0-9A-HJKMNP-TV-Z]{4}(?:-[0-9A-HJKMNP-TV-Z]{4}){11}-[0-9A-HJKMNP-TV-Z]{3}[0G]$", "description": "ADR 0044 canonical encoding of exactly 32 random octets: 52 uppercase Crockford Base32 symbols in 13 four-symbol groups separated by ASCII hyphens. The hyphens are part of the credential; parsers perform no normalization or repair."},
+      "PluginCodeCreation": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "pluginCodeId", "pluginCode"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "pluginCodeId": {"$ref": "#/components/schemas/OpaqueId"}, "pluginCode": {"$ref": "#/components/schemas/PluginCodeCredential"}}},
+      "PluginCodeStatePatch": {"type": "object", "additionalProperties": false, "required": ["state"], "properties": {"state": {"type": "string", "const": "revoked"}}},
+      "Revision": {"type": "integer", "minimum": 1},
+      "Timestamp": {"type": "string", "format": "date-time"},
+      "PreciseTimestamp": {"type": "string", "format": "date-time", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6}Z$"},
+      "CurrentAdministrativeSession": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "sessionId", "revision", "sessionSetRevision", "createdAt", "recentAuthenticationAt", "lastActivityAt", "expiresAt", "csrfToken"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "sessionId": {"$ref": "#/components/schemas/OpaqueId"}, "revision": {"$ref": "#/components/schemas/Revision"}, "sessionSetRevision": {"$ref": "#/components/schemas/Revision"}, "createdAt": {"$ref": "#/components/schemas/Timestamp"}, "recentAuthenticationAt": {"$ref": "#/components/schemas/Timestamp"}, "lastActivityAt": {"$ref": "#/components/schemas/Timestamp"}, "expiresAt": {"$ref": "#/components/schemas/Timestamp"}, "csrfToken": {"$ref": "#/components/schemas/Random256Base64Url"}}},
+      "ReauthenticationTransaction": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "state", "nonce", "expiresAt"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "state": {"$ref": "#/components/schemas/Random256Base64Url"}, "nonce": {"$ref": "#/components/schemas/Random256Base64Url"}, "expiresAt": {"$ref": "#/components/schemas/Timestamp"}}},
+      "AdministrativeSession": {"type": "object", "additionalProperties": false, "required": ["sessionId", "revision", "createdAt", "recentAuthenticationAt", "lastActivityAt", "expiresAt", "state", "revokedAt", "isCurrent"], "properties": {"sessionId": {"$ref": "#/components/schemas/OpaqueId"}, "revision": {"$ref": "#/components/schemas/Revision"}, "createdAt": {"$ref": "#/components/schemas/Timestamp"}, "recentAuthenticationAt": {"$ref": "#/components/schemas/Timestamp"}, "lastActivityAt": {"$ref": "#/components/schemas/Timestamp"}, "expiresAt": {"$ref": "#/components/schemas/Timestamp"}, "state": {"type": "string", "enum": ["active", "expired", "revoked"]}, "revokedAt": {"type": ["string", "null"], "format": "date-time"}, "isCurrent": {"type": "boolean"}}},
+      "AdministrativeSessionPage": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "sessionSetRevision", "sessions", "nextPageToken"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "sessionSetRevision": {"$ref": "#/components/schemas/Revision"}, "sessions": {"type": "array", "items": {"$ref": "#/components/schemas/AdministrativeSession"}, "maxItems": 50}, "nextPageToken": {"type": ["string", "null"]}}},
+      "SessionRevocationRequest": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "expectedRevision"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "expectedRevision": {"$ref": "#/components/schemas/Revision"}}},
+      "OtherSessionsRevocationRequest": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "expectedSessionSetRevision", "expectedActiveOtherSessionCount"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "expectedSessionSetRevision": {"$ref": "#/components/schemas/Revision"}, "expectedActiveOtherSessionCount": {"type": "integer", "minimum": 0}}},
+      "ErrorResponse": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "error"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "error": {"$ref": "#/components/schemas/ErrorDetail"}}},
+      "ErrorDetail": {"type": "object", "additionalProperties": false, "required": ["code", "message", "retryable", "correlationId"], "properties": {"code": {"type": "string", "minLength": 1}, "message": {"type": "string", "minLength": 1}, "retryable": {"type": "boolean"}, "correlationId": {"$ref": "#/components/schemas/OpaqueId"}}},
+      "HealthOk": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "status"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "status": {"type": "string", "const": "ok"}}},
+      "HealthUnavailable": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "status"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "status": {"type": "string", "const": "unavailable"}}},
+      "CurrentInstallation": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "installationId", "installationRevision", "installationState", "presentedCredentialState"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "installationId": {"$ref": "#/components/schemas/OpaqueId"}, "installationRevision": {"$ref": "#/components/schemas/Revision"}, "installationState": {"type": "string", "const": "active"}, "presentedCredentialState": {"type": "string", "enum": ["current", "pending_rotation"]}}},
+      "Group": {"type": "object", "additionalProperties": false, "required": ["flickrGroupId", "displayName"], "properties": {"flickrGroupId": {"$ref": "#/components/schemas/OpaqueId"}, "displayName": {"type": "string"}}},
+      "GroupPage": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "snapshotRevision", "refreshedAt", "snapshotStatus", "groups", "nextAfterGroupId"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "snapshotRevision": {"$ref": "#/components/schemas/Revision"}, "refreshedAt": {"$ref": "#/components/schemas/Timestamp"}, "snapshotStatus": {"type": "string", "enum": ["fresh", "stale_refreshing", "stale_refresh_failed"]}, "refreshFailedAt": {"$ref": "#/components/schemas/Timestamp"}, "groups": {"type": "array", "items": {"$ref": "#/components/schemas/Group"}, "maxItems": 100}, "nextAfterGroupId": {"type": ["string", "null"]}}},
+      "Thumbnail": {"type": "object", "additionalProperties": false, "required": ["url", "sizeClass"], "properties": {"url": {"type": "string", "format": "uri", "pattern": "^https://"}, "sizeClass": {"type": "string", "const": "q"}}},
+      "ExistingPublicPhoto": {"type": "object", "additionalProperties": false, "required": ["flickrPhotoId", "title", "dateUploaded", "dateTaken", "thumbnail"], "properties": {"flickrPhotoId": {"$ref": "#/components/schemas/OpaqueId"}, "title": {"type": "string"}, "dateUploaded": {"type": "string", "pattern": "^[0-9]+$"}, "dateTaken": {"type": ["string", "null"]}, "thumbnail": {"$ref": "#/components/schemas/Thumbnail"}}},
+      "ExistingPublicPhotoPage": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "linkedFlickrRevision", "observedAt", "page", "pageSize", "pages", "total", "photos"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "linkedFlickrRevision": {"$ref": "#/components/schemas/Revision"}, "observedAt": {"$ref": "#/components/schemas/PreciseTimestamp"}, "page": {"type": "integer", "minimum": 1}, "pageSize": {"type": "integer", "minimum": 1, "maximum": 100}, "pages": {"type": "integer", "minimum": 0}, "total": {"type": "integer", "minimum": 0}, "photos": {"type": "array", "items": {"$ref": "#/components/schemas/ExistingPublicPhoto"}, "maxItems": 100}}},
+      "ExistingPublicPhotoBindingRequest": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "flickrPhotoId", "expectedLinkedFlickrRevision"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "flickrPhotoId": {"$ref": "#/components/schemas/OpaqueId"}, "expectedLinkedFlickrRevision": {"$ref": "#/components/schemas/Revision"}}},
+      "PhotoBindingRequest": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "flickrPhotoId"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "flickrPhotoId": {"$ref": "#/components/schemas/OpaqueId"}}},
+      "PhotoBinding": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "fgaPhotoBindingId", "sourceKind", "flickrPhotoId", "linkedFlickrRevision", "verificationRevision", "verifiedAt"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "fgaPhotoBindingId": {"$ref": "#/components/schemas/OpaqueId"}, "sourceKind": {"type": "string", "enum": ["fga_direct_upload", "existing_public_flickr_photo", "photographer_reconciled_ambiguous_upload"]}, "flickrPhotoId": {"$ref": "#/components/schemas/OpaqueId"}, "linkedFlickrRevision": {"$ref": "#/components/schemas/Revision"}, "verificationRevision": {"$ref": "#/components/schemas/Revision"}, "verifiedAt": {"$ref": "#/components/schemas/PreciseTimestamp"}}},
+      "MembershipPage": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "fgaPhotoBindingId", "flickrPhotoId", "observationRevision", "observedAt", "groups", "nextAfterGroupId"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "fgaPhotoBindingId": {"$ref": "#/components/schemas/OpaqueId"}, "flickrPhotoId": {"$ref": "#/components/schemas/OpaqueId"}, "observationRevision": {"$ref": "#/components/schemas/Revision"}, "observedAt": {"$ref": "#/components/schemas/Timestamp"}, "groups": {"type": "array", "items": {"$ref": "#/components/schemas/Group"}, "maxItems": 100}, "nextAfterGroupId": {"type": ["string", "null"]}}},
+      "FlickrUploadMetadataRequest": {"type": "object", "additionalProperties": false, "required": ["is_public", "is_friend", "is_family", "safety_level", "content_type", "hidden"], "properties": {"title": {"type": "string"}, "description": {"type": "string"}, "tags": {"type": "string"}, "is_public": {"type": "string", "enum": ["0", "1"]}, "is_friend": {"type": "string", "enum": ["0", "1"]}, "is_family": {"type": "string", "enum": ["0", "1"]}, "safety_level": {"type": "string", "enum": ["1", "2", "3"]}, "content_type": {"type": "string", "enum": ["1", "2", "3"]}, "hidden": {"type": "string", "enum": ["1", "2"]}}},
+      "UploadAuthorizationRequest": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "flickrMetadata"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "flickrMetadata": {"$ref": "#/components/schemas/FlickrUploadMetadataRequest"}}},
+      "SignedFlickrUploadMetadata": {"type": "object", "additionalProperties": false, "required": ["api_key", "is_public", "is_friend", "is_family", "safety_level", "content_type", "hidden"], "properties": {"api_key": {"type": "string", "minLength": 1}, "title": {"type": "string"}, "description": {"type": "string"}, "tags": {"type": "string"}, "is_public": {"type": "string", "enum": ["0", "1"]}, "is_friend": {"type": "string", "enum": ["0", "1"]}, "is_family": {"type": "string", "enum": ["0", "1"]}, "safety_level": {"type": "string", "enum": ["1", "2", "3"]}, "content_type": {"type": "string", "enum": ["1", "2", "3"]}, "hidden": {"type": "string", "enum": ["1", "2"]}}},
+      "UploadAuthorization": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "fgaUploadAuthorizationId", "issuedAt", "uploadUrl", "authorizationHeader", "flickrMetadata"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "fgaUploadAuthorizationId": {"$ref": "#/components/schemas/OpaqueId"}, "issuedAt": {"$ref": "#/components/schemas/Timestamp"}, "uploadUrl": {"type": "string", "const": "https://up.flickr.com/services/upload/"}, "authorizationHeader": {"type": "string", "minLength": 1, "x-fga-sensitive": true}, "flickrMetadata": {"$ref": "#/components/schemas/SignedFlickrUploadMetadata"}}},
+      "PhotoBindingReference": {"type": "object", "additionalProperties": false, "required": ["fgaPhotoBindingId", "expectedVerificationRevision"], "properties": {"fgaPhotoBindingId": {"$ref": "#/components/schemas/OpaqueId"}, "expectedVerificationRevision": {"$ref": "#/components/schemas/Revision"}}},
+      "GroupSubmissionBatchRequest": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "photoBinding", "flickrGroupIds"], "properties": {"schemaVersion": {"type": "integer", "const": 2}, "photoBinding": {"$ref": "#/components/schemas/PhotoBindingReference"}, "flickrGroupIds": {"type": "array", "minItems": 1, "maxItems": 60, "uniqueItems": true, "items": {"$ref": "#/components/schemas/OpaqueId"}}}},
+      "IntentState": {"type": "string", "enum": ["queued", "attempting", "retrying", "throttled", "added", "moderation_submitted", "delivery_uncertain", "needs_attention", "cancelled"]},
+      "PermanentSubmissionBlock": {"type": "object", "additionalProperties": false, "required": ["reasonCode", "createdAt"], "properties": {"reasonCode": {"type": "string", "minLength": 1}, "createdAt": {"$ref": "#/components/schemas/PreciseTimestamp"}}},
+      "BatchSubmission": {"type": "object", "additionalProperties": false, "required": ["fgaSubmissionIntentId", "flickrGroupId", "state", "created", "permanentSubmissionBlock"], "properties": {"fgaSubmissionIntentId": {"$ref": "#/components/schemas/OpaqueId"}, "flickrGroupId": {"$ref": "#/components/schemas/OpaqueId"}, "state": {"$ref": "#/components/schemas/IntentState"}, "created": {"type": "boolean"}, "permanentSubmissionBlock": {"oneOf": [{"$ref": "#/components/schemas/PermanentSubmissionBlock"}, {"type": "null"}]}}},
+      "GroupSubmissionBatchResponse": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "fgaPhotoBindingId", "flickrPhotoId", "submissions"], "properties": {"schemaVersion": {"type": "integer", "const": 2}, "fgaPhotoBindingId": {"$ref": "#/components/schemas/OpaqueId"}, "flickrPhotoId": {"$ref": "#/components/schemas/OpaqueId"}, "submissions": {"type": "array", "minItems": 1, "maxItems": 60, "items": {"$ref": "#/components/schemas/BatchSubmission"}}}},
+      "GateProjection": {"type": "object", "additionalProperties": false, "required": ["scope", "state", "revision", "pausedAt", "reasonCode", "affectedActiveIntentCount"], "properties": {"scope": {"type": "string", "enum": ["user", "deployment"]}, "state": {"type": "string", "enum": ["enabled", "paused"]}, "revision": {"$ref": "#/components/schemas/Revision"}, "pausedAt": {"oneOf": [{"$ref": "#/components/schemas/PreciseTimestamp"}, {"type": "null"}]}, "reasonCode": {"type": ["string", "null"]}, "affectedActiveIntentCount": {"type": "integer", "minimum": 0}}},
+      "StatusSummary": {"type": "object", "additionalProperties": false, "required": ["activeIntentCount", "activePartitionCount", "attentionIntentCount", "oldestActiveEnqueuedAt", "writeGates"], "properties": {"activeIntentCount": {"type": "integer", "minimum": 0}, "activePartitionCount": {"type": "integer", "minimum": 0}, "attentionIntentCount": {"type": "integer", "minimum": 0}, "oldestActiveEnqueuedAt": {"oneOf": [{"$ref": "#/components/schemas/PreciseTimestamp"}, {"type": "null"}]}, "writeGates": {"type": "array", "items": {"$ref": "#/components/schemas/GateProjection"}, "maxItems": 2}}},
+      "IntentQueue": {"type": "object", "additionalProperties": false, "required": ["isPartitionHead", "activeAheadInPartition", "nextWorkNotBefore", "holds"], "properties": {"isPartitionHead": {"type": "boolean"}, "activeAheadInPartition": {"type": "integer", "minimum": 0}, "nextWorkNotBefore": {"description": "Advisory database lower bound for head work at observedAt; null for a non-head or an attempt already in progress. This is not an ETA or scheduler-cadence promise.", "oneOf": [{"$ref": "#/components/schemas/PreciseTimestamp"}, {"type": "null"}]}, "holds": {"type": "array", "uniqueItems": true, "items": {"type": "string", "enum": ["user_flickr_write_gate_paused", "deployment_flickr_write_gate_paused"]}}}},
+      "LastOutcome": {"type": "object", "additionalProperties": false, "required": ["reasonCode", "flickrResultCode", "observedAt", "correlationId"], "properties": {"reasonCode": {"type": "string", "minLength": 1}, "flickrResultCode": {"type": ["integer", "null"]}, "observedAt": {"$ref": "#/components/schemas/PreciseTimestamp"}, "correlationId": {"$ref": "#/components/schemas/OpaqueId"}}},
+      "Attention": {"type": "object", "additionalProperties": false, "required": ["kind", "reasonCode", "occurredAt", "operatorAction", "fgaResubmissionAllowed"], "properties": {"kind": {"type": "string", "enum": ["needs_attention", "delivery_uncertain"]}, "reasonCode": {"type": "string", "minLength": 1}, "occurredAt": {"$ref": "#/components/schemas/PreciseTimestamp"}, "operatorAction": {"type": "string", "minLength": 1}, "fgaResubmissionAllowed": {"type": "boolean", "const": false}}},
+      "SubmissionIntent": {"type": "object", "additionalProperties": false, "required": ["fgaSubmissionIntentId", "fgaPhotoBindingId", "flickrPhotoId", "flickrGroupId", "groupDisplayName", "groupDisplayNameObservedAt", "state", "stateRevision", "createdAt", "stateChangedAt", "terminalAt", "attemptCount", "queue", "lastOutcome", "permanentSubmissionBlock", "attention"], "properties": {"fgaSubmissionIntentId": {"$ref": "#/components/schemas/OpaqueId"}, "fgaPhotoBindingId": {"$ref": "#/components/schemas/OpaqueId"}, "flickrPhotoId": {"$ref": "#/components/schemas/OpaqueId"}, "flickrGroupId": {"$ref": "#/components/schemas/OpaqueId"}, "groupDisplayName": {"type": ["string", "null"]}, "groupDisplayNameObservedAt": {"oneOf": [{"$ref": "#/components/schemas/PreciseTimestamp"}, {"type": "null"}]}, "state": {"$ref": "#/components/schemas/IntentState"}, "stateRevision": {"$ref": "#/components/schemas/Revision"}, "createdAt": {"$ref": "#/components/schemas/PreciseTimestamp"}, "stateChangedAt": {"$ref": "#/components/schemas/PreciseTimestamp"}, "terminalAt": {"oneOf": [{"$ref": "#/components/schemas/PreciseTimestamp"}, {"type": "null"}]}, "attemptCount": {"type": "integer", "minimum": 0}, "queue": {"oneOf": [{"$ref": "#/components/schemas/IntentQueue"}, {"type": "null"}]}, "lastOutcome": {"oneOf": [{"$ref": "#/components/schemas/LastOutcome"}, {"type": "null"}]}, "permanentSubmissionBlock": {"oneOf": [{"$ref": "#/components/schemas/PermanentSubmissionBlock"}, {"type": "null"}]}, "attention": {"oneOf": [{"$ref": "#/components/schemas/Attention"}, {"type": "null"}]}}},
+      "NextPage": {"type": "object", "additionalProperties": false, "required": ["beforeCreatedAt", "beforeIntentId"], "properties": {"beforeCreatedAt": {"$ref": "#/components/schemas/PreciseTimestamp"}, "beforeIntentId": {"$ref": "#/components/schemas/OpaqueId"}}},
+      "IntentPage": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "observedAt", "view", "pageSize", "photoBindingId", "summary", "intents", "nextPage", "recommendedPollAfterSeconds"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "observedAt": {"$ref": "#/components/schemas/PreciseTimestamp"}, "view": {"type": "string", "enum": ["active", "attention", "history"]}, "pageSize": {"type": "integer", "minimum": 1, "maximum": 100}, "photoBindingId": {"type": ["string", "null"]}, "summary": {"$ref": "#/components/schemas/StatusSummary"}, "intents": {"type": "array", "items": {"$ref": "#/components/schemas/SubmissionIntent"}, "maxItems": 100}, "nextPage": {"oneOf": [{"$ref": "#/components/schemas/NextPage"}, {"type": "null"}]}, "recommendedPollAfterSeconds": {"description": "Minimum client read interval only; never worker cadence or an ETA.", "type": ["integer", "null"], "enum": [15, 60, null]}}},
+      "IntentItem": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "observedAt", "intent", "writeGates", "recommendedPollAfterSeconds"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "observedAt": {"$ref": "#/components/schemas/PreciseTimestamp"}, "intent": {"$ref": "#/components/schemas/SubmissionIntent"}, "writeGates": {"type": "array", "items": {"$ref": "#/components/schemas/GateProjection"}, "maxItems": 2}, "recommendedPollAfterSeconds": {"description": "Minimum client read interval only; never worker cadence or an ETA.", "type": ["integer", "null"], "enum": [15, 60, null]}}},
+      "DeploymentCheck": {"type": "object", "additionalProperties": false, "required": ["id", "status"], "properties": {"id": {"type": "string", "enum": ["application", "database"]}, "status": {"type": "string", "enum": ["ok", "degraded", "unavailable"]}}},
+      "Deployment": {"type": "object", "additionalProperties": false, "required": ["schemaVersion", "environment", "buildId", "imageDigest", "cloudRunRevision", "routeInventoryDigest", "databaseMigrationHead", "startedAt", "observedAt", "checks"], "properties": {"schemaVersion": {"type": "integer", "const": 1}, "environment": {"type": "string", "enum": ["production", "preview"]}, "buildId": {"type": "string", "minLength": 1}, "imageDigest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}, "cloudRunRevision": {"type": "string", "minLength": 1}, "routeInventoryDigest": {"type": "string", "pattern": "^[0-9A-Fa-f]{64}$", "description": "Hex SHA2-256 digest."}, "databaseMigrationHead": {"type": "string", "minLength": 1}, "startedAt": {"$ref": "#/components/schemas/Timestamp"}, "observedAt": {"$ref": "#/components/schemas/Timestamp"}, "checks": {"type": "array", "prefixItems": [{"allOf": [{"$ref": "#/components/schemas/DeploymentCheck"}], "properties": {"id": {"const": "application"}}}, {"allOf": [{"$ref": "#/components/schemas/DeploymentCheck"}], "properties": {"id": {"const": "database"}}}], "items": false, "minItems": 2, "maxItems": 2}}}
+    }
+  }
+}

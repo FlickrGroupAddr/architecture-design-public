@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="850" viewBox="0 0 1400 850" role="img" aria-labelledby="diagram-title diagram-description">
+<title id="diagram-title">FlickrGroupAddr Plugin Code Generation</title>
+<desc id="diagram-description">The authoritative simplified happy-path interaction map for an authenticated browser listing and auditing its Plugin Code records, creating one canonical grouped FGA installation credential with an atomic audit event, and visually comparing it on the same workstation before LrC Password Store persistence.</desc>
+<defs>
+<marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse" markerUnits="strokeWidth"><path d="M 0 0 L 8 4 L 0 8 z" fill="#1A1A1A" /></marker>
+</defs>
+<rect width="100%" height="100%" fill="#FFFFFF" />
+<g font-family="Arial, Helvetica, sans-serif">
+<text x="31" y="49" font-size="21" fill="#1A1A1A" font-weight="700" text-anchor="start">
+<tspan x="31" dy="0">FlickrGroupAddr Plugin Code Generation</tspan>
+</text>
+<text x="185" y="72" font-size="15" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="185" dy="0">2026-09-03</tspan>
+</text>
+<rect x="510" y="90" width="539" height="690" fill="none" stroke="#1A1A1A" stroke-width="1.5" />
+<text x="779" y="120" font-size="15" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="779" dy="0">FGA Backend Hosting Platform (Provider Undecided)</tspan>
+</text>
+<rect x="120" y="465" width="360" height="315" fill="none" stroke="#1A1A1A" stroke-width="1.5" />
+<text x="300" y="495" font-size="15" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+</text>
+<line id="p2-user-browser" x1="123" y1="402" x2="202" y2="402" stroke="#1A1A1A" stroke-width="2.25" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<line id="p2-browser-installation-endpoint" x1="283" y1="402" x2="615" y2="402" stroke="#1A1A1A" stroke-width="2.25" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<line id="p2-endpoint-session-database" x1="724" y1="337.97" x2="724" y2="268" stroke="#1A1A1A" stroke-width="2.25" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<line id="p2-endpoint-installation-database" x1="724" y1="467.03" x2="724" y2="545.07" stroke="#1A1A1A" stroke-width="2.25" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<polyline id="p2-endpoint-audit-log" points="795,402.5 934,402.5 934,545.03" fill="none" stroke="#1A1A1A" stroke-width="2.25" marker-end="url(#arrow)" />
+<polyline id="p2-user-plugin" points="75,445 75,615 148,615" fill="none" stroke="#1A1A1A" stroke-width="2.25" marker-end="url(#arrow)" />
+<line id="p2-plugin-lrpasswords" x1="207.5" y1="656" x2="207.5" y2="691" stroke="#1A1A1A" stroke-width="2.25" marker-end="url(#arrow)" />
+<image x="35" y="355" width="80" height="95" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTYwIgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iVXNlciI+CiAgPGNpcmNsZSBjeD0iNjQiIGN5PSIzNiIgcj0iMjgiIGZpbGw9IiMxQTFBMUEiLz4KICA8cGF0aCBkPSJNMTQgMTUxYzAtMzkgMjItNjcgNTAtNjdzNTAgMjggNTAgNjd6IiBmaWxsPSIjMUExQTFBIi8+Cjwvc3ZnPg==" preserveAspectRatio="xMidYMid meet" />
+<text x="75" y="345" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="75" dy="0">User</tspan>
+</text>
+<image x="210" y="370" width="65" height="65" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIKICByb2xlPSJpbWciIGFyaWEtbGFiZWw9Ikdvb2dsZSBDaHJvbWUgQnJvd3NlciI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImNocm9tZS1yZWQiIHgxPSIzLjIxNzMiIHkxPSIxNSIgeDI9IjQ0Ljc4MTIiIHkyPSIxNSIKICAgICAgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNEOTMwMjUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRUE0MzM1Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJjaHJvbWUteWVsbG93IiB4MT0iMjAuNzIxOSIgeTE9IjQ3LjY3OTEiIHgyPSI0MS41MDM5IgogICAgICB5Mj0iMTEuNjgzNyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNGQ0M5MzQiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRkJCQzA0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJjaHJvbWUtZ3JlZW4iIHgxPSIyNi41OTgxIiB5MT0iNDYuNTAxNSIgeDI9IjUuODE2MSIKICAgICAgeTI9IjEwLjUwNiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxRThFM0UiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMzRBODUzIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjIzLjk5NDciIHI9IjEyIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHBhdGggZD0iTTMuMjE1NCAzNkEyNCAyNCAwIDEgMCAxMiAzLjIxNTQgMjQgMjQgMCAwIDAgMy4yMTU0IDM2Wk0zNC4zOTIzCiAgICAxOEExMiAxMiAwIDEgMSAxOCAxMy42MDc3IDEyIDEyIDAgMCAxIDM0LjM5MjMgMThaIiBmaWxsPSJub25lIi8+CiAgPHBhdGggZD0iTTI0IDEySDQ0Ljc4MTJBMjMuOTkzOSAyMy45OTM5IDAgMCAwIDMuMjE3MyAxMi4wMDI5TDEzLjYwNzkKICAgIDMwbC4wMDkzLS4wMDI0QTExLjk4NTIgMTEuOTg1MiAwIDAgMSAyNCAxMloiIGZpbGw9InVybCgjY2hyb21lLXJlZCkiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjI0IiByPSI5LjUiIGZpbGw9IiMxQTczRTgiLz4KICA8cGF0aCBkPSJNMzQuMzkxMyAzMC4wMDI5IDI0LjAwMDcgNDhBMjMuOTk0IDIzLjk5NCAwIDAgMCA0NC43OAogICAgMTIuMDAzMUgyMy45OTg5bC0uMDAyNS4wMDkzQTExLjk4NSAxMS45ODUgMCAwIDEgMzQuMzkxMyAzMC4wMDI5WiIKICAgIGZpbGw9InVybCgjY2hyb21lLXllbGxvdykiLz4KICA8cGF0aCBkPSJNMTMuNjA4NiAzMC4wMDMxIDMuMjE4IDEyLjAwNkEyMy45OTQgMjMuOTk0IDAgMCAwIDI0LjAwMjUKICAgIDQ4TDM0LjM5MzEgMzAuMDAyOWwtLjAwNjctLjAwNjhhMTEuOTg1MiAxMS45ODUyIDAgMCAxLTIwLjc3NzguMDA3WiIKICAgIGZpbGw9InVybCgjY2hyb21lLWdyZWVuKSIvPgo8L3N2Zz4=" preserveAspectRatio="xMidYMid meet" />
+<text x="242" y="345" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="242" dy="0">Browser</tspan>
+</text>
+<image x="623" y="335" width="180" height="135" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTAgMTM1IgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iVmVyaWZpZWQgTG9naW4gRW5kcG9pbnQiPgogIDxyZWN0IHg9IjM0IiB5PSIxMiIgd2lkdGg9IjE0NSIgaGVpZ2h0PSIxMTEiIHJ4PSIxMCIgZmlsbD0iI0ZGRkZGRiIKICAgIHN0cm9rZT0iIzFBMUExQSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPHBhdGggZD0iTTMgNjdoNjNtLTE4LTE4IDE4IDE4LTE4IDE4IiBmaWxsPSJub25lIiBzdHJva2U9IiM1NDZFN0EiCiAgICBzdHJva2Utd2lkdGg9IjkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0xMTAgMzIgMTQ2IDQ1djI3YzAgMjMtMTQgMzgtMzYgNDgtMjItMTAtMzYtMjUtMzYtNDhWNDV6IgogICAgZmlsbD0iIzAwMzA4NyIvPgogIDxwYXRoIGQ9Im05MSA3MiAxMyAxMyAyNS0yOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjgiCiAgICBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+" preserveAspectRatio="xMidYMid meet" />
+<text x="643" y="355" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="643" dy="0">FGA Plugin Code API</tspan>
+<tspan x="643" dy="12.6">GET · POST · PATCH</tspan>
+</text>
+<image x="629" y="150" width="190" height="110" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTMwIgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iS2V5IFZhbHVlIFNlc3Npb24gRGF0YWJhc2UiPgogIDxwYXRoIGQ9Ik0xMiAyNUMxMiAxMiA0NyAzIDkwIDNzNzggOSA3OCAyMnY4MGMwIDEzLTM1IDIyLTc4IDIycy03OC05LTc4LTIyeiIKICAgIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzFBMUExQSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPGVsbGlwc2UgY3g9IjkwIiBjeT0iMjUiIHJ4PSI3OCIgcnk9IjIyIiBmaWxsPSIjQ0ZEOERDIiBzdHJva2U9IiMxQTFBMUEiCiAgICBzdHJva2Utd2lkdGg9IjYiLz4KICA8cGF0aCBkPSJNMTIgNjNjMCAxMyAzNSAyMiA3OCAyMnM3OC05IDc4LTIyTTEyIDk4YzAgMTMgMzUgMjIgNzggMjJzNzgtOSA3OC0yMiIKICAgIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzU0NkU3QSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPHJlY3QgeD0iMzgiIHk9IjQ4IiB3aWR0aD0iNDQiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjMDAzMDg3Ii8+CiAgPHJlY3QgeD0iOTYiIHk9IjQ4IiB3aWR0aD0iNDYiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjNTQ2RTdBIi8+CiAgPHJlY3QgeD0iMzgiIHk9Ijg4IiB3aWR0aD0iNDQiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjMDAzMDg3Ii8+CiAgPHJlY3QgeD0iOTYiIHk9Ijg4IiB3aWR0aD0iNDYiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjNTQ2RTdBIi8+Cjwvc3ZnPg==" preserveAspectRatio="xMidYMid meet" />
+<text x="801" y="202" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="start">
+<tspan x="801" dy="0">FGA Session Database</tspan>
+<tspan x="801" dy="12.6">Key: SHA2-256(token)</tspan>
+<tspan x="801" dy="12.6">Value: FGA Session Record</tspan>
+</text>
+<image x="629" y="550" width="190" height="145" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTMwIgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iS2V5IFZhbHVlIFNlc3Npb24gRGF0YWJhc2UiPgogIDxwYXRoIGQ9Ik0xMiAyNUMxMiAxMiA0NyAzIDkwIDNzNzggOSA3OCAyMnY4MGMwIDEzLTM1IDIyLTc4IDIycy03OC05LTc4LTIyeiIKICAgIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzFBMUExQSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPGVsbGlwc2UgY3g9IjkwIiBjeT0iMjUiIHJ4PSI3OCIgcnk9IjIyIiBmaWxsPSIjQ0ZEOERDIiBzdHJva2U9IiMxQTFBMUEiCiAgICBzdHJva2Utd2lkdGg9IjYiLz4KICA8cGF0aCBkPSJNMTIgNjNjMCAxMyAzNSAyMiA3OCAyMnM3OC05IDc4LTIyTTEyIDk4YzAgMTMgMzUgMjIgNzggMjJzNzgtOSA3OC0yMiIKICAgIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzU0NkU3QSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPHJlY3QgeD0iMzgiIHk9IjQ4IiB3aWR0aD0iNDQiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjMDAzMDg3Ii8+CiAgPHJlY3QgeD0iOTYiIHk9IjQ4IiB3aWR0aD0iNDYiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjNTQ2RTdBIi8+CiAgPHJlY3QgeD0iMzgiIHk9Ijg4IiB3aWR0aD0iNDQiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjMDAzMDg3Ii8+CiAgPHJlY3QgeD0iOTYiIHk9Ijg4IiB3aWR0aD0iNDYiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjNTQ2RTdBIi8+Cjwvc3ZnPg==" preserveAspectRatio="xMidYMid meet" />
+<text x="724" y="710" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="724" dy="0">FGA Installation Records</tspan>
+<tspan x="724" dy="12.6">SHA2-256(Plugin Code)</tspan>
+<tspan x="724" dy="12.6">Installation + lrc_plugin Class</tspan>
+</text>
+<image x="849" y="543" width="170" height="145" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTMwIgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iS2V5IFZhbHVlIFNlc3Npb24gRGF0YWJhc2UiPgogIDxwYXRoIGQ9Ik0xMiAyNUMxMiAxMiA0NyAzIDkwIDNzNzggOSA3OCAyMnY4MGMwIDEzLTM1IDIyLTc4IDIycy03OC05LTc4LTIyeiIKICAgIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzFBMUExQSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPGVsbGlwc2UgY3g9IjkwIiBjeT0iMjUiIHJ4PSI3OCIgcnk9IjIyIiBmaWxsPSIjQ0ZEOERDIiBzdHJva2U9IiMxQTFBMUEiCiAgICBzdHJva2Utd2lkdGg9IjYiLz4KICA8cGF0aCBkPSJNMTIgNjNjMCAxMyAzNSAyMiA3OCAyMnM3OC05IDc4LTIyTTEyIDk4YzAgMTMgMzUgMjIgNzggMjJzNzgtOSA3OC0yMiIKICAgIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzU0NkU3QSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPHJlY3QgeD0iMzgiIHk9IjQ4IiB3aWR0aD0iNDQiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjMDAzMDg3Ii8+CiAgPHJlY3QgeD0iOTYiIHk9IjQ4IiB3aWR0aD0iNDYiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjNTQ2RTdBIi8+CiAgPHJlY3QgeD0iMzgiIHk9Ijg4IiB3aWR0aD0iNDQiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjMDAzMDg3Ii8+CiAgPHJlY3QgeD0iOTYiIHk9Ijg4IiB3aWR0aD0iNDYiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjNTQ2RTdBIi8+Cjwvc3ZnPg==" preserveAspectRatio="xMidYMid meet" />
+<text x="934" y="710" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="934" dy="0">FGA Append-Only Audit Log</tspan>
+<tspan x="934" dy="12.6">audit_events · Same FGA Database</tspan>
+<tspan x="934" dy="12.6">GET · POST · PATCH</tspan>
+</text>
+<image x="380" y="480" width="85" height="83" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMjM0IgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iQWRvYmUgTGlnaHRyb29tIENsYXNzaWMiPgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyNDAiIGhlaWdodD0iMjM0IiByeD0iNDIiIHJ5PSI0MiIgZmlsbD0iIzAwMUUzNiIvPgogIDxnIGZpbGw9IiMzMUE4RkYiPgogICAgPHBhdGggZD0iTTI3IDc3IGgxOSB2NjEgaDI5IHYxOSBIMjcgWiIvPgogICAgPHBhdGggZD0iTTg1IDEwMiBoMTggdjEyIGM1LC04IDEyLC0xMiAyMCwtMTIgdjE5IGMtMTIsMCAtMjAsNiAtMjAsMTcgdjE5IGgtMTggWiIvPgogIDwvZz4KICA8cGF0aCBkPSJNMjAwLjI4IDEwMS4yNSBBMzEuNSAzMS41IDAgMSAwIDIwMC4yOCAxMzIuNzUiCiAgICBmaWxsPSJub25lIiBzdHJva2U9IiMzMUE4RkYiIHN0cm9rZS13aWR0aD0iMTciLz4KPC9zdmc+" preserveAspectRatio="xMidYMid meet" />
+<image x="140" y="570" width="135" height="90" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzAgMTM1IgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iRkdBIExpZ2h0cm9vbSBDbGFzc2ljIFBsdWdpbiI+CiAgPHJlY3QgeD0iMTIiIHk9IjEwIiB3aWR0aD0iMTQ2IiBoZWlnaHQ9IjExNSIgcng9IjEwIiBmaWxsPSIjRkZGRkZGIgogICAgc3Ryb2tlPSIjMUExQTFBIiBzdHJva2Utd2lkdGg9IjYiLz4KICA8cGF0aCBkPSJNNjIgNDJ2MjBtNDYtMjB2MjBNNTMgNjBoNjR2MjBjMCAxOC0xNCAzMi0zMiAzMlM1MyA5OCA1MyA4MHoiCiAgICBmaWxsPSIjQ0ZEOERDIiBzdHJva2U9IiMxQTFBMUEiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTg1IDExMnYxMyIgc3Ryb2tlPSIjMDAzMDg3IiBzdHJva2Utd2lkdGg9IjkiCiAgICBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8Y2lyY2xlIGN4PSI4NSIgY3k9Ijc5IiByPSIxMCIgZmlsbD0iIzAwMzA4NyIvPgo8L3N2Zz4=" preserveAspectRatio="xMidYMid meet" />
+<text x="267" y="612" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="start">
+<tspan x="267" dy="0">FGA LrC plug-in</tspan>
+</text>
+<image x="140" y="705" width="135" height="65" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTUgMTcwIDE0MCIKICByb2xlPSJpbWciIGFyaWEtbGFiZWw9IkxyQyBQYXNzd29yZCBTdG9yZSI+CiAgPHJlY3QgeD0iMTQiIHk9IjMwIiB3aWR0aD0iMTQyIiBoZWlnaHQ9Ijk0IiByeD0iMTAiIGZpbGw9IiNGRkZGRkYiCiAgICBzdHJva2U9IiMxQTFBMUEiIHN0cm9rZS13aWR0aD0iNiIvPgogIDxwYXRoIGQ9Ik01MiAzMHYtNkM1MiAxMCA2NiAyIDg1IDJzMzMgOCAzMyAyMnY2IiBmaWxsPSJub25lIgogICAgc3Ryb2tlPSIjNTQ2RTdBIiBzdHJva2Utd2lkdGg9IjkiLz4KICA8Y2lyY2xlIGN4PSI4NSIgY3k9IjcwIiByPSIxNCIgZmlsbD0iIzAwMzA4NyIvPgogIDxwYXRoIGQ9Ik04NSA4MXYyMiIgc3Ryb2tlPSIjMDAzMDg3IiBzdHJva2Utd2lkdGg9IjEwIgogICAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPg==" preserveAspectRatio="xMidYMid meet" />
+<text x="252" y="734" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="start">
+<tspan x="252" dy="0">LrC Password Store</tspan>
+</text>
+<circle id="step-1" cx="163" cy="388" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="163" y="391" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="163" dy="0">1</tspan>
+</text>
+<circle id="step-2" cx="334" cy="402" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="334" y="405" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="334" dy="0">2</tspan>
+</text>
+<circle id="step-3" cx="763" cy="333" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="763" y="336" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="763" dy="0">3</tspan>
+</text>
+<circle id="step-4" cx="709" cy="303" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="709" y="306" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="709" dy="0">4</tspan>
+</text>
+<circle id="step-5" cx="739" cy="303" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="739" y="306" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="739" dy="0">5</tspan>
+</text>
+<circle id="step-6" cx="709" cy="490" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="709" y="493" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="709" dy="0">6</tspan>
+</text>
+<circle id="step-7" cx="739" cy="490" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="739" y="493" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="739" dy="0">7</tspan>
+</text>
+<circle id="step-8" cx="869" cy="402" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="869" y="405" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="869" dy="0">8</tspan>
+</text>
+<circle id="step-9" cx="379" cy="402" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="379" y="405" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="379" dy="0">9</tspan>
+</text>
+<circle id="step-10" cx="148" cy="418" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="148" y="421" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="148" dy="0">10</tspan>
+</text>
+<circle id="step-11" cx="424" cy="402" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="424" y="405" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="424" dy="0">11</tspan>
+</text>
+<circle id="step-12" cx="793" cy="333" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="793" y="336" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="793" dy="0">12</tspan>
+</text>
+<circle id="step-13" cx="724" cy="515" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="724" y="518" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="724" dy="0">13</tspan>
+</text>
+<circle id="step-14" cx="469" cy="402" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="469" y="405" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="469" dy="0">14</tspan>
+</text>
+<circle id="step-15" cx="178" cy="418" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="178" y="421" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="178" dy="0">15</tspan>
+</text>
+<circle id="step-16" cx="75" cy="505" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="75" y="508" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="75" dy="0">16</tspan>
+</text>
+<circle id="step-17" cx="193" cy="669" r="10" fill="#003087" stroke="#FFFFFF" stroke-width="2" />
+<text x="193" y="672" font-size="9" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="193" dy="0">17</tspan>
+</text>
+<rect x="1079" y="90" width="290" height="710" fill="#FFFFFF" stroke="#003087" stroke-width="1.5" />
+<text x="1093" y="121" font-size="16" fill="#1A1A1A" font-weight="700" text-anchor="start">
+<tspan x="1093" dy="0">Plugin Code Transfer</tspan>
+</text>
+<line x1="1093" y1="130" x2="1245" y2="130" stroke="#1A1A1A" stroke-width="1.5" />
+<text x="1104" y="156" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">1</tspan>
+</text>
+<text x="1119" y="156" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">User opens FGA User UI.</tspan>
+</text>
+<text x="1104" y="172" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">2</tspan>
+</text>
+<text x="1119" y="172" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">FGA User UI JavaScript calls</tspan>
+<tspan x="1119" dy="16.1">GET /api/v001/plugin-codes.</tspan>
+<tspan x="1119" dy="16.1">Browser attaches the HttpOnly</tspan>
+<tspan x="1119" dy="16.1">__Host-… cookie; JavaScript</tspan>
+<tspan x="1119" dy="16.1">cannot read it.</tspan>
+</text>
+<text x="1104" y="252" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">3</tspan>
+</text>
+<text x="1119" y="252" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">Plugin Code API computes</tspan>
+<tspan x="1119" dy="16.1">SHA2-256(session token).</tspan>
+</text>
+<text x="1104" y="284" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">4</tspan>
+</text>
+<text x="1119" y="284" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">API requests session status</tspan>
+<tspan x="1119" dy="16.1">using that SHA2-256 digest.</tspan>
+</text>
+<text x="1104" y="316" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">5</tspan>
+</text>
+<text x="1119" y="316" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">DB returns active, unexpired</tspan>
+<tspan x="1119" dy="16.1">session with fgaUserId.</tspan>
+</text>
+<text x="1104" y="348" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">6</tspan>
+</text>
+<text x="1119" y="348" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">API queries owned Plugin Code</tspan>
+<tspan x="1119" dy="16.1">page by fgaUserId.</tspan>
+</text>
+<text x="1104" y="380" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">7</tspan>
+</text>
+<text x="1119" y="380" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">Records return metadata page.</tspan>
+</text>
+<text x="1104" y="396" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">8</tspan>
+</text>
+<text x="1119" y="396" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">API appends list-read audit.</tspan>
+</text>
+<text x="1104" y="412" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">9</tspan>
+</text>
+<text x="1119" y="412" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">GET returns metadata;</tspan>
+<tspan x="1119" dy="16.1">JavaScript renders FGA User UI.</tspan>
+</text>
+<text x="1104" y="444" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">10</tspan>
+</text>
+<text x="1119" y="444" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">User selects Create</tspan>
+<tspan x="1119" dy="16.1">Plugin Code.</tspan>
+</text>
+<text x="1104" y="476" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">11</tspan>
+</text>
+<text x="1119" y="476" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">Browser POSTs</tspan>
+<tspan x="1119" dy="16.1">/api/v001/plugin-codes</tspan>
+<tspan x="1119" dy="16.1">with cookie, exact origin,</tspan>
+<tspan x="1119" dy="16.1">CSRF, and recent-auth proof.</tspan>
+</text>
+<text x="1104" y="540" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">12</tspan>
+</text>
+<text x="1119" y="540" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">API generates 32 CSPRNG octets;</tspan>
+<tspan x="1119" dy="16.1">encodes canonical 13-group</tspan>
+<tspan x="1119" dy="16.1">Crockford Base32 Plugin Code.</tspan>
+</text>
+<text x="1104" y="588" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">13</tspan>
+</text>
+<text x="1119" y="588" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">API atomically stores Plugin Code</tspan>
+<tspan x="1119" dy="16.1">record + create audit event;</tspan>
+<tspan x="1119" dy="16.1">never stores plaintext.</tspan>
+</text>
+<text x="1104" y="636" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">14</tspan>
+</text>
+<text x="1119" y="636" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">API returns Plugin Code</tspan>
+<tspan x="1119" dy="16.1">exactly once with no-store.</tspan>
+</text>
+<text x="1104" y="668" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">15</tspan>
+</text>
+<text x="1119" y="668" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">FGA User UI displays clear-text</tspan>
+<tspan x="1119" dy="16.1">canonical Plugin Code once.</tspan>
+</text>
+<text x="1104" y="700" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">16</tspan>
+</text>
+<text x="1119" y="700" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">User copies and pastes into</tspan>
+<tspan x="1119" dy="16.1">clear-text FGA LrC plug-in input;</tspan>
+<tspan x="1119" dy="16.1">compares identical grouped values.</tspan>
+</text>
+<text x="1104" y="748" font-size="12" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="1104" dy="0">17</tspan>
+</text>
+<text x="1119" y="748" font-size="14" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="1119" dy="0">FGA LrC plug-in strictly validates,</tspan>
+<tspan x="1119" dy="16.1">stores in LrC Password Store;</tspan>
+<tspan x="1119" dy="16.1">clears field.</tspan>
+</text>
+<text x="31" y="814" font-size="10" fill="#555555" font-weight="400" text-anchor="start">
+<tspan x="31" dy="0">Authority: Normative happy-path interaction map (ADR 0006, ADR 0039, ADR 0040, ADR 0041, ADR 0044); controlling sources own omitted failures, recent authentication, revocation, and later Bearer verification.</tspan>
+</text>
+</g>
+</svg>

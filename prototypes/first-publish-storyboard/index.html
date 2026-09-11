@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FGA first-publish customer storyboard</title>
+    <meta
+      name="description"
+      content="A fake-state, low-fidelity walkthrough of the FGA first-publish journey."
+    >
+    <link rel="stylesheet" href="styles.css">
+    <script src="storyboard.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#scene-stage">Skip to the active scene</a>
+
+    <header class="prototype-header">
+      <div>
+        <p class="kicker">Disposable architecture prototype · fake state only</p>
+        <h1>First edited photo to Flickr groups</h1>
+      </div>
+      <button class="quiet-button" type="button" data-restart>Restart</button>
+    </header>
+
+    <div class="prototype-layout">
+      <nav class="scene-nav" aria-label="Storyboard scenes">
+        <p class="scene-nav-label">Journey</p>
+        <ol id="scene-list"></ol>
+      </nav>
+
+      <main id="scene-stage" tabindex="-1">
+        <div class="progress-copy" aria-live="polite">
+          <span id="progress-label">Scene 1 of 12</span>
+          <span id="context-label">Planning</span>
+        </div>
+
+        <section class="scene" data-scene="choose" data-context="Planning">
+          <div class="scene-intro">
+            <p class="eyebrow">Start · Decide</p>
+            <h2>Keep the one-photo workflow in Lightroom Classic</h2>
+            <p>
+              You have one edited photo ready for a Flickr Album. You want a lossless
+              PNG and three group additions without returning to a spreadsheet later.
+            </p>
+          </div>
+
+          <div class="paper-panel decision-card">
+            <div class="sketch-photo" role="img" aria-label="Placeholder for an edited city photo">
+              <span>edited photo</span>
+            </div>
+            <div>
+              <p class="small-label">Today’s job</p>
+              <h3>Publish “Rain at 5th &amp; Pine”</h3>
+              <ul class="plain-list">
+                <li>Render Lightroom’s developed pixels as PNG.</li>
+                <li>Attach the photo to the “September Walks” Flickr Album.</li>
+                <li>Ask for three add-only Flickr group submissions.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="callout">
+            <strong>First-run expectation:</strong> one private browser setup, then the
+            routine photo workflow stays in Lightroom Classic.
+          </div>
+
+          <button class="primary-action" type="button" data-next>Set up FGA</button>
+        </section>
+
+        <section class="scene" data-scene="sign-in" data-context="Private browser">
+          <div class="scene-intro">
+            <p class="eyebrow">One-time setup · Browser session</p>
+            <h2>Sign in to the private FGA User UI</h2>
+            <p>
+              The administrative browser signs in directly with Google. This creates a
+              24-hour FGA browser session; it does not activate the FGA LrC plug-in.
+            </p>
+          </div>
+
+          <div class="browser-frame">
+            <div class="browser-bar" aria-hidden="true">
+              <span></span><span></span><span></span>
+              <div>flickrgroupaddr.com</div>
+            </div>
+            <div class="browser-content narrow-content">
+              <div class="wire-logo">FGA</div>
+              <h3>Owner sign in</h3>
+              <p>Continue with the allowlisted Google Account.</p>
+              <button class="mock-button" type="button" data-next>
+                <span class="google-mark" aria-hidden="true">G</span>
+                Continue as Terry
+              </button>
+              <p class="microcopy">No public signup · Private owner-operated deployment</p>
+            </div>
+          </div>
+
+          <div class="boundary-note">
+            <span>Trust boundary</span>
+            Google proves the allowlisted browser identity. The FGA API backend issues
+            its own opaque browser-session cookie after validation.
+          </div>
+        </section>
+
+        <section class="scene" data-scene="authorize" data-context="Private browser + Flickr">
+          <div class="scene-intro">
+            <p class="eyebrow">One-time setup · Flickr grant</p>
+            <h2>Authorize the hosted service to act for the Flickr owner</h2>
+            <p>
+              Flickr shows the permission request. The FGA OAuth handler needs
+              <strong>write</strong> permission to upload, attach Albums, and add photos to
+              group pools. Flickr credentials never enter the FGA LrC plug-in.
+            </p>
+          </div>
+
+          <div class="split-panels">
+            <div class="paper-panel">
+              <p class="small-label">FGA User UI</p>
+              <h3>Flickr connection</h3>
+              <p class="status-line pending"><span></span>Not connected</p>
+              <p class="microcopy">The FGA OAuth handler has opened Flickr authorization.</p>
+            </div>
+            <div class="paper-panel flickr-panel">
+              <p class="small-label">Flickr</p>
+              <h3>Allow FlickrGroupAddr?</h3>
+              <p>This test account will grant write permission.</p>
+              <div class="permission-row"><span>✓</span> Upload photos</div>
+              <div class="permission-row"><span>✓</span> Manage Album membership</div>
+              <div class="permission-row"><span>✓</span> Add photos to groups</div>
+              <button class="mock-button" type="button" data-next>Authorize this account</button>
+              <p class="microcopy">Storyboard only — no request leaves this page.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="scene" data-scene="plugin-code" data-context="Private browser + Lightroom Classic">
+          <div class="scene-intro">
+            <p class="eyebrow">One-time setup · Installation</p>
+            <h2>Transfer one Plugin Code on the same workstation</h2>
+            <p>
+              The FGA User UI creates one installation credential after recent Google
+              reauthentication. It is shown once, pasted directly, compared in clear
+              text on both surfaces, stored by the FGA LrC plug-in, and then erased.
+            </p>
+          </div>
+
+          <div class="handoff-flow">
+            <div class="paper-panel">
+              <p class="small-label">Private browser</p>
+              <h3>Plugin Code shown once</h3>
+              <div
+                class="plugin-code-value"
+                role="textbox"
+                aria-readonly="true"
+                aria-label="Fake Plugin Code"
+              >2345-6789-ABCD-EFGH-JKMN-PQRS-TVWX-YZ23-4567-89AB-CDEF-GHJK-MNP0</div>
+              <p class="microcopy">
+                Fixed fake example · compare all 13 groups · no screenshot
+              </p>
+            </div>
+            <div class="handoff-arrow" aria-hidden="true">user paste →</div>
+            <div class="lightroom-frame compact-frame">
+              <div class="app-bar">Lightroom Classic · FGA publish service</div>
+              <div class="app-content">
+                <label for="fake-code">Plugin Code</label>
+                <textarea
+                  class="plugin-code-value"
+                  id="fake-code"
+                  autocomplete="off"
+                  spellcheck="false"
+                  rows="2"
+                  wrap="soft"
+                  readonly
+                >2345-6789-ABCD-EFGH-JKMN-PQRS-TVWX-YZ23-4567-89AB-CDEF-GHJK-MNP0</textarea>
+                <p class="status-line pending"><span></span>Ready to compare and store</p>
+                <button class="mock-button" type="button">Store and verify</button>
+              </div>
+            </div>
+          </div>
+
+          <fieldset class="cleanup-checklist">
+            <legend>After Store and verify</legend>
+            <label><input type="checkbox" disabled> Stored with LrPasswords</label>
+            <label><input type="checkbox" disabled> Transient plug-in field cleared</label>
+            <label><input type="checkbox"> Clipboard overwritten with non-secret text</label>
+            <label><input type="checkbox"> Private browser window closed</label>
+          </fieldset>
+
+          <button class="primary-action" type="button" data-next>
+            Continue after verification and cleanup
+          </button>
+        </section>
+
+        <section class="scene" data-scene="configure" data-context="Lightroom Classic">
+          <div class="scene-intro">
+            <p class="eyebrow">Routine setup · Publish service</p>
+            <h2>Create one ordinary Album for the photo set</h2>
+            <p>
+              The FGA LrC plug-in follows Lightroom Classic’s Publish Services shape.
+              One published collection corresponds to one Flickr Album.
+            </p>
+          </div>
+
+          <div class="lightroom-frame">
+            <div class="app-bar">Lightroom Classic · Publishing Manager</div>
+            <div class="app-grid">
+              <aside class="app-sidebar">
+                <strong>Publish Services</strong>
+                <div class="tree-item active">FGA</div>
+                <div class="tree-item nested">September Walks</div>
+              </aside>
+              <div class="app-content form-grid">
+                <h3>FGA publish service</h3>
+                <label>Connection <input value="Connected" readonly></label>
+                <label>Flickr owner <input value="Terry · test account" readonly></label>
+                <label>Image format
+                  <select aria-label="Image format" disabled>
+                    <option>PNG - 8-bit - sRGB</option>
+                  </select>
+                </label>
+                <label>Album name <input value="September Walks" readonly></label>
+                <div class="inline-note">Ordinary Album · no smart rules · add-only remote behavior</div>
+              </div>
+            </div>
+          </div>
+
+          <button class="primary-action" type="button" data-next>
+            Add the edited photo
+          </button>
+        </section>
+
+        <section class="scene" data-scene="select-groups" data-context="FGA LrC plug-in">
+          <div class="scene-intro">
+            <p class="eyebrow">Per photo · Group selection</p>
+            <h2>Choose additions from a fresh Flickr-derived view</h2>
+            <p>
+              This brand-new photo has no Flickr membership yet. Choose additions from
+              the current writable-group snapshot before publishing.
+            </p>
+          </div>
+
+          <div class="selector-layout">
+            <div class="photo-card">
+              <div class="sketch-photo tall" role="img" aria-label="Placeholder for Rain at 5th and Pine">
+                <span>Rain at 5th &amp; Pine</span>
+              </div>
+              <dl>
+                <div><dt>Album</dt><dd>September Walks</dd></div>
+                <div><dt>Observed</dt><dd>just now</dd></div>
+              </dl>
+            </div>
+            <div class="group-picker">
+              <section>
+                <h3>Writable groups</h3>
+                <div class="inline-note">
+                  New photo · no Flickr identity exists yet. Fresh exact-photo
+                  membership checks happen before each later group-add attempt.
+                </div>
+                <label class="group-row">
+                  <input type="checkbox" checked>
+                  <span><strong>Street Seen</strong><small>Eligible for a first add.</small></span>
+                </label>
+                <label class="group-row">
+                  <input type="checkbox" checked>
+                  <span><strong>Night Window Club</strong><small>May require moderation.</small></span>
+                </label>
+                <label class="group-row">
+                  <input type="checkbox" checked>
+                  <span><strong>Long Exposures</strong><small>Flickr may enforce a group limit.</small></span>
+                </label>
+              </section>
+            </div>
+          </div>
+
+          <button class="primary-action" type="button" data-next>
+            Save 3 requested additions
+          </button>
+        </section>
+
+        <section class="scene" data-scene="publish" data-context="Lightroom Classic">
+          <div class="scene-intro">
+            <p class="eyebrow">Per photo · Native publish action</p>
+            <h2>Publish the selected photo from its Album</h2>
+            <p>
+              Group choices were saved before the publish callback. The photographer
+              can now use Lightroom Classic’s familiar publish action.
+            </p>
+          </div>
+
+          <div class="lightroom-frame">
+            <div class="app-bar">Lightroom Classic · September Walks</div>
+            <div class="filmstrip">
+              <div class="film-photo selected"><span>selected</span></div>
+              <div class="film-photo"></div><div class="film-photo"></div>
+              <div class="film-photo"></div><div class="film-photo"></div>
+            </div>
+            <div class="publish-summary">
+              <div><span class="big-number">1</span><small>photo to publish</small></div>
+              <div><span class="big-number">PNG</span><small>render format</small></div>
+              <div><span class="big-number">3</span><small>group additions</small></div>
+            </div>
+          </div>
+
+          <div class="callout subtle">
+            Photos progress independently. This storyboard follows one representative
+            photo and promises no multi-photo completion order.
+          </div>
+
+          <button class="primary-action" type="button" data-next>Publish 1 photo</button>
+        </section>
+
+        <section class="scene" data-scene="upload" data-context="Lightroom Classic + hosted service + Flickr">
+          <div class="scene-intro">
+            <p class="eyebrow">Publish · Render and direct upload</p>
+            <h2>See distinct milestones instead of one vague spinner</h2>
+            <p>
+              The Lightroom Classic rendering engine creates the PNG. The FGA API
+              backend signs one upload envelope, while image bytes travel directly
+              from the Lightroom Classic host networking stack to Flickr.
+            </p>
+          </div>
+
+          <ol class="milestone-list">
+            <li class="done"><span>1</span><div><strong>PNG rendered</strong><small>186 MB · below the configured ceiling</small></div></li>
+            <li class="done"><span>2</span><div><strong>Upload authorization received</strong><small>Fresh, one-use envelope kept only in memory</small></div></li>
+            <li class="done"><span>3</span><div><strong>PNG uploaded directly to Flickr</strong><small>Hosted FGA components did not receive image bytes</small></div></li>
+            <li class="done"><span>4</span><div><strong>Remote photo bound</strong><small>Recovery evidence retained locally</small></div></li>
+            <li class="current"><span>5</span><div><strong>Group requests handed off</strong><small>Waiting for durable acceptance</small></div></li>
+          </ol>
+
+          <div class="callout subtle">
+            The Album attachment obligation starts after publication and progresses
+            independently of group-intent handoff; neither follow-up path blocks the
+            other merely to impose order.
+          </div>
+
+          <button class="primary-action" type="button" data-next>
+            Continue after durable acceptance
+          </button>
+        </section>
+
+        <section class="scene" data-scene="accepted" data-context="FGA LrC plug-in">
+          <div class="scene-intro">
+            <p class="eyebrow">Handoff · Safe to leave</p>
+            <h2>The photo is published; group work is now asynchronous</h2>
+            <p>
+              Durable acceptance is the boundary that lets the photographer continue
+              editing or close Lightroom Classic without losing requested work.
+            </p>
+          </div>
+
+          <div class="outcome-hero">
+            <div class="outcome-icon" aria-hidden="true">✓</div>
+            <div>
+              <h3>Published to Flickr</h3>
+              <p>Album attachment pending · 3 group requests accepted</p>
+            </div>
+          </div>
+
+          <div class="three-facts">
+            <div><strong>Photo</strong><span>Visible on Flickr</span></div>
+            <div><strong>Album</strong><span>Attaching independently</span></div>
+            <div><strong>Groups</strong><span>Processing independently</span></div>
+          </div>
+
+          <div class="callout">
+            You do not need to keep Lightroom Classic open. Closing the status view
+            stops client polling; it does not stop hosted queue work.
+          </div>
+
+          <button class="primary-action" type="button" data-next>View queue status</button>
+        </section>
+
+        <section class="scene" data-scene="partial" data-context="FGA Queue Status in Lightroom Classic">
+          <div class="scene-intro">
+            <p class="eyebrow">Later · Partial success</p>
+            <h2>One photo can have several truthful outcomes</h2>
+            <p>
+              Publication remains successful while each group request reaches its own
+              durable state. Status reads do not trigger worker activity.
+            </p>
+          </div>
+
+          <div class="status-table" role="table" aria-label="Fake group-submission status">
+            <div class="status-row header" role="row">
+              <span role="columnheader">Flickr group</span>
+              <span role="columnheader">Last status change</span>
+              <span role="columnheader">Date/time of last status change</span>
+            </div>
+            <div class="status-row" role="row">
+              <strong role="cell">Street Seen</strong>
+              <span role="cell">
+                <b class="badge added">Added</b>
+                <small class="status-note"><strong>Terminal.</strong> Flickr confirmed the photo is in the group.</small>
+              </span>
+              <time role="cell" datetime="2026-09-02T09:13:42-04:00">2026-09-02 9:13am EDT</time>
+            </div>
+            <div class="status-row" role="row">
+              <strong role="cell">Night Window Club</strong>
+              <span role="cell">
+                <b class="badge protected">Moderation submitted</b>
+                <small class="status-note"><strong>Terminal.</strong> Final decision unknown. The FGA group-submission worker will not submit this exact pair again.</small>
+              </span>
+              <time role="cell" datetime="2026-09-02T09:14:07-04:00">2026-09-02 9:14am EDT</time>
+            </div>
+            <div class="status-row" role="row">
+              <strong role="cell">Long Exposures</strong>
+              <span role="cell">
+                <b class="badge waiting">Waiting</b>
+                <small class="status-note">Flickr’s group limit was reached. Eligible for another check after 2026-09-02 9:15am EDT.</small>
+              </span>
+              <time role="cell" datetime="2026-09-02T09:14:18-04:00">2026-09-02 9:14am EDT</time>
+            </div>
+          </div>
+
+          <div class="button-row">
+            <button class="secondary-action" type="button" data-refresh-note="refresh-note">Refresh status</button>
+            <button class="primary-action" type="button" data-next>See the safe retry</button>
+          </div>
+          <p class="microcopy" id="refresh-note" aria-live="polite">
+            Refresh reads current durable state. It does not retry a write.
+          </p>
+        </section>
+
+        <section class="scene" data-scene="safe-retry" data-context="Hosted worker · Lightroom Classic may be closed">
+          <div class="scene-intro">
+            <p class="eyebrow">Background progress · Known-safe retry</p>
+            <h2>The worker decides when another attempt is safe</h2>
+            <p>
+              A scheduled worker opportunity revisits the throttled queue head. The
+              photographer does not press “retry now,” reorder the queue, or bypass
+              Flickr’s limit.
+            </p>
+          </div>
+
+          <div class="retry-boundary">
+            <div class="paper-panel">
+              <p class="small-label">Before</p>
+              <h3>Known refusal</h3>
+              <p>Flickr reported its group limit before accepting the addition.</p>
+              <span class="badge waiting">Eligible later</span>
+            </div>
+            <div class="retry-arrow" aria-hidden="true">scheduled opportunity →</div>
+            <div class="paper-panel">
+              <p class="small-label">Required before every add</p>
+              <h3>Fresh safety reads</h3>
+              <p>Read exact-photo membership, then current group moderation state.</p>
+              <span class="badge neutral">No cached shortcut</span>
+            </div>
+          </div>
+
+          <div class="callout warning">
+            A known pre-dispatch refusal may be retried later. A request that may have
+            reached Flickr is never replayed automatically.
+          </div>
+
+          <button class="primary-action" type="button" data-next>
+            Simulate the next worker opportunity
+          </button>
+        </section>
+
+        <section class="scene" data-scene="recover" data-context="FGA Queue Status after reopening Lightroom Classic">
+          <div class="scene-intro">
+            <p class="eyebrow">Recovery · Preserve the safe result</p>
+            <h2>Recover without repeating an uncertain group write</h2>
+            <p>
+              After Lightroom Classic is reopened, the durable status still explains
+              the mixed outcome. The photo and Album attachment remain successful.
+            </p>
+          </div>
+
+          <div class="recovery-summary">
+            <div class="published-card">
+              <span class="outcome-icon small" aria-hidden="true">✓</span>
+              <div><strong>Photo published</strong><small>“September Walks” attachment confirmed</small></div>
+            </div>
+            <div class="protected-card">
+              <span class="shield-icon" aria-hidden="true">◇</span>
+              <div>
+                <strong>Long Exposures · Delivery uncertain</strong>
+                <p>
+                  FGA records cannot prove whether Flickr received the add request. To
+                  avoid a duplicate request, FGA components will not submit this exact
+                  pair again. Inspect Flickr manually.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="closed-actions" aria-label="Available recovery actions">
+            <button class="secondary-action" type="button" data-inspect>Inspect Flickr</button>
+            <button class="secondary-action" type="button" data-refresh-note="inspect-note">Refresh status</button>
+            <button class="primary-action" type="button" data-restart>Start the next photo</button>
+          </div>
+          <p class="microcopy" id="inspect-note" aria-live="polite">
+            Storyboard only. Inspect Flickr is read-only guidance and performs no submission.
+          </p>
+
+          <div class="end-note">
+            <strong>End of first publish:</strong> the published photo is safe, all group
+            outcomes are visible, and no risky write is repeated.
+          </div>
+        </section>
+
+        <footer class="stage-footer">
+          <button class="quiet-button" type="button" data-previous>← Previous</button>
+          <a href="README.md">Read findings and contract-gap disposition</a>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

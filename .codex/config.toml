@@ -1,0 +1,5 @@
+# Keep repository uv commands on the Codex sandbox's writable system-temp root.
+# Detached localswim launchers explicitly replace this value with their documented
+# C:\Temp cache when they cross the outside-sandbox process boundary.
+[shell_environment_policy]
+set = { UV_CACHE_DIR = 'C:\Users\TDO-XPS15-2024\AppData\Local\Temp\localswim-uv-cache' }

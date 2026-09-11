@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="2160" viewBox="0 0 3840 2160" role="img" aria-labelledby="diagram-title diagram-description">
+<title id="diagram-title">FlickrGroupAddr Publish PNG + Add to Groups</title>
+<desc id="diagram-description">The authoritative simplified happy-path interaction map for local FGA Album setup and group selection, FGA LrC plugin authentication, Lightroom Classic PNG rendering, direct Flickr upload, verified photo binding, and durable add-only group submission.</desc>
+<defs>
+<marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse" markerUnits="strokeWidth"><path d="M 0 0 L 8 4 L 0 8 z" fill="#1A1A1A" /></marker>
+</defs>
+<rect width="100%" height="100%" fill="#FFFFFF" />
+<g font-family="Arial, Helvetica, sans-serif">
+<text x="85.029" y="124.518" font-size="53.365" fill="#1A1A1A" font-weight="700" text-anchor="start">
+<tspan x="85.029" dy="0">FlickrGroupAddr Publish PNG + Add to Groups</tspan>
+</text>
+<text x="507.429" y="182.965" font-size="38.118" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="507.429" dy="0">2026-08-31</tspan>
+</text>
+<rect x="394.971" y="228.706" width="1563.429" height="889.412" fill="none" stroke="#1A1A1A" stroke-width="3.812" />
+<text x="427.886" y="304.941" font-size="38.118" fill="#1A1A1A" font-weight="700" text-anchor="start">
+</text>
+<rect x="394.971" y="1168.941" width="1563.429" height="813.176" fill="none" stroke="#1A1A1A" stroke-width="3.812" />
+<text x="427.886" y="1245.176" font-size="38.118" fill="#1A1A1A" font-weight="700" text-anchor="start">
+<tspan x="427.886" dy="0">FGA Backend Hosting Platform</tspan>
+<tspan x="427.886" dy="40.024">(Provider Undecided)</tspan>
+</text>
+<rect x="2040.686" y="228.706" width="866.743" height="1753.412" fill="none" stroke="#1A1A1A" stroke-width="3.812" />
+<text x="2474.057" y="304.941" font-size="38.118" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+</text>
+<line id="p3-user-plugin" x1="295.68" y1="640.376" x2="1014.965" y2="640.376" stroke="#1A1A1A" stroke-width="5.718" marker-end="url(#arrow)" />
+<line id="p3-store-plugin" x1="821.456" y1="844.306" x2="1014.965" y2="757.525" stroke="#1A1A1A" stroke-width="5.718" marker-end="url(#arrow)" />
+<line id="p3-plugin-rendering-engine" x1="1325.182" y1="757.525" x2="1506.759" y2="802.376" stroke="#1A1A1A" stroke-width="5.718" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<line id="p3-plugin-api-backend" x1="1170.073" y1="757.525" x2="1170.073" y2="1333.271" stroke="#1A1A1A" stroke-width="5.718" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<line id="p3-plugin-upload-api" x1="1325.182" y1="640.376" x2="2251.337" y2="640.376" stroke="#1A1A1A" stroke-width="5.718" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<polyline id="p3-api-database" points="703.788,1631.435 703.788,1466.447 909.502,1466.447" fill="none" stroke="#1A1A1A" stroke-width="5.718" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<line id="p3-api-rest-api" x1="1353.032" y1="1468.8" x2="2300.16" y2="1468.8" stroke="#1A1A1A" stroke-width="5.718" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<line id="p3-database-group-worker" x1="848.611" y1="1740.706" x2="1491.597" y2="1740.706" stroke="#1A1A1A" stroke-width="5.718" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<polyline id="p3-group-worker-rest-api" points="1781.121,1740.706 2413.714,1740.706 2413.714,1610.612" fill="none" stroke="#1A1A1A" stroke-width="5.718" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+<image x="96" y="520.941" width="219.429" height="241.412" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTYwIgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iVXNlciI+CiAgPGNpcmNsZSBjeD0iNjQiIGN5PSIzNiIgcj0iMjgiIGZpbGw9IiMxQTFBMUEiLz4KICA8cGF0aCBkPSJNMTQgMTUxYzAtMzkgMjItNjcgNTAtNjdzNTAgMjggNTAgNjd6IiBmaWxsPSIjMUExQTFBIi8+Cjwvc3ZnPg==" preserveAspectRatio="xMidYMid meet" />
+<text x="205.714" y="815.718" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="205.714" dy="0">User</tspan>
+</text>
+<image x="427.886" y="254.118" width="178.286" height="160.094" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMjM0IgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iQWRvYmUgTGlnaHRyb29tIENsYXNzaWMiPgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyNDAiIGhlaWdodD0iMjM0IiByeD0iNDIiIHJ5PSI0MiIgZmlsbD0iIzAwMUUzNiIvPgogIDxnIGZpbGw9IiMzMUE4RkYiPgogICAgPHBhdGggZD0iTTI3IDc3IGgxOSB2NjEgaDI5IHYxOSBIMjcgWiIvPgogICAgPHBhdGggZD0iTTg1IDEwMiBoMTggdjEyIGM1LC04IDEyLC0xMiAyMCwtMTIgdjE5IGMtMTIsMCAtMjAsNiAtMjAsMTcgdjE5IGgtMTggWiIvPgogIDwvZz4KICA8cGF0aCBkPSJNMjAwLjI4IDEwMS4yNSBBMzEuNSAzMS41IDAgMSAwIDIwMC4yOCAxMzIuNzUiCiAgICBmaWxsPSJub25lIiBzdHJva2U9IiMzMUE4RkYiIHN0cm9rZS13aWR0aD0iMTciLz4KPC9zdmc+" preserveAspectRatio="xMidYMid meet" />
+<image x="964.359" y="520.941" width="411.429" height="241.412" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzAgMTM1IgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iRkdBIExpZ2h0cm9vbSBDbGFzc2ljIFBsdWdpbiI+CiAgPHJlY3QgeD0iMTIiIHk9IjEwIiB3aWR0aD0iMTQ2IiBoZWlnaHQ9IjExNSIgcng9IjEwIiBmaWxsPSIjRkZGRkZGIgogICAgc3Ryb2tlPSIjMUExQTFBIiBzdHJva2Utd2lkdGg9IjYiLz4KICA8cGF0aCBkPSJNNjIgNDJ2MjBtNDYtMjB2MjBNNTMgNjBoNjR2MjBjMCAxOC0xNCAzMi0zMiAzMlM1MyA5OCA1MyA4MHoiCiAgICBmaWxsPSIjQ0ZEOERDIiBzdHJva2U9IiMxQTFBMUEiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTg1IDExMnYxMyIgc3Ryb2tlPSIjMDAzMDg3IiBzdHJva2Utd2lkdGg9IjkiCiAgICBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8Y2lyY2xlIGN4PSI4NSIgY3k9Ijc5IiByPSIxMCIgZmlsbD0iIzAwMzA4NyIvPgo8L3N2Zz4=" preserveAspectRatio="xMidYMid meet" />
+<text x="1170.073" y="503.153" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="1170.073" dy="0">FGA LrC Plugin</tspan>
+</text>
+<image x="525.502" y="800.471" width="356.571" height="190.588" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTUgMTcwIDE0MCIKICByb2xlPSJpbWciIGFyaWEtbGFiZWw9IkxyQyBQYXNzd29yZCBTdG9yZSI+CiAgPHJlY3QgeD0iMTQiIHk9IjMwIiB3aWR0aD0iMTQyIiBoZWlnaHQ9Ijk0IiByeD0iMTAiIGZpbGw9IiNGRkZGRkYiCiAgICBzdHJva2U9IiMxQTFBMUEiIHN0cm9rZS13aWR0aD0iNiIvPgogIDxwYXRoIGQ9Ik01MiAzMHYtNkM1MiAxMCA2NiAyIDg1IDJzMzMgOCAzMyAyMnY2IiBmaWxsPSJub25lIgogICAgc3Ryb2tlPSIjNTQ2RTdBIiBzdHJva2Utd2lkdGg9IjkiLz4KICA8Y2lyY2xlIGN4PSI4NSIgY3k9IjcwIiByPSIxNCIgZmlsbD0iIzAwMzA4NyIvPgogIDxwYXRoIGQ9Ik04NSA4MXYyMiIgc3Ryb2tlPSIjMDAzMDg3IiBzdHJva2Utd2lkdGg9IjEwIgogICAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPg==" preserveAspectRatio="xMidYMid meet" />
+<text x="703.788" y="1029.176" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="703.788" dy="0">LrC Password Store</tspan>
+</text>
+<image x="1451.216" y="800.471" width="370.286" height="190.588" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTQwIgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iTHJDIFJlbmRlcmluZyBFbmdpbmUiPgogIDxyZWN0IHg9IjEwIiB5PSIxMCIgd2lkdGg9IjE2MCIgaGVpZ2h0PSIxMjAiIHJ4PSI5IiBmaWxsPSIjRkZGRkZGIgogICAgc3Ryb2tlPSIjMUExQTFBIiBzdHJva2Utd2lkdGg9IjYiLz4KICA8cmVjdCB4PSIyOCIgeT0iMjgiIHdpZHRoPSIxMjQiIGhlaWdodD0iNjciIHJ4PSI1IiBmaWxsPSIjQ0ZEOERDIgogICAgc3Ryb2tlPSIjNTQ2RTdBIiBzdHJva2Utd2lkdGg9IjUiLz4KICA8Y2lyY2xlIGN4PSI1NyIgY3k9IjUwIiByPSIxMCIgZmlsbD0iIzMxQThGRiIvPgogIDxwYXRoIGQ9Im0zNSA4NyAzMS0yOCAyMyAyMCAxOS0xNSAzNyAyMyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAzMDg3IgogICAgc3Ryb2tlLXdpZHRoPSI3IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8cmVjdCB4PSI1NSIgeT0iMTA1IiB3aWR0aD0iNzAiIGhlaWdodD0iMTciIHJ4PSI1IiBmaWxsPSIjMDAzMDg3Ii8+CiAgPHRleHQgeD0iOTAiIHk9IjExOCIgZmlsbD0iI0ZGRkZGRiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIgogICAgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjcwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UE5HPC90ZXh0Pgo8L3N2Zz4=" preserveAspectRatio="xMidYMid meet" />
+<text x="1634.988" y="1029.176" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="1634.988" dy="0">LrC Rendering Engine</tspan>
+</text>
+<image x="910.061" y="1321.412" width="466.286" height="292.235" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTAgMTM1IgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iVmVyaWZpZWQgTG9naW4gRW5kcG9pbnQiPgogIDxyZWN0IHg9IjM0IiB5PSIxMiIgd2lkdGg9IjE0NSIgaGVpZ2h0PSIxMTEiIHJ4PSIxMCIgZmlsbD0iI0ZGRkZGRiIKICAgIHN0cm9rZT0iIzFBMUExQSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPHBhdGggZD0iTTMgNjdoNjNtLTE4LTE4IDE4IDE4LTE4IDE4IiBmaWxsPSJub25lIiBzdHJva2U9IiM1NDZFN0EiCiAgICBzdHJva2Utd2lkdGg9IjkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0xMTAgMzIgMTQ2IDQ1djI3YzAgMjMtMTQgMzgtMzYgNDgtMjItMTAtMzYtMjUtMzYtNDhWNDV6IgogICAgZmlsbD0iIzAwMzA4NyIvPgogIDxwYXRoIGQ9Im05MSA3MiAxMyAxMyAyNS0yOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjgiCiAgICBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+" preserveAspectRatio="xMidYMid meet" />
+<text x="1376.346" y="1372.235" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="start">
+<tspan x="1376.346" dy="0">FGA API Backend</tspan>
+</text>
+<image x="484.359" y="1639.059" width="438.857" height="203.294" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTMwIgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iS2V5IFZhbHVlIFNlc3Npb24gRGF0YWJhc2UiPgogIDxwYXRoIGQ9Ik0xMiAyNUMxMiAxMiA0NyAzIDkwIDNzNzggOSA3OCAyMnY4MGMwIDEzLTM1IDIyLTc4IDIycy03OC05LTc4LTIyeiIKICAgIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzFBMUExQSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPGVsbGlwc2UgY3g9IjkwIiBjeT0iMjUiIHJ4PSI3OCIgcnk9IjIyIiBmaWxsPSIjQ0ZEOERDIiBzdHJva2U9IiMxQTFBMUEiCiAgICBzdHJva2Utd2lkdGg9IjYiLz4KICA8cGF0aCBkPSJNMTIgNjNjMCAxMyAzNSAyMiA3OCAyMnM3OC05IDc4LTIyTTEyIDk4YzAgMTMgMzUgMjIgNzggMjJzNzgtOSA3OC0yMiIKICAgIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzU0NkU3QSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPHJlY3QgeD0iMzgiIHk9IjQ4IiB3aWR0aD0iNDQiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjMDAzMDg3Ii8+CiAgPHJlY3QgeD0iOTYiIHk9IjQ4IiB3aWR0aD0iNDYiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjNTQ2RTdBIi8+CiAgPHJlY3QgeD0iMzgiIHk9Ijg4IiB3aWR0aD0iNDQiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjMDAzMDg3Ii8+CiAgPHJlY3QgeD0iOTYiIHk9Ijg4IiB3aWR0aD0iNDYiIGhlaWdodD0iMTMiIHJ4PSI0IiBmaWxsPSIjNTQ2RTdBIi8+Cjwvc3ZnPg==" preserveAspectRatio="xMidYMid meet" />
+<text x="703.788" y="1895.718" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="703.788" dy="0">FGA Database</tspan>
+</text>
+<image x="1458.073" y="1651.765" width="356.571" height="177.882" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyODQgMTgwIgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iRkdBIEdyb3VwLVN1Ym1pc3Npb24gV29ya2VyIj4KICA8ZyBmaWxsPSIjNTQ2RTdBIiBzdHJva2U9IiMxQTFBMUEiIHN0cm9rZS13aWR0aD0iNCI+CiAgICA8cmVjdCB4PSIxNiIgeT0iMTAiIHdpZHRoPSIyNTIiIGhlaWdodD0iNDUiIHJ4PSI3Ii8+CiAgICA8cmVjdCB4PSIxNiIgeT0iNjgiIHdpZHRoPSIyNTIiIGhlaWdodD0iNDUiIHJ4PSI3Ii8+CiAgICA8cmVjdCB4PSIxNiIgeT0iMTI2IiB3aWR0aD0iMjUyIiBoZWlnaHQ9IjQ1IiByeD0iNyIvPgogIDwvZz4KICA8ZyBmaWxsPSIjRkZGRkZGIj4KICAgIDxjaXJjbGUgY3g9IjM4IiBjeT0iMzIuNSIgcj0iNiIvPgogICAgPGNpcmNsZSBjeD0iMzgiIGN5PSI5MC41IiByPSI2Ii8+CiAgICA8Y2lyY2xlIGN4PSIzOCIgY3k9IjE0OC41IiByPSI2Ii8+CiAgPC9nPgogIDxnIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiPgogICAgPHBhdGggZD0iTTU4IDMyLjVoMTg2Ii8+CiAgICA8cGF0aCBkPSJNNTggOTAuNWgxODYiLz4KICAgIDxwYXRoIGQ9Ik01OCAxNDguNWgxODYiLz4KICA8L2c+Cjwvc3ZnPg==" preserveAspectRatio="xMidYMid meet" />
+<text x="1636.359" y="1883.012" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="middle">
+<tspan x="1636.359" dy="0">FGA Group-Submission</tspan>
+<tspan x="1636.359" dy="32.019">Worker</tspan>
+</text>
+<image x="2369.829" y="259.2" width="246.857" height="71.153" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgdmlld0JveD0iMCAwIDUxNSAxNTUuNzIiPgogIDxnIGZpbGw9IiMwMDYzREIiPgogICAgPHBhdGggZD0iTTIwLjU5MSA3My44MzdIMFY0OC40ODZoMjEuMTczVjQyLjA1CiAgICAgIEMyMS4xNzMgMTAuODY1IDM1LjM1MyAwIDYzLjMyNCAwYzcuNTc2IDAgMTMuNDAzIDEuMjA3IDE3Ljg3IDIuMDEzCiAgICAgIEw3OS4wNTggMjYuOTZjLTIuOTEzLTEuMDA2LTUuODI3LTEuNjEtMTEuMDcxLTEuNjEKICAgICAgYy04LjkzNSAwLTEyLjQzMiA2LjQzOC0xMi40MzIgMTYuN3Y2LjQzN2gyNC44NjN2MjUuMzUxSDU1LjU1NQogICAgICB2NzkuNDY3SDIwLjU5MVY3My44MzdaIi8+CiAgICA8cGF0aCBkPSJNOTguNjc1IDIuNDE1aDM0Ljk2NHYxNTAuODg5SDk4LjY3NXoKICAgICAgTTE2My41NTIgNC44MjloMzQuOTY1djI2LjU1N2gtMzQuOTY1egogICAgICBNMTYzLjU1MiA0OC40ODZoMzQuOTY1djEwNC44MTdoLTM0Ljk2NXoiLz4KICAgIDxwYXRoIGQ9Ik0zMDMuNjA0IDc4LjQ2MmMtNi40MS00LjAyMS0xMi44Mi01LjgzMy0yMS4xNzMtNS44MzMKICAgICAgYy0xNS4xNTEgMC0yNi44MDYgMTAuODY0LTI2LjgwNiAyOC45NzIKICAgICAgYzAgMTYuNjk5IDEzLjU5OCAyNy41NjEgMjguNzQ5IDI3LjU2MQogICAgICBjNy45NjUgMCAxNS45My0xLjgwOSAyMS43NTYtNS4wMjlsLjc3NyAyNi45NTkKICAgICAgYy04Ljc0MiAzLjAyLTE5LjIzIDQuNjI5LTI4LjU1NCA0LjYyOQogICAgICBjLTMzLjQxMiAwLTU4Ljg1Ny0yMC4xMTktNTguODU3LTU0LjcyMwogICAgICBjMC0zNC44MDYgMjUuNDQ1LTU0LjkyNCA1OC44NTctNTQuOTI0CiAgICAgIGMxMC40OSAwIDE5LjgxMiAxLjgxMSAyNy43NzcgNS44MzRsLTIuNTI2IDI2LjU1NFoKICAgICAgTTMyMS40NzcgMi40MTVoMzQuOTYzdjkwLjEzM2guMzg5bDI5LjEzNi00NC4wNjJoMzguMjY2CiAgICAgIGwtMzUuMTU4IDQ4LjA4MyAzOC4wNzIgNTYuNzM1aC00Mi4zNDZsLTI3Ljk3LTUxLjkwNWgtLjM4OQogICAgICB2NTEuOTA1aC0zNC45NjNWMi40MTVaIi8+CiAgPC9nPgogIDxwYXRoIGZpbGw9IiNGRjAwODQiIGQ9Ik01MTIuNDE3IDc3LjQ1NgogICAgYy0zLjg4NS0xLjIwNS03Ljc3MS0xLjIwNS0xMS44NDgtMS4yMDUKICAgIGMtMTYuMzE2IDAtMjUuNDQ3IDEyLjI3MS0yNS40NDcgMzIuNzkzdjQ0LjI2aC0zNC45NjNWNDguNDg2aDMxLjg1NQogICAgVjY3LjhoLjM4OWM2LjAyLTEzLjI3OSAxNC43NjItMjEuNzI4IDI5LjkxNC0yMS43MjgKICAgIGM0LjA3NiAwIDguMzUuNjAzIDExLjg1IDEuMjA2bC0xLjc1IDMwLjE3OFoiLz4KPC9zdmc+" preserveAspectRatio="xMidYMid meet" />
+<image x="2194.286" y="520.941" width="438.857" height="241.412" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTQwIgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iRmxpY2tyIFVwbG9hZCBBUEkiPgogIDxyZWN0IHg9IjEwIiB5PSIxMCIgd2lkdGg9IjE2MCIgaGVpZ2h0PSIxMjAiIHJ4PSIxMCIgZmlsbD0iI0ZGRkZGRiIKICAgIHN0cm9rZT0iIzFBMUExQSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgPHJlY3QgeD0iMjciIHk9IjI4IiB3aWR0aD0iMTI2IiBoZWlnaHQ9IjgyIiByeD0iNiIgZmlsbD0iI0NGRDhEQyIKICAgIHN0cm9rZT0iIzU0NkU3QSIgc3Ryb2tlLXdpZHRoPSI1Ii8+CiAgPGNpcmNsZSBjeD0iNTciIGN5PSI1MiIgcj0iMTAiIGZpbGw9IiNGRjAwODQiLz4KICA8cGF0aCBkPSJtMzQgMTAxIDMyLTMxIDI0IDIxIDE5LTE2IDM3IDI2IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDYzREMiCiAgICBzdHJva2Utd2lkdGg9IjciIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik05MCAxMTlWNzNtLTE3IDE3IDE3LTE3IDE3IDE3IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDMwODciCiAgICBzdHJva2Utd2lkdGg9IjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4=" preserveAspectRatio="xMidYMid meet" />
+<text x="2578.286" y="635.802" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="start">
+<tspan x="2578.286" dy="0">Flickr Upload API</tspan>
+<tspan x="2578.286" dy="32.019">up.flickr.com</tspan>
+</text>
+<image x="2166.857" y="1370.965" width="493.714" height="241.412" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTgwIgogIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iU2VydmVyIj4KICA8ZyBmaWxsPSIjNTQ2RTdBIiBzdHJva2U9IiMxQTFBMUEiIHN0cm9rZS13aWR0aD0iNCI+CiAgICA8cmVjdCB4PSIxMCIgeT0iMTAiIHdpZHRoPSIxNDAiIGhlaWdodD0iNDUiIHJ4PSI3Ii8+CiAgICA8cmVjdCB4PSIxMCIgeT0iNjgiIHdpZHRoPSIxNDAiIGhlaWdodD0iNDUiIHJ4PSI3Ii8+CiAgICA8cmVjdCB4PSIxMCIgeT0iMTI2IiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjQ1IiByeD0iNyIvPgogIDwvZz4KICA8ZyBmaWxsPSIjRkZGRkZGIj4KICAgIDxjaXJjbGUgY3g9IjMwIiBjeT0iMzIuNSIgcj0iNiIvPgogICAgPGNpcmNsZSBjeD0iMzAiIGN5PSI5MC41IiByPSI2Ii8+CiAgICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjE0OC41IiByPSI2Ii8+CiAgPC9nPgogIDxnIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiPgogICAgPHBhdGggZD0iTTUwIDMyLjVoNzgiLz4KICAgIDxwYXRoIGQ9Ik01MCA5MC41aDc4Ii8+CiAgICA8cGF0aCBkPSJNNTAgMTQ4LjVoNzgiLz4KICA8L2c+Cjwvc3ZnPg==" preserveAspectRatio="xMidYMid meet" />
+<text x="2531.657" y="1485.826" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="start">
+<tspan x="2531.657" dy="0">Flickr REST API</tspan>
+<tspan x="2531.657" dy="32.019">www.flickr.com</tspan>
+</text>
+<circle id="step-1" cx="532.168" cy="595.906" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="532.168" y="603.529" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="532.168" dy="0">1</tspan>
+</text>
+<circle id="step-2" cx="647.368" cy="595.906" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="647.368" y="603.529" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="647.368" dy="0">2</tspan>
+</text>
+<circle id="step-3" cx="917.731" cy="800.471" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="917.731" y="808.094" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="917.731" dy="0">3</tspan>
+</text>
+<circle id="step-4" cx="1224.931" cy="828.424" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="1224.931" y="836.047" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="1224.931" dy="0">4</tspan>
+</text>
+<circle id="step-5" cx="806.645" cy="1410.541" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="806.645" y="1418.165" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="806.645" dy="0">5</tspan>
+</text>
+<circle id="step-6" cx="1224.931" cy="889.412" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="1224.931" y="897.035" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="1224.931" dy="0">6</tspan>
+</text>
+<circle id="step-7" cx="762.568" cy="595.906" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="762.568" y="603.529" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="762.568" dy="0">7</tspan>
+</text>
+<circle id="step-8" cx="877.768" cy="595.906" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="877.768" y="603.529" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="877.768" dy="0">8</tspan>
+</text>
+<circle id="step-9" cx="1416.245" cy="780.141" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="1416.245" y="787.765" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="1416.245" dy="0">9</tspan>
+</text>
+<circle id="step-10" cx="1224.931" cy="950.4" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="1224.931" y="958.024" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="1224.931" dy="0">10</tspan>
+</text>
+<circle id="step-11" cx="806.645" cy="1466.447" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="806.645" y="1474.07" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="806.645" dy="0">11</tspan>
+</text>
+<circle id="step-12" cx="2125.714" cy="595.906" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="2125.714" y="603.529" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="2125.714" dy="0">12</tspan>
+</text>
+<circle id="step-13" cx="2125.714" cy="687.388" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="2125.714" y="695.012" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="2125.714" dy="0">13</tspan>
+</text>
+<circle id="step-14" cx="1224.931" cy="1011.388" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="1224.931" y="1019.012" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="1224.931" dy="0">14</tspan>
+</text>
+<circle id="step-15" cx="2125.714" cy="1468.8" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="2125.714" y="1476.424" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="2125.714" dy="0">15</tspan>
+</text>
+<circle id="step-16" cx="1224.931" cy="1072.376" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="1224.931" y="1080" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="1224.931" dy="0">16</tspan>
+</text>
+<circle id="step-17" cx="806.645" cy="1522.353" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="806.645" y="1529.976" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="806.645" dy="0">17</tspan>
+</text>
+<circle id="step-18" cx="2125.714" cy="1694.965" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="2125.714" y="1702.588" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="2125.714" dy="0">18</tspan>
+</text>
+<circle id="step-19" cx="2125.714" cy="1786.447" r="25.412" fill="#003087" stroke="#FFFFFF" stroke-width="5.082" />
+<text x="2125.714" y="1794.071" font-size="22.871" fill="#FFFFFF" font-weight="700" text-anchor="middle">
+<tspan x="2125.714" dy="0">19</tspan>
+</text>
+<rect x="2962.286" y="228.706" width="788.943" height="1753.412" fill="#FFFFFF" stroke="#003087" stroke-width="3.812" />
+<text x="3000.686" y="307.482" font-size="40.659" fill="#1A1A1A" font-weight="700" text-anchor="start">
+<tspan x="3000.686" dy="0">Publish PNG + Groups</tspan>
+</text>
+<line x1="3000.686" y1="330.353" x2="3417.6" y2="330.353" stroke="#1A1A1A" stroke-width="3.812" />
+<text x="3030.857" y="396.424" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">1</tspan>
+</text>
+<text x="3072" y="396.424" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">User chooses Create Album…;</tspan>
+<tspan x="3072" dy="38.721">empty Album remains local-only.</tspan>
+</text>
+<text x="3030.857" y="472.659" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">2</tspan>
+</text>
+<text x="3072" y="472.659" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">User adds one or more photos</tspan>
+<tspan x="3072" dy="38.721">to the Album.</tspan>
+</text>
+<text x="3030.857" y="548.894" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">3</tspan>
+</text>
+<text x="3072" y="548.894" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">FGA LrC plugin retrieves</tspan>
+<tspan x="3072" dy="38.721">Plugin Code from LrC Password Store.</tspan>
+</text>
+<text x="3030.857" y="625.129" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">4</tspan>
+</text>
+<text x="3072" y="625.129" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">GET /api/v001/installations/current;</tspan>
+<tspan x="3072" dy="38.721">Bearer Plugin Code.</tspan>
+</text>
+<text x="3030.857" y="701.365" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">5</tspan>
+</text>
+<text x="3072" y="701.365" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">FGA API backend computes</tspan>
+<tspan x="3072" dy="38.721">SHA2-256; verifies active</tspan>
+<tspan x="3072" dy="38.721">lrc_plugin; returns Connected.</tspan>
+</text>
+<text x="3030.857" y="818.259" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">6</tspan>
+</text>
+<text x="3072" y="818.259" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">Plugin loads bounded writable-</tspan>
+<tspan x="3072" dy="38.721">group snapshot; Bearer attached.</tspan>
+</text>
+<text x="3030.857" y="894.494" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">7</tspan>
+</text>
+<text x="3072" y="894.494" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">User selects zero or more</tspan>
+<tspan x="3072" dy="38.721">add-only groups per photo.</tspan>
+</text>
+<text x="3030.857" y="970.729" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">8</tspan>
+</text>
+<text x="3072" y="970.729" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">User chooses Album Publish Now;</tspan>
+<tspan x="3072" dy="38.721">runtime supplies pending photos.</tspan>
+</text>
+<text x="3030.857" y="1046.965" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">9</tspan>
+</text>
+<text x="3072" y="1046.965" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">LrC rendering engine renders PNG;</tspan>
+<tspan x="3072" dy="38.721">FGA LrC plugin waits; size-preflights.</tspan>
+</text>
+<text x="3030.857" y="1123.2" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">10</tspan>
+</text>
+<text x="3072" y="1123.2" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">Plugin POSTs Bearer + allowlisted</tspan>
+<tspan x="3072" dy="38.721">upload metadata; no image bytes.</tspan>
+</text>
+<text x="3030.857" y="1199.435" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">11</tspan>
+</text>
+<text x="3072" y="1199.435" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">FGA API backend commits auth;</tspan>
+<tspan x="3072" dy="38.721">signed envelope: no-store, memory-only.</tspan>
+</text>
+<text x="3030.857" y="1275.671" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">12</tspan>
+</text>
+<text x="3072" y="1275.671" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">Plugin streams PNG directly to</tspan>
+<tspan x="3072" dy="38.721">Flickr Upload API.</tspan>
+</text>
+<text x="3030.857" y="1351.906" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">13</tspan>
+</text>
+<text x="3072" y="1351.906" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">Flickr returns photo ID; plugin</tspan>
+<tspan x="3072" dy="38.721">records recovery + catalog remote ID.</tspan>
+</text>
+<text x="3030.857" y="1428.141" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">14</tspan>
+</text>
+<text x="3072" y="1428.141" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">Plugin PUTs photo binding with</tspan>
+<tspan x="3072" dy="38.721">photo ID and Bearer.</tspan>
+</text>
+<text x="3030.857" y="1504.376" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">15</tspan>
+</text>
+<text x="3072" y="1504.376" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">FGA API backend verifies via getInfo;</tspan>
+<tspan x="3072" dy="38.721">commits binding; returns ID + revision.</tspan>
+</text>
+<text x="3030.857" y="1580.612" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">16</tspan>
+</text>
+<text x="3072" y="1580.612" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">Plugin POSTs group IDs with</tspan>
+<tspan x="3072" dy="38.721">binding ID/rev + Bearer.</tspan>
+</text>
+<text x="3030.857" y="1656.847" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">17</tspan>
+</text>
+<text x="3072" y="1656.847" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">FGA API backend atomically commits</tspan>
+<tspan x="3072" dy="38.721">group intents; 202 = durable handoff.</tspan>
+</text>
+<text x="3030.857" y="1733.082" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">18</tspan>
+</text>
+<text x="3072" y="1733.082" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">Worker calls fresh getAllContexts;</tspan>
+<tspan x="3072" dy="38.721">if absent, calls groups.getInfo;</tspan>
+<tspan x="3072" dy="38.721">records current moderation.</tspan>
+</text>
+<text x="3030.857" y="1849.976" font-size="30.494" fill="#1A1A1A" font-weight="700" text-anchor="end">
+<tspan x="3030.857" dy="0">19</tspan>
+</text>
+<text x="3072" y="1849.976" font-size="33.671" fill="#1A1A1A" font-weight="400" text-anchor="start">
+<tspan x="3072" dy="0">Worker marks dispatch, starts</tspan>
+<tspan x="3072" dy="38.721">pools.add &lt;1 s after getInfo;</tspan>
+<tspan x="3072" dy="38.721">commits result or polite block.</tspan>
+</text>
+<text x="85.029" y="2068.518" font-size="25.412" fill="#555555" font-weight="400" text-anchor="start">
+<tspan x="85.029" dy="0">Authority: Normative happy-path interaction map (ADRs 0005–0007, 0041); one photo; zero groups skip 16–19; PNG direct to Flickr; 202 = durable handoff; group handling is add-only and fail-polite. Contracts own omitted Album, failure, and recovery detail.</tspan>
+</text>
+</g>
+</svg>
