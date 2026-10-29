@@ -889,3 +889,13 @@ Terry made this a mandatory execution gate on 2026-10-17:
 The sequence is: select an eligible card, move it to In Progress, then work or
 delegate. A Ready for Work card may retain prerequisites, but the prerequisite
 and In Progress gates still govern execution.
+
+## Recommendation labels
+
+Terry set this standing preference on 2026-10-29:
+
+- Whenever offering choices, tag exactly one option **RECOMMENDED** whenever
+  a defensible recommendation is possible.
+- State the reason briefly when it helps the decision. Do not tag multiple
+  options as recommended or imply a recommendation when the evidence does
+  not support one.
